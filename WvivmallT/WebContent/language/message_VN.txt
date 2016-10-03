@@ -1,3 +1,0 @@
-﻿[
-	{"pos":"0","data_key":"Service","text":"Dịch vụ"}
-]

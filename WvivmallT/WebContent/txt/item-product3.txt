@@ -1,1 +1,0 @@
-<img class="cssmobile" alt="" src="@imgurl" style="width:100%;height:442px">

@@ -1,5 +1,0 @@
-<div style="border: 1px solid lightgray;margin-top:3px;">
-     <a href="@href" style="text-decoration:none"><img alt="" src="@src" /><br />
-         <span class="thumbnail-text">@name</span>
-      </a>
-</div>

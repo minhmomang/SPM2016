@@ -1,5 +1,0 @@
-Hello @username, </br>
-	you please confirm to receive register: </br>
-	Click now: @url  </br>
-
-Thanks.

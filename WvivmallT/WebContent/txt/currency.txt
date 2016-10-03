@@ -1,5 +1,0 @@
-	<tr>
-				<td style="text-align:left">@currency_code</td>
-				
-				<td style="text-align:right">@sold_out</td>
-</tr>
