@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Báo cáo doanh thu</title>
+<link href="../../admin/css/bootstrap.min.css" rel="stylesheet">
+<link href='../../admin/themes/default/easyui.css' rel='stylesheet'>
+<link href='../../admin/css/report.css' rel='stylesheet'>
+<!-- bootstrap -->
+<link href="../../admin/c3/c3.css" rel="stylesheet" type="text/css">
+<script src="../../admin/c3/d3.v3.min.js" charset="utf-8"></script>
+<script src="../../admin/c3/c3.min.js"></script>
+
+
+<script src="../../admin/js/jquery-1.11.2.min.js"></script>
+<script src='../../admin/js/jquery.session.js'></script>
+<script type="text/javascript" src="../../admin/js/extra.js"></script>
+
+
+<script type="text/javascript" src="../../admin/js/report/byyear/main.js"></script>
+</head>
+<body>
+	<div class="container-fluid" style="margin-top: 10px;">
+		<div id="header"></div>
+		<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+			<div id="menu_f" class="col-md-3"></div>
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-12">
+						 <h2 style="font-family: Georgia; padding: 0px;padding-left: 10px;color:#00943a">Báo cáo doanh thu</h2>
+	                     <hr style="border: 1px solid; color: #00943a;">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2" style="margin-left:15px;margin-top:5px;text-align:right;padding-right:20px;">Chọn năm </div>
+					<div class="col-md-2">
+							<select class="form-control" id="selyear">
+							<option>2016</option>
+							<option>2017</option>
+							</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-11">
+						<div id="chart"></div>
+					</div>
+				</div>
+				<div class="col-md-10" id="table_content">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<tr class="@class">
+		<td>@qt</td>
+		<td ><a href="javascript:void(0)" id="id_@id" onclick="javascript:viewpage(this)">@pos</a></td>
+		<td>@num</td>
+</tr>	

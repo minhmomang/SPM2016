@@ -1,0 +1,38 @@
+<table cellspacing="0"> 
+<tbody><tr> 
+<th width="78">Vị trí tuyển dụng</th> 
+<td width="984"><h3>@pos</h3></td> 
+</tr> 
+<tr class="alt"> 
+<th>Số lượng</th> 
+<td>@qt</td> 
+</tr> 
+<tr> 
+<th>Nơi làm việc</th> 
+<td>@plc</td> 
+</tr> 
+ 
+<tr class="alt"> 
+<th>Nhiệm vụ chính</th> 
+<td>@main</td> 
+</tr> 
+ 
+<tr> 
+<th>Yêu cầu</th> 
+<td>@required
+</td> 
+</tr> 
+
+<tr class="alt">
+   <th><p>Chính Sách </p>
+    </th>
+   <td>@pol</td></tr>
+<tr>
+ <th>Thông tin liên hệ</th> 
+
+<td>
+	@contact
+</td> 
+ </tr>
+ 
+</tbody></table> 

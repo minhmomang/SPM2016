@@ -1,0 +1,29 @@
+				
+			
+				
+				
+				
+					<div class="row borderbot">
+					
+					
+							<div class="col-xs-5 titlediv-table">Mã đơn hàng:</div>
+						<div class="col-xs-7 ">@orderid</div>
+						
+							<div class="col-xs-4 titlediv-table">Ngày mua:</div>
+						<div class="col-xs-8 ">@dateorder</div>
+						
+							<div class="col-xs-4 titlediv-table">Sản phẩm:</div>
+						<div class="col-xs-8 ">@productname</div>
+						
+								<div class="col-xs-4 titlediv-table">Tổng tiền:</div>
+						<div class="col-xs-8  pricehistory"> @price VNĐ</div>
+						
+								<div class="col-xs-4 titlediv-table">Trạng thái:</div>
+						<div class="col-xs-2  statushistory">@status</div>
+						<div class="col-xs-6" style="text-align:right">
+							<a style="color: #50a190;cursor:pointer" onClick="cancel_order('@orderid')" ><span
+									class="glyphicon glyphicon-trash"></span><span
+									style="font-family: cursive; text-decoration: underline;">
+										Hủy chọn</span></a>
+						</div>
+					</div>

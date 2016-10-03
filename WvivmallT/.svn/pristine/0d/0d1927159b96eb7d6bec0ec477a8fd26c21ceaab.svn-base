@@ -1,0 +1,30 @@
+<div class="row"  style="margin-top:10px;padding-left:50px;" id="itembox_@id">
+	<div class="col-md-12" style="background-color:#f1f1f1">
+		<div class="row">
+			<div style="width:50px;float:left">
+				<div class="boxname">@shortname</div>
+				</div>
+			<div style="float:left">
+				<div id="fullname_@id" class="lbname">@fullname</div>
+			</div>
+			<div style="float:left;margin-left:10px;display:@display">
+				<span style="background-color:#eebc49;padding:5px;">
+					Quản trị viên
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" style="padding-left:50px;">
+				<span style="margin-top:10px;color:black;font-size:15px;">@content_comment</span>
+			</div>			
+		</div>
+		<div class="row">
+			<div style="width:100px;padding-left:50px;float:left">
+				<a style="cursor:pointer;color:#6c90ec;font-size:14px;text-decoration:none" onClick="replay_comment_parent_sub(@parentid,@subid)" >Trả lời</a>
+			</div>
+			<div style="width:300px;padding-left:50px;float:left">
+				<span style="color:#6c90ec;font-size:13px;font-weight:600">@timesend</span>
+			</div>
+		</div>
+	</div>	
+</div>		

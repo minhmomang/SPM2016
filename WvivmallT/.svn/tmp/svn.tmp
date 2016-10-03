@@ -1,0 +1,43 @@
+<link href='admin/themes/icon.css' rel='stylesheet'>
+<link href='admin/themes/demo.css' rel='stylesheet'>
+
+<link href='admin/themes/default/easyui.css' rel='stylesheet'>
+<script src='admin/js/jquery.easyui.min.js'></script>
+<div class="easyui-accordion" style="margin-top:10px;">
+			<div title="Chức năng" style="padding: 10px;">
+				<ul class="nav nav-pills nav-stacked">
+					<li><a class="rolecls"  href="admin/about/about.html">Về chúng tôi</a></li>
+					<li><a class="rolecls"  href="admin/category/category.html">Loại sản phẩm</a></li>
+					<li><a class="rolecls"  href="admin/product/Product.html">Sản phẩm</a></li>
+					<li><a class="rolecls"  href="admin/slider/slider.html">Hình slide</a></li>																	
+				</ul>
+			</div>
+			<div title="Giảm giá" style="padding: 10px;">
+				<ul class="nav nav-pills nav-stacked">					
+					<li><a class="rolecls" href="admin/promocategory/promocategory.html">Loại</a></li>
+					<li><a class="rolecls" href="admin/promoproduct/promoproduct.html">Sản phẩm</a></li>					
+				</ul>
+			</div>
+			<div title="Đơn hàng" style="padding: 10px;">
+				<ul class="nav nav-pills nav-stacked">
+					<li><a class="rolecls"  href="admin/Order/Order.html">Hóa đơn</a></li>																						
+				</ul>
+			</div>
+			
+			<div title="Tin tức" style="padding: 10px;">
+				<ul class="nav nav-pills nav-stacked">
+					<li><a class="rolecls" href="admin/WriterCategory/category.html">Loại tin tức</a></li>
+					<li><a class="rolecls" href="admin/Writer/Writer.html">Tin tức</a></li>
+					<li><a class="rolecls" href="admin/comment/comment.html">Phản hồi KH</a></li>
+					<li><a class="rolecls" href="admin/Contact/contactmanager.html">Liên hệ</a></li>
+					<li><a class="rolecls" href="admin/Sale_acticle/saleacticle.html">Sale acticle</a></li>					
+				</ul>
+			</div>
+			<div title="Người dùng" style="padding: 10px;">
+				<ul class="nav nav-pills nav-stacked">
+					<li><a class="rolecls" href="admin/User/user.html">DS người dùng</a></li>
+					<li><a class="rolecls" href="admin/User/change-password.html">Thay đổi mật khẩu</a></li>
+					<li><a class="rolecls" href="admin/recruitment/recruitment.html">Tuyển dụng</a></li>
+				</ul>
+			</div>			
+</div>

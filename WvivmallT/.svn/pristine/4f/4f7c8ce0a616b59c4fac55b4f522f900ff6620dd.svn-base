@@ -1,0 +1,198 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<base href="http://localhost:8080/WvivmallT/">
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" />
+<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">	
+
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/serch-pc-from.css"/>
+
+	
+<script    type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+<script    type="text/javascript" charset="utf-8" src="js/jquery-ui.js"></script>
+<script  type="text/javascript" charset="utf-8"
+	src="js/jquery.session.js"></script>
+<script    type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
+<script    type="text/javascript" charset="utf-8" src="js/extra.js"></script>
+<script    type="text/javascript" charset="utf-8" src="js/blockUI.js"></script>
+<script    type="text/javascript" charset="utf-8" src="js/dialog.js"></script>
+<script    type="text/javascript" charset="utf-8" src="js/extrablock.js"></script>
+<script    type="text/javascript" charset="utf-8" src="js/client/search.js"></script>
+<script   type="text/javascript" src="js/client/header.js"></script>
+
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row" 
+			style="background-color: #eeeeee; margin-bottom: 10px;">
+			<div class="col-md-2">
+				<div class="dropdown">
+					<button id="languagebtn" class=" dropdown-toggle" type="button"
+						data-toggle="dropdown">
+						Ngôn ngữ <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#"><img alt="" src="image/usflag.png">
+								English</a></li>
+						<li><a href="#"><img alt="" src="image/vnflag.png">
+								Tiếng việt</a></li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<a class="topnav" href="tinkhuyenmai.html">Tin tức khuyến mại</a>
+			</div>
+			<div class="col-md-3" align="center">
+				<a class="topnav" id="linkshoppingcart" style="cursor:pointer;">Giỏ hàng (<span id="count_product_shopping_cart">0</span>  sản phẩm)</a>
+
+			</div>
+
+			<div id="infologin">
+				<div class="col-md-offset-1 col-md-2" align="right">
+					<a class="topnav" id="linklogin" style="cursor: pointer;">Đăng nhập</a>
+				</div>
+				<div class="col-md-2" align="right">
+					<a class="topnav" id="linkregister" style="cursor: pointer;">Đăng ký</a>
+				</div>
+			</div>
+			<div id="afterlogin" style="display: none;">
+				<div class="col-md-4" align="right">
+					<span id="userlogin"
+						style="background-color: white; color: black; padding: 5px; border-radius: 20px 0px 0px 20px"></span>
+					<a
+						style="border: none; background-color: #eeeeee; cursor: pointer;"
+						class="dropdown-toggle" type="button" data-toggle="dropdown">
+						<i class="fa fa-angle-double-down"
+						style="font-size: 18px; background-color: #2d9d2e; color: white; padding: 2px"></i>
+					</a>
+					<ul class="dropdown-menu" style="margin-left: 245px">
+						<li><a href="history/general_Account.html">Thông tin
+								chung</a></li>
+						<li><a href="history/edit_account.html">Thông tin tài
+								khoản</a></li>
+						<li><a href="history/orderhistory.html">Đơn hàng của tôi</a></li>
+						<li><a href="history/save_product.html">Để dành mua sau</a></li>
+						<li><a href="history/comment_product.html">Sản phẩm đánh giá</a></li>
+						<li><a href="history/new_product.html">Sản phẩm nhận tin tức</a></li>
+					</ul>
+				</div>
+				<div class="col-md-1" align="right">
+					<a class="topnav" id="idlogout" style="cursor: pointer">Đăng
+						xuất</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<a href="index.html">
+					<img alt="" src="image/vivlogo.jpg" class="img-responsive">
+				</a>
+
+			</div>
+			<div class="col-md-6" align="left">
+				<div class="row">
+					<div class="col-md-10 col-sm-10" style="position: relative;">
+						<form id="searchbox" style="margin-top:10px;">
+						    <input id="search-form" placeholder="Type here" type="text">
+						    <input id="btnsearchbasic" value="Search" type="button">
+						 
+						</form>
+						
+					</div>
+					<div class="col-md-1 col-sm-1" style="margin-top: 15px;position: relative;">
+					 <a id="linkshoppingcart2" style="cursor:pointer;"><img src="image/cart.png" style="position: absolute;left: -40px" ></a>
+					</div>
+				
+				</div>
+				<div class="row" align="left"
+					style="padding-left: 20px; margin-top: 15px; padding-bottom: -20px">
+					<ol class="breadcrumb topmenu" style="background-color: white;">
+						<li><a href="product_new.html">Mới nhất</a></li>
+						<li><a href="product_mostbuy.html">Mua nhiều nhất</a></li>
+						<li><a href="product_mostview.html">Quan tâm nhiều nhất</a></li>
+						<li><a href="key_product.html">Tìm nhiều nhất</a></li>
+
+					</ol>
+				</div>
+				<div class="row" align="left"
+					style="padding-left: 20px; margin-top: 5px">
+					<ol class="breadcrumb"
+						style="background-color: white; margin-top: 0; padding: 0">
+						<li><a href="day_product.html">Top sản phẩm</a></li>
+						<li><a href="product_recommend.html">Sản phẩm gợi ý</a></li>
+						<li><a href="product_choose.html">Sản phẩm chọn nhiều</a></li>
+						<li><a href="product_highrating.html">Yêu thích</a></li>
+					</ol>
+				</div>
+
+
+
+
+
+			</div>
+
+			<div class="col-md-2" align="center">
+				<img alt="" src="image/voucher.png" class="img-responsive">
+
+			</div>
+
+		</div>
+		<div class="row" style="background-color: green; margin-top: 10px;height:50px;">
+			<div class="col-md-12">
+				<div id="btnshowmenu" opso_direc = "down" style="float:left;cursor:pointer;width:250px;height:50px;line-height:50px;margin-left:15px;text-align:center;background-color:#39792f;color:white;font-size:20px;">				
+					<img alt="" src="image/icon-down.gif"  style="height:30px;width:30px;">					
+					<span >Danh mục sản phẩm</span>
+				</div>
+				<div style="float:left;cursor:pointer;width:100px;height:50px;line-height:50px;margin-left:15px;text-align:center;color:white;font-size:20px;">						
+					
+				</div>
+				
+			</div>			
+		</div>
+		<div class="row" style="position: relative;" id="content-slide">			
+							
+		</div>
+		<div style="position: absolute; top:281px; left:30px;z-index:10000;display:none" id="menu_main">
+			<div style="width:250px; float: left;height:406px;" id="left-menu">
+				<ul id="content-menu">
+			       
+			    </ul>
+			</div>	
+			<div style="width:700px; float: left;height:405px;display:none" id="content-sub-menu">
+				<div class="row">
+					<div class="col-md-7"  style="height:406px;line-height:406px;text-align:center;" id="imgsub1">
+												
+					</div>
+					<div class="col-md-5">
+						<div class="row" >
+							<div class="col-md-12" style="height:200px;" id="imgsub2">
+								
+							</div>
+						</div>
+						<div class="row" >
+							<div class="col-md-12" style="height:200px;" id="imgsub3">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+
+</body>
+</html>
+<div id="dialogmanual" style="display: none">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="content_message" style="color: black; font-size: 15px;"></div>
+		</div>
+	</div>
+</div>
+

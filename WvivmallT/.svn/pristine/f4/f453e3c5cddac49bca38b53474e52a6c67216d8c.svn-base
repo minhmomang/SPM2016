@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tuyển dụng mới</title>
+<link href="../../admin/css/bootstrap.min.css" rel="stylesheet">
+<link href='../../admin/themes/default/easyui.css' rel='stylesheet'>
+<link href='../../admin/css/menu.css' rel='stylesheet'>
+<!-- bootstrap -->
+<script src="../../admin/js/jquery-1.11.2.min.js"></script>
+<script src='../../admin/js/jquery.session.js'></script>
+
+<script type="text/javascript" src="../../admin/js/extra.js"></script>
+<script type="text/javascript" src="../../admin/ckeditor/ckeditor.js"></script>
+<script type="text/javascript"
+	src="../../admin/js/recruitment/recruitment.js"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div id="header"></div>
+		<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+			<div id="menu_f" class="col-md-3"></div>
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-12">
+						 <h2 style="font-family: Georgia; padding: 0px;padding-left: 10px;color:#00943a">Tuyển dụng mới</h2>
+	                     <hr style="border: 1px solid; color: #00943a;">
+					</div>
+				</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-md-2" class="opso_language"
+							data_opso="data_file:ad_recuitment,data_key:r2">Vị trí</div>
+						<div class="col-md-10">
+							<input type="text" class="form-control" id="idpos" />
+						</div>
+						<!-- roww -->
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-md-2" class="opso_language"
+							data_opso="data_file:ad_recuitment,data_key:r3">Số lượng</div>
+						<div class="col-md-10">
+							<input type="text" class="form-control" id="idqt" />
+						</div>
+						<!-- roww -->
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-md-2" class="opso_language"
+							data_opso="data_file:ad_recuitment,data_key:r4">Nơi làm việc
+						</div>
+						<div class="col-md-10">
+							<input type="text" class="form-control" id="idlocation" />
+						</div>
+						<!-- roww -->
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-md-2" class="opso_language"
+							data_opso="data_file:ad_recuitment,data_key:r5">Nhiệm vụ
+							chính</div>
+						<div class="col-md-10">
+							<textarea name="idmissionmain" id="idmissionmain" rows="50"
+								cols="80" style="height: 500px;">
+	                                         
+	                           </textarea>
+	
+						</div>
+						<!-- roww -->
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-md-2" class="opso_language"
+							data_opso="data_file:ad_recuitment,data_key:r6">Yêu cầu</div>
+						<div class="col-md-10">
+							<textarea name="idrequired" id="idrequired" rows="50" cols="80"
+								style="height: 500px;">
+	                                         
+	                           </textarea>
+	
+						</div>
+						<!-- roww -->
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-md-2" class="opso_language"
+							data_opso="data_file:ad_recuitment,data_key:r7">Chính sách</div>
+						<div class="col-md-10">
+							<textarea name="idpolicy" id="idpolicy" rows="50" cols="80"
+								style="height: 500px;">
+	                                         
+	                           </textarea>
+	
+						</div>
+						<!-- roww -->
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-md-2" class="opso_language"
+							data_opso="data_file:ad_recuitment,data_key:r8">Liên hệ</div>
+						<div class="col-md-10">
+							<textarea name="idcontact" id="idcontact" rows="50" cols="80"
+								style="height: 500px;">
+	                                         
+	                           </textarea>
+						</div>
+						<!-- roww -->
+					</div>
+					<!-- contanier -->
+				</div>
+				<hr style="border: 1px solid lightgray; border-style: dotted;">
+				<div class="row" style="margin-top: 20px;" align="center">
+					<button id="btn_submit" style="width: 80px;"
+						class="btn btn-primary opso_language"
+						data_opso="data_file:ad_button,data_key:save">Lưu</button>
+					<button id="btn-cancel" style="width: 80px;"
+						class="btn btn-primary opso_language"
+						data_opso="data_file:ad_button,data_key:cancel">Hủy</button>
+				</div>
+			</div>
+		 </div>
+	</div>
+</body>
+<div id="dlgsuccess" title="Alert" data-options="closable:false"
+	closed="true" class="easyui-dialog"
+	style="width: 400px; height: 200px; padding: 10px"
+	style="width:400px;height:200px;padding:10px" buttons="#dlg-buttons"></div>
+<div id="dlg-buttons" style="display: none">
+	<a href="javascript:void(0)" class="easyui-linkbutton"
+		iconCls="icon-ok"
+		onclick="javascript:window.location.href='admin/recruitment/recruitment.html'">OK</a>
+</div>
+<div id="dlg" title="Alert" data-options="closable:false" closed="true"
+	class="easyui-dialog"
+	style="width: 400px; height: 200px; padding: 10px"
+	style="width:400px;height:200px;padding:10px" buttons="#dlg-buttons"></div>
+<div id="dlg-buttons" style="display: none">
+	<a href="javascript:void(0)" class="easyui-linkbutton"
+		iconCls="icon-ok" onclick="javascript:$('#dlg').dialog('close')">OK</a>
+</div>
+</html>

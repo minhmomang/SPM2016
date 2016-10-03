@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vivmall Web mua sắm trực tuyến</title>
+
+<script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+
+<script type="text/javascript" src="js/extra.js"></script>
+
+<script type="text/javascript" src="js/knockout-2.2.0.js"></script>
+<script Zzzs type="text/javascript" src="js/client/shoppingcart.js"></script>
+</head>
+<body>
+	<div id="header"></div>
+	<div class="fix-container">
+		<div class="container"
+			style="background-color: white; margin-top: 20px; border-radius: 10px; position: relative;">
+			<div class="row ">
+				<img id="iconcart" alt="" src="img/shoppingcart.png"
+					style="position: absolute; top: 0; left: -100px; z-index: 100">
+				<div
+					style="font-size: 22px; font-weight: bold; margin: 10px 20px; color: #0a9074;">Giỏ
+					hàng của bạn</div>
+				<div class="col-md-8"
+					style="border-right: 2px solid lightgray; border-right-style: dashed;">
+					<div class="row">
+						<div class="hidden-xs">
+							<div class="row"	style="margin: 10px 0px; font-size: 18px; background-color: #50a190; color: white; padding: 5px">
+								<div class="col-xs-4 col-sm-3 col-md-3 " align="center">
+									Sản phẩm</div>
+								<div class="col-xs-8 col-sm-4 col-md-4 ">&nbsp</div>
+								<div class="col-xs-4 col-sm-1 col-md-1 ">Giá</div>
+								<div class="col-xs-2 col-sm-1 col-md-1 ">Số
+									lượng</div>
+								<div class="col-xs-4 col-sm-2 col-md-2 ">Thành
+									tiền</div>
+								<div class="col-xs-2 col-sm-1 col-md-1 "></div>
+							</div>
+						</div>
+					</div>					
+					<div id="detal_shoppingcart" data-bind="foreach : products">
+						<!-- san pham -->
+						<div class="row" style="border-bottom:solid 2px lightgray;border-bottom-style: dashed;">
+							<div class="col-sm-3 col-md-3">
+								<img alt="" data-bind="attr:{ src: hinh }"
+									style="height: 90px; width: 150px;">
+							</div>
+							<div class="col-sm-4 col-md-4">
+								<div style="font-weight: bolder; font-size: 16px;"
+									data-bind="text: tensp"></div>
+								<div style="padding-top: 20px;">
+									<i class="fa fa-archive"
+										style="font-size: 24px; color: #b78b43;"></i><span
+										style="font-weight: bolder; font-style: oblique; cursor: pointer; color: #b78b43; text-decoration: underline;"
+										data-bind='click: $root.saveproduct'> Để dành mua sau </span>
+								</div>
+
+							</div>
+							<div class="col-sm-1 col-md-1"	data-bind="text: dongia1"></div>
+
+							<div class="col-sm-1 col-md-1">
+								<input type="text" class="form-control"
+									data-bind="value: sl,valueUpdate : 'afterkeydown'"
+									onkeypress="return isNumber(event)">
+							</div>
+							<div class="col-sm-2 col-md-2"
+								style=" float: left; padding: 5px 10px; font-family: cursive; font-weight: bold;"
+								data-bind="text: thanhtien"></div>
+							<div
+								class="col-sm-1 col-md-1" style=" float: left; padding-top: 5px; text-align: right;">
+								<span class="glyphicon glyphicon-remove"
+									style="color: #0a9377; cursor: pointer"
+									data-bind='click: $root.removeproduct'></span>
+							</div>
+							<div style="clear: left;"></div>
+						</div>
+						<!-- end san pham -->
+					</div>
+				</div>
+				<div class="col-md-4" style="margin: 10px 0px; font-size: 16px">
+					<div
+						style="font-size: 20px; background-color: #50a190; color: white; padding: 5px;">
+						<span class="glyphicon glyphicon-edit"></span> Hóa đơn
+					</div>
+					<div class="row" style="padding: 10px">
+						<div class="col-md-7">Tạm tính</div>
+						<div class="col-md-5"
+							style="font-family: cursive; font-weight: border;"
+							data-bind="text: totalAmout()"></div>
+					</div>
+					<hr>
+					<div class="row" style="background-color: #fcf8e3; padding: 5px">
+						<div class="col-md-7">Thành tiền(Đã bao gồm VAT)</div>
+						<div class="col-md-5">
+							<span style="font-family: cursive; font-weight: bold;"
+								data-bind="text: totalAmout()"></span>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-md-7">
+							<a href="index.html"><i class="fa fa-mail-reply"
+								style="font-size: 24px"></i>Tiếp tục mua hàng</a>
+						</div>
+						<div class="col-md-5">
+							<button type="button" class="col-sm-4 btn btn-danger form-control"
+								id="btnconfirmorder"
+								style="background-color: #50a190; border: none;">Thanh
+								toán</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end shopping cart -->
+			
+
+
+
+			<div class="container" id="slidesell"
+				style="background-color: white; margin-top: 20px; border-radius: 10px; padding-bottom: 30px; border-bottom: 5px solid #6aafa1; position: relative;">
+				<img alt="" src="img/bestimg.png"
+					style="position: absolute; top: 0; left: -50px; z-index: 100">
+				<div
+					style="font-size: 22px; font-weight: bold; margin: 10px 20px; color: #0a9074; padding-left: 40px;">Sản
+					phẩm bán chạy</div>
+				<div class="row">
+					<div id="jssor_1"
+						style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 1160px; height: 219px; overflow: hidden; visibility: hidden; padding: 5px;">
+						<!-- Loading Screen -->
+						<div data-u="loading"
+							style="position: absolute; top: 0px; left: 0px;">
+							<div
+								style="filter: alpha(opacity = 70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+							<div
+								style="position: absolute; display: block; background: url('img/loading.gif') no-repeat center center; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+						</div>
+						<div data-u="slides"
+							style="cursor: default; position: relative; top: 0px; left: 0px; width: 1160px; height: 219px; overflow: hidden;"
+							id="content-sellbest"></div>
+						<!-- Bullet Navigator -->
+						<div data-u="navigator" class="jssorb03"
+							style="bottom: 10px; right: 10px;">
+							<!-- bullet navigator item prototype -->
+							<div data-u="prototype" style="width: 21px; height: 21px;">
+								<div data-u="numbertemplate"></div>
+							</div>
+						</div>
+						<!-- Arrow Navigator -->
+						<span data-u="arrowleft" class="jssora03l"
+							style="top: 0px; left: 8px; width: 55px; height: 55px;"
+							data-autocenter="2"></span> <span data-u="arrowright"
+							class="jssora03r"
+							style="top: 0px; right: 8px; width: 55px; height: 55px;"
+							data-autocenter="2"></span> <a href="http://www.jssor.com"
+							style="display: none">Slideshow Maker</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer"></div>
+</body>
+</html>
+<script  async type="text/javascript" src="js/client/exec_shoppingcart.js"></script>

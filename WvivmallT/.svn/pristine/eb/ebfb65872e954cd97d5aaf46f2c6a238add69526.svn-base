@@ -1,0 +1,236 @@
+package DAL;
+
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+
+
+
+
+
+
+import Model.ItemModel;
+import Model.ProductType;
+
+
+import Model.ShoppingCartItem;
+import Model.Product.ProductData;
+import EJB.IConnectEJBS;
+public class ProductTypeDAL {
+	public static ArrayList<ItemModel> getlistproducttype()
+	{
+		ArrayList<ItemModel> list = new ArrayList<ItemModel>();
+		try
+		{
+			String spname = "tb_product_type_get";
+				List<Map<String, Object>> listob = new ArrayList<Map<String, Object>>();
+				IConnectEJBS con = new IConnectEJBS();
+				listob=con.ExecBoFunctionReturnResutlSet(spname);
+				
+				
+				 for(int i=0;i<listob.size();i++){
+					 Map<String, Object> temp=listob.get(i);
+						String id = temp.get("typeid").toString();
+						String name = temp.get("typename").toString();
+					 
+						ItemModel item= new ItemModel();
+						
+						item.setID(id);
+						item.setName(name);
+						list.add(item);
+				 }
+	
+			
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	public static ArrayList<ProductType> get_list_producttype_manager()
+	{
+		ArrayList<ProductType> list = new ArrayList<ProductType>();
+		try
+		{
+			String 	query="select product_type_id ,product_type_name ,category_img,isvisible from tb_product_type;";
+				List<Map<String, Object>> listob = new ArrayList<Map<String, Object>>();
+				IConnectEJBS con = new IConnectEJBS();
+				listob=con.GetDataReturnResultSet(query);
+				//System.out.print(listob.size());
+				//String json=new Gson().toJson(listob);
+			//	System.out.println(json);
+				 for(int i=0;i<listob.size();i++){
+					 Map<String, Object> temp=listob.get(i);
+					    String id = temp.get("product_type_id").toString();
+						String name = temp.get("product_type_name").toString();
+						ProductType item= new ProductType();
+						item.setProducttype(id);
+						item.setProducttypename(name);
+						item.setCategory_img(temp.get("category_img").toString());
+						item.setIsvisible(Boolean.parseBoolean(temp.get("isvisible").toString())==true?"Hiện":"Ẩn");
+						list.add(item);
+				 }
+	
+				
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	public static ArrayList<ProductType> get_list_producttype_client()
+	{
+		ArrayList<ProductType> list = new ArrayList<ProductType>();
+		try
+		{
+			String 	query="select product_type_id ,product_type_name ,category_img from tb_product_type where isvisible=1;";
+				List<Map<String, Object>> listob = new ArrayList<Map<String, Object>>();
+				IConnectEJBS con = new IConnectEJBS();
+				listob=con.GetDataReturnResultSet(query);
+				//System.out.print(listob.size());
+				//String json=new Gson().toJson(listob);
+			//	System.out.println(json);
+				 for(int i=0;i<listob.size();i++){
+					 Map<String, Object> temp=listob.get(i);
+					    String id = temp.get("product_type_id").toString();
+						String name = temp.get("product_type_name").toString();
+						ProductType item= new ProductType();
+						item.setProducttype(id);
+						item.setProducttypename(name);
+						item.setCategory_img(temp.get("category_img").toString());
+						list.add(item);
+				 }
+	
+				
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return list;
+	}
+	
+	public static String get_all_rand_product_forindex(){
+		ArrayList<ProductType> result_= new ArrayList<ProductType>();
+		ArrayList<ProductType> listtype= new ArrayList<ProductType>();
+		listtype=get_list_producttype_manager();
+		for(int i=0;i<listtype.size();i++){
+			ProductType rs = new ProductType();
+			rs.setProducttype(listtype.get(i).getProducttype());
+			rs.setProducttypename(listtype.get(i).getProducttypename());
+			ArrayList<ProductData> list = new ArrayList<ProductData>();
+			List<Map<String, Object>> listob = new ArrayList<Map<String, Object>>();
+			String query = "SELECT product_type_id,product_id,product_name,product_image,product_price,product_img_larg"
+					+ " FROM tb_product "
+					+ " where product_type_id="
+					+ listtype.get(i).getProducttype()
+					//+" and tb_product.product_id not in (select product_id from tb_cate_promotion_product)"
+					+ " and isvisible=true "
+					+ "ORDER BY RAND() LIMIT 0,6 ";
+			
+			IConnectEJBS con = new IConnectEJBS();
+			listob = con.GetDataReturnResultSet(query);
+			for (int j = 0; j < listob.size(); j++) {
+				ProductData item =new ProductData();		
+				Map<String, Object> temp = listob.get(j);			
+				item.setProductId(temp.get("product_id").toString());
+				//
+				ShoppingCartItem item_temp = new ShoppingCartItem();
+				item_temp=ShoppingCartDAL.get_price_product_item(temp.get("product_id").toString());
+				item.setNewPrice(item_temp.getFinal_price());
+				item.setPricePercent(item_temp.getDiscount_percent());
+				item.setProductPrice(item_temp.getPrice());
+				if(item.getPricePercent()>0){
+					item.setIsPromo(1);
+				}
+				else{
+					item.setIsPromo(0);
+				}
+				//
+				item.setProductName(temp.get("product_name").toString());
+				item.setProductImage(temp.get("product_image").toString());
+				item.setProducttype(temp.get("product_type_id").toString());
+				item.setProductimglarg(temp.get("product_img_larg").toString());					
+				list.add(item);
+			}
+			rs.setList(list);
+			result_.add(rs);
+			
+		}
+		String json = "";
+		json = new Gson().toJson(result_);
+		System.out.println(json);
+		return json;
+		
+	}
+	public static Map<String, Object> insert_cate(String type,String id,String name,String category_img){
+		Map<String, Object> result = new HashMap<String, Object>();
+		try{
+			String spname = "sp_tb_product_category";
+			String[]pfield = {
+					"f","p_type","id","cate","p_category_img"
+
+			};
+			String[]ptype={
+					"INT","VARCHAR","VARCHAR","VARCHAR","VARCHAR"
+			};
+			Object[]pvalue={
+					"",type,id,name,category_img
+								
+			};
+			int[]pdirec = {
+						1,0,0,0,0
+					};
+			IConnectEJBS con = new IConnectEJBS();
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype, pvalue, pdirec);
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return result;
+	}
+	public static ProductType get_cateogry_by_id(String id) throws SQLException, ClassNotFoundException, InstantiationException{
+		ProductType item = new ProductType();
+		String query = "SELECT product_type_id,product_type_name,category_img FROM tb_product_type where product_type_id='"+id+"'";
+			List<Map<String, Object>> listob = new ArrayList<Map<String, Object>>(); 
+			IConnectEJBS con = new IConnectEJBS();
+			listob=con.GetDataReturnResultSet(query);
+
+				 Map<String, Object> temp=listob.get(0);
+					item.setProducttype(temp.get("product_type_id").toString());
+					item.setProducttypename(temp.get("product_type_name").toString());
+					item.setCategory_img(temp.get("category_img").toString());
+
+		return item;
+	}
+	public static Map<String, Object> remove_category(String str){
+		Map<String, Object> result = new HashMap<String, Object>();
+		try{
+			String spname = "sp_tbproduct_cate_delete";
+			String[]pfield = {
+					"str","f"
+
+			};
+			String[]ptype={
+					"TEXT","INT"
+			};
+			Object[]pvalue={
+					str,""
+								
+			};
+			int[]pdirec = {
+						0,1
+					};
+			IConnectEJBS con = new IConnectEJBS();
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype, pvalue, pdirec);
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return result;
+	}	
+}

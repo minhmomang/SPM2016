@@ -1,0 +1,31 @@
+.article {
+    float: left;
+    overflow: hidden;
+    
+}
+
+
+.article h1 {
+    display: block;
+    overflow: hidden;
+    line-height: 1.3em;
+    font-size: 30px;
+    font-weight: 600;
+    color: #444;
+    margin: 20px 10px;
+    text-align: left;
+}
+.article {
+    line-height: 25px;
+    color: #444;
+    font-weight: 300;
+    font-size: 16px;
+}
+.article * {
+    font-size: 16px;
+    line-height: 25px;
+}
+.article h2 {
+    margin: 10px auto;
+    font-weight: 300;
+}

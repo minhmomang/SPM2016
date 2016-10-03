@@ -1,0 +1,215 @@
+package DAL;
+
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import Model.ItemContact;
+import Model.MailSendingData;
+
+import EJB.IConnectEJBS;
+public class ContactDAL {
+	public static Map<String, Object> insert_contact(ItemContact item) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			String spname = "sp_contact";
+			String[] pfield = { "f", "p_email", "p_fullname", "p_phone",
+					"p_title", "p_content"
+
+			};
+			String[] ptype = { "INT", "VARCHAR", "VARCHAR", "VARCHAR",
+					"VARCHAR", "VARCHAR" };
+			Object[] pvalue = { "", item.getEmail(), item.getFullname(),
+					item.getPhone(), item.getTitle(), item.getContent() };
+			int[] pdirec = { 1, 0, 0, 0, 0, 0 };
+			IConnectEJBS con = new IConnectEJBS();
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype,
+					pvalue, pdirec);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	public static Map<String, Object> insert_support(ItemContact item) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			String spname = "sp_support";
+			String[] pfield = { "f", "p_fullname", "p_email", "p_address",
+					"p_content"
+
+			};
+			String[] ptype = { "INT", "VARCHAR", "VARCHAR", "VARCHAR", "TEXT" };
+			Object[] pvalue = { "", item.getFullname(), item.getEmail(),
+					item.getAddress(), item.getContent() };
+			int[] pdirec = { 1, 0, 0, 0, 0 };
+			IConnectEJBS con = new IConnectEJBS();
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype,
+					pvalue, pdirec);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	public static ItemContact get_contact(String contactid) {
+		ItemContact item = new ItemContact();
+		String query = "select contact_id, email, fullname, phone, title, content  from tb_contact"
+				+ " where contact_id=" + contactid;
+		try {
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			list = con.GetDataReturnResultSet(query);
+			for(Map<String,Object> item1 : list){
+				item.setContactid(item1.get("contact_id").toString());
+				item.setEmail(item1.get("email").toString());
+				item.setFullname(item1.get("fullname").toString());
+				item.setPhone(item1.get("phone").toString());
+				item.setTitle(item1.get("title").toString());
+				item.setContent(item1.get("content").toString());
+				break;
+			}
+		} catch (Exception ex) {
+		}
+		return item;
+	}
+
+	public static Map<String, Object> updatestate(String contactid) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			String spname = "sp_tbcontact_update";
+			String[] pfield = { "p_contactid", "f"
+
+			};
+			String[] ptype = { "VARCHAR", "INT" };
+			Object[] pvalue = { contactid, ""
+
+			};
+			int[] pdirec = { 0, 1 };
+			IConnectEJBS con = new IConnectEJBS();
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype,
+					pvalue, pdirec);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	public static Map<String, Object> send_mail(MailSendingData a) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			String spname = "sp_tbmailsending_insert";
+			String[] pfield = { "f", "p_email", "p_email_to", "p_title",
+					"p_content"
+
+			};
+			String[] ptype = { "INT", "VARCHAR", "VARCHAR", "TEXT", "TEXT" };
+			Object[] pvalue = { "", a.getEmail(), a.getEmail_to(),
+					a.getTitle(), a.getContent()
+
+			};
+			int[] pdirec = { 1, 0, 0, 0, 0
+
+			};
+			IConnectEJBS con = new IConnectEJBS();
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype,
+					pvalue, pdirec);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	public static ArrayList<ItemContact> get_list_contact(String option,
+			String value) {
+		ArrayList<ItemContact> list = new ArrayList<ItemContact>();
+		
+		try {
+
+			String spname = "sp_contact_get";
+			String[] pfield = { "p_option", "p_value" };
+			Object[] pvalues = { option, value };
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.ExecBoFunctionReturnResutlSet(spname, pfield,
+					pvalues);
+			for(Map<String,Object> item1 : rs){
+				ItemContact a = new ItemContact();
+				a.setContactid(item1.get("contact_id").toString());
+				a.setEmail(item1.get("email").toString());
+				a.setFullname(item1.get("fullname").toString());
+				a.setPhone(item1.get("phone").toString());
+				a.setTitle(item1.get("title").toString());
+				a.setStatus(item1.get("status").toString());
+				list.add(a);				
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return list;
+	}
+
+	public static Map<String, Object> remove_contact(String str_contact) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			String spname = "sp_tbcontact_delete";
+			String[] pfield = { "str_contact", "f"
+
+			};
+			String[] ptype = { "TEXT", "INT" };
+			Object[] pvalue = { str_contact, ""
+
+			};
+			int[] pdirec = { 0, 1 };
+			IConnectEJBS con = new IConnectEJBS();
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype,
+					pvalue, pdirec);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+	/*public static int add_contact(String email, String fullname, String phone, String title, String content){
+		int _result=0;
+		try {
+			String query = "insert into tb_contact(email,fullname,phone,title,content) "
+					+ "Values('"+email+"','"+fullname+"','"+phone+"','"+title+"','"+content+"')";
+			IConnectEJBS con = new IConnectEJBS();
+			Map<String, String> rs = new HashMap<String, String>();
+			rs = con.ExecUpdate(query);
+			_result = Integer.parseInt(rs.get("result").toString());
+		}catch(Exception e){
+			e.printStackTrace();
+			_result=-1;
+		}
+		////System.out.println("_result : "+_result);
+		return _result;
+	}*/
+	public static int add_contact_dao(String email, String fullname, String phone, String title, String content){
+		int _result=0;
+		try{
+			String spname="sp_contact";
+			String[] pfield={"f","p_email","p_fullname","p_phone","p_title","p_content"};
+			String[] ptype={"INT","VARCHAR","VARCHAR","VARCHAR","VARCHAR","VARCHAR"};
+			Object[] pvalues={"",email,fullname,phone,title,content};
+			int[] pdirec={1,0,0,0,0,0};
+			IConnectEJBS con = new IConnectEJBS();
+			Map<String,Object> mapOfObjects = new HashMap<String,Object>();
+			mapOfObjects = con.ExecBoFunctionReturnList(spname, pfield, ptype, pvalues, pdirec);
+			_result = Integer.parseInt(mapOfObjects.get("f").toString());
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			_result=-1;
+		}
+		return _result;
+	}
+}

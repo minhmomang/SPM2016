@@ -1,0 +1,193 @@
+$(function() {
+    var src_feature_image = ReturnHosing() + "upload/Writer/";
+    var lang = get_lang_current();
+    var type = 'A';
+    var writer_update = null;
+    var session_admin = $.session.get("profile_session_admin");
+    var source = null;
+    exe_load_header(function(output) {
+        if (output == true) {
+        	CKEDITOR.replace( 'idcontent',
+        			  {
+        				filebrowserImageUploadUrl: ReturnHosing()+"UploadImageController/upload_image.htm"
+        			  } );
+        	get_list_cate(function(out){
+        		load_data_by_param();
+        	});                        
+            
+        }
+    });
+    function get_list_cate(callback){
+		
+		Return_get("WriterController","get_list_category",'',"GET",function(data){
+		   if(data!=null){    
+			  
+			    for(var i=0;i<data.length;i++){
+					var str = '<option value='+data[i].id+'>'+data[i].name+'</option>';
+					$("#idcatewriter").append(str).show();
+				}  		         
+			    callback(true);
+			}
+		});
+	}
+
+    function load_data_by_param() {
+        var writer_id = getUrlParameter('writer_id');
+        if (writer_id != null && writer_id != '' && writer_id != 'undefined') {
+            var arr = writer_id.split('_');
+            var action = arr[0];
+            writer_id = arr[1];
+
+            if (action == "UPDATE") {
+                blockbg();
+                type = 'E';
+                load_writer_by_id(writer_id);
+                unblockbg();
+
+
+            } else if (action == "VIEW") {
+                blockbg();
+                $("#btn_submit").css('display', 'none');
+                $("#btn_submit").attr('disabled', 'disabled');
+                load_writer_by_id(writer_id);
+                unblockbg();
+
+            }
+        } //end if
+    } //end load param    
+    function load_writer_by_id(writer_id) {
+        var pdata = {
+            'Writerid': writer_id,
+            'lang': lang
+        };
+        Return_get("WriterController", "get_writer_by_id", pdata, "GET", function(data) {
+            if (data != null) {                
+                $("#idcontent").text(data.content);
+                writer_update = data.writer_id;
+                $("#idwriter_id").val(data.writer_id);
+                $("#idcatewriter").val(data.cate);
+                $("#idtitlewriter").val(data.title);
+                $("#iddeswriter").val(data.description);
+                if (data.image != null && data.image != 'undefined' && data.image.trim() != '') {
+                    $("#id_upload_success").val(data.image);
+                    var src = src_feature_image + "" + data.image;
+                    $("#thumbnil").attr('src', src);
+                }
+
+            }
+        });
+    }
+
+    function get_json_writer() {
+        var obj = {};
+        var str1 = CKEDITOR.instances.idcontent.getData();        
+        str1 = htmlEntities(str1);
+        obj.writer_id = $("#idwriter_id").val();
+        obj.title = $("#idtitlewriter").val();
+        obj.content = str1;
+        obj.description = $("#iddeswriter").val();
+        obj.image = $("#id_upload_success").val();
+        obj.cate = $("#idcatewriter").val();
+        obj.creator = session_admin;
+        obj.modifier = session_admin;
+        var str = JSON.stringify(obj);
+        
+        return str;
+
+    }
+
+    function check_befor_save() {
+        var title = $("#idtitlewriter").val();
+        var descript = $("#iddeswriter").val();
+        var content = CKEDITOR.instances.idcontent.getData();
+        if (title == '' || content == '' || descript == '')
+            return true;
+        return false;
+    }
+
+    function htmlEntities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&blink;');
+    }
+    function clear_form(){
+    	CKEDITOR.instances.idcontent.setData('');
+    	$("#idwriter_id").val('');
+        $("#idtitlewriter").val('');        
+        $("#iddeswriter").val('');
+        $("#id_upload_success").val('');        
+    }
+
+    $("#btn_submit").click(function() {
+    	
+        if (check_befor_save()) {
+        	showdialog('dialogmanual',0,'Nhập thông tin ','','');
+        	return;
+        }
+        
+        var _json = get_json_writer();
+        var pdata = "{'str':'" + _json + "','type':'" + type + "','lang':'" + lang + "'}";
+        
+        Return_get("WriterController", "save_writer", pdata, "POST", function(data) {
+            if (data != null) {
+                unblockbg();
+                var error = parseInt(data.result);
+                if (error == 0) {
+                	clear_form();
+                	if(type=='A'){
+                		showdialog('dialogmanual',0,'Lưu thành công','','');
+                	}
+                	else{
+                		
+                		showdialogfunctionok('dialogmanual','Lưu thành công',function(){
+                			window.location.href=ReturnHostingCMS()+"Writer/Writer.html";
+                		});
+                	}                	
+
+                } else {
+                	showdialog('dialogmanual',0,'Lưu thất bại','','');
+                }
+            } else {
+            	showdialog('dialogmanual',0,'Lưu thất bại','','');
+            }
+        });
+    });
+    $("#btn-cancel").click(function() {
+        window.location.href = "admin/Writer/Writer.html";
+    });
+    $("#idpage_reload").click(function() {
+        location.reload();
+    });
+
+    var url_upload = ReturnHosing() + "WriterController/upload_feature_image.htm";
+    $('input[id="input_upload_feature"]').ajaxfileupload({
+        'action': url_upload,
+        'onComplete': function(response) {
+        	 var pram = JSON.stringify(response.pram);			
+             var first = pram.indexOf('"');
+             var last = pram.lastIndexOf('"');
+             pram = pram.substring(first + 1, last);
+           
+           
+            $("#thumbnil").attr('src', src_feature_image + "" + pram);
+           	
+            // alert(filens);
+            $("#id_upload_success").val(pram);
+        },
+        'onStart': function() {
+        	var fileSize = this.get(0).files[0].size;
+         	if(fileSize>1024*500){
+         		showdialog('dialogmanual', 0, 'Hình ảnh này lớn hơn mức quy định, xin chọn hình khác !', '', '');
+         		$('#message').html("<font color='red'>" + "Kích cỡ cho phép : 500KB !" + " </font>");
+         		$("#id_uploadsuccess").val('');
+         		$('#message').css('display','block');
+         		return false;
+         	}
+         	else{
+         		$('#message').html("<font color='green'>" + "Đã đăng ảnh thành công !" + " </font>");
+         		$('#message').css('display','block');
+         	}
+        }
+    });
+    $("#btnok").click(function() {
+        location.reload();
+    });
+}); //end document

@@ -1,0 +1,530 @@
+package DAL;
+
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import Helper.Extra;
+
+import Model.ItemHistory;
+import Model.ItemMember;
+
+import EJB.IConnectEJBS;
+
+public class MemberDAL {
+
+	public static int add_memeber_dao(String email, String pass, String fullname, String birthday, String phone) {
+		int _result = 0;
+		try {
+			String spname = "tb_member_insert";
+			String[] pfield = { "f", "p_email", "p_pass", "p_fullname", "p_birthday", "p_phone", "p_registerdate",
+					"p_id" };
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			Date date = new Date();
+			Object[] pvalues = { "", email, pass, fullname, birthday, phone, dateFormat.format(date),
+					CommentDAL.get_id() };
+			String[] ptype = { "INT", "VARCHAR", "VARCHAR", "VARCHAR", "VARCHAR", "VARCHAR", "VARCHAR", "VARCHAR" };
+			int[] pdirec = { 1, 0, 0, 0, 0, 0, 0, 0 };
+			IConnectEJBS con = new IConnectEJBS();
+			Map<String, Object> mapOfObjects = new HashMap<String, Object>();
+			mapOfObjects = con.ExecBoFunctionReturnList(spname, pfield, ptype, pvalues, pdirec);
+			_result = Integer.parseInt(mapOfObjects.get("f").toString());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			_result = -1;
+		}
+		return _result;
+	}
+
+	public static int update_memeber_dao(String email, String fullname, String phone, String address) {
+		int _result = 0;
+		try {
+			String spname = "tb_member_update";
+			String[] pfield = { "p_email", "p_fullname", "p_phone", "p_address" };
+			Object[] pvalues = { email, fullname, phone, address };
+			IConnectEJBS con = new IConnectEJBS();
+			Map<String, String> rs = new HashMap<String, String>();
+			rs = con.ExecBoFunction(spname, pfield, pvalues);
+			_result = Integer.parseInt(rs.get("result").toString());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			_result = -1;
+		}
+		return _result;
+	}
+
+	public static int checkemailexist(String email) {
+		int _result = 0;
+		try {
+			String query = "select email from tb_member where email='" + email + "'";
+
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			if (rs.size() > 0) {
+				_result = 1;
+			} else {
+				_result = 0;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			_result = 0;
+		}
+		return _result;
+	}
+
+	public static String getUserInfo(String parEmail)
+			throws ClassNotFoundException, InstantiationException, SQLException {
+		String password = null;
+		try {
+			String query = "SELECT pass FROM tb_member where email='" + parEmail + "'";
+
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			for (Map<String, Object> item1 : rs) {
+				password = item1.get("pass").toString();
+				break;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return password;
+	}
+
+	public static String Getfullname(String Email) {
+
+		String fullname = null;
+		try {
+			String query = "SELECT fullname FROM tb_member where email='" + Email + "'";
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			for (Map<String, Object> item1 : rs) {
+				fullname = item1.get("fullname").toString();
+				break;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return fullname;
+	}
+
+	public static String get_id_by_email(String Email) {
+
+		String id = null;
+		try {
+			String query = "SELECT id FROM tb_member where email='" + Email + "'";
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			for (Map<String, Object> item1 : rs) {
+				id = item1.get("id").toString();
+				break;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return id;
+	}
+
+	public static String Getfullname_byid(String id) {
+
+		String fullname = null;
+		try {
+			String query = "SELECT fullname FROM tb_member where id='" + id + "'";
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			for (Map<String, Object> item1 : rs) {
+				fullname = item1.get("fullname").toString();
+				break;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return fullname;
+	}
+
+	public static String Getfullname_user_byid(String user) {
+
+		String fullname = null;
+		try {
+			String query = "SELECT fullname FROM tb_user where user_name='" + user + "'";
+			////System.out.println(query);
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			for (Map<String, Object> item1 : rs) {
+				fullname = item1.get("fullname").toString();
+				break;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return fullname;
+	}
+
+	public static int ConfirmRegister(String mail) {
+		int result = 0;
+		try {
+			String query = "update tb_member set confirm=1 where email='" + mail + "'";
+			IConnectEJBS con = new IConnectEJBS();
+			Map<String, String> rs = new HashMap<String, String>();
+			rs = con.ExecUpdate(query);
+			result = Integer.parseInt(rs.get("result").toString());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result = -1;
+		}
+		return result;
+	}
+
+	public static int getConfirmRegister(String email) {
+		int result = 0;
+		try {
+			String query = "select confirm from tb_member where email='" + email + "'";
+
+			String confirm = null;
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			for (Map<String, Object> item1 : rs) {
+				confirm = item1.get("confirm").toString();
+				break;
+			}
+			if (confirm == null) {
+				result = -1;
+			} else if (confirm == "0") {
+				result = -1;
+			} else if (confirm == "1") {
+				result = 0;
+			}
+			result = 0;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result = -1;
+		}
+		return result;
+	}
+
+	public static ItemMember getinfocustomer(String email) {
+		ItemMember mem = new ItemMember();
+		try {
+			String query = "select email,fullname,address,phone,gender,birthday from tb_member where email='" + email
+					+ "'";
+
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			for (Map<String, Object> item1 : rs) {
+				mem.setEmail(item1.get("email").toString());
+				mem.setFullname(item1.get("fullname").toString());
+				mem.setPhone(item1.get("phone") == null ? "" : item1.get("phone").toString());
+				mem.setBirthday(item1.get("address") == null ? "" : item1.get("phone").toString());
+				mem.setBirthday(item1.get("birthday") == null ? "" : item1.get("birthday").toString());
+				break;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return mem;
+	}
+
+	public static JSONObject check_login(String email, String pass) {
+		JSONObject obj = new JSONObject();
+		int _result = 0;
+		String id = "";
+		String fullname = "";
+		
+		try {
+			String query = "select email,confirm from tb_member where email='" + email + "' and pass='" + pass + "'";
+			////System.out.println(query);
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			if (rs.size() > 0) {				
+				fullname = MemberDAL.Getfullname(email);
+				id = MemberDAL.get_id_by_email(email);
+				for (Map<String, Object> item1 : rs) {
+					int p_confirm =Integer.parseInt(item1.get("confirm").toString().trim());
+					if (p_confirm==1) {
+						_result = 1;
+						obj.put("result", _result);
+						obj.put("branch", "");
+						obj.put("fullname", fullname);
+						obj.put("id", id);
+						break;
+					} else { // chua confirm
+						_result = 2;
+						obj.put("result", _result);
+						obj.put("branch", "");
+					}
+				}
+			} else {
+				_result = -1;
+				obj.put("result", _result);
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			_result = -1;
+		}
+		// ////System.out.println("rs: "+_result + " - id :" + id+ "- confirm : " +
+		// confirm+" - fullname :"+fullname + " - branch :"+ branch);
+		return obj;
+	}
+
+	public static ItemMember get_info_member(String email) {
+		String query = null;
+		List<Map<String, Object>> listob = new ArrayList<Map<String, Object>>();
+		ItemMember item = new ItemMember();
+		try {
+			query = "SELECT email,fullname,birthday,address,phone,address_delivery FROM tb_member where email='" + email
+					+ "'";
+			IConnectEJBS con = new IConnectEJBS();
+			listob = con.GetDataReturnResultSet(query);
+			Map<String, Object> temp = listob.get(0);
+			item.setEmail(temp.get("email").toString());
+			item.setFullname(temp.get("fullname").toString());
+			item.setBirthday(temp.get("birthday").toString());
+			item.setAddress(temp.get("address").toString());
+			item.setPhone(temp.get("phone").toString());
+			item.setAddress_Delivery(temp.get("address_delivery").toString());
+
+		} catch (Exception ex) {
+			////System.out.println(ex.getMessage());
+		}
+		return item;
+	}
+
+	public static Map<String, Object> change_info_acc(ItemMember item) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			String spname = "sp_change_info_account";
+			String[] pfield = { "f", "p_email", "p_fullname", "p_birthday", "p_address", "p_gender", "p_passold",
+					"p_passnew"
+
+			};
+			String[] ptype = { "INT", "VARCHAR", "VARCHAR", "VARCHAR", "VARCHAR", "VARCHAR", "VARCHAR", "VARCHAR" };
+			Object[] pvalue = { "", item.getStrEmail(), item.getFullname(), item.getBirthday(), item.getAddress(),
+					item.getGender(), item.getPassold(), item.getPaasnew() };
+			int[] pdirec = { 1, 0, 0, 0, 0, 0, 0, 0 };
+			IConnectEJBS con = new IConnectEJBS();
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype, pvalue, pdirec);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	public static Map<String, Object> change_password_forget(String email) {
+		int result = -1;
+		Map<String, Object> item = new HashMap<String, Object>();
+		try {
+			ItemMember itemmem = new ItemMember();
+			itemmem = get_info_member(email);
+			if (itemmem.getEmail() != null) {
+				String pass = Extra.getRandomString(3, 6);
+				String query = "update tb_member set confirm_forget=1,pass_forget='" + pass + "', isstate=2, issyn = false where email='" + email
+						+ "'";
+				IConnectEJBS con = new IConnectEJBS();
+				Map<String, String> rs = new HashMap<String, String>();
+				rs = con.ExecUpdate(query);
+				result = Integer.parseInt(rs.get("result").toString());
+				item.put("result", String.valueOf(result));
+				item.put("password", pass);
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result = -1;
+		}
+		return item;
+	}
+
+	public static Map<String, Object> confirm_change_password(String email) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			String spname = "sp_confirm_change";
+			String[] pfield = { "f", "p_email"
+
+			};
+			String[] ptype = { "INT", "VARCHAR" };
+			Object[] pvalue = { "", email };
+			int[] pdirec = { 1, 0 };
+			IConnectEJBS con = new IConnectEJBS();
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype, pvalue, pdirec);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	public static Map<String, Object> confirm_register(String email) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			String spname = "sp_confirm_register";
+			String[] pfield = { "f", "p_email"
+
+			};
+			String[] ptype = { "INT", "VARCHAR" };
+			Object[] pvalue = { "", email };
+			int[] pdirec = { 1, 0 };
+			IConnectEJBS con = new IConnectEJBS();
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype, pvalue, pdirec);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	public static int insert_log(ItemHistory item) {
+		String col = "colHistoryLogin";
+		String date = CommentDAL.get_current_date2();
+		String time = CommentDAL.get_time();
+		String[] pf = { "ip", "hostname", "city", "region", "country", "loc", "org", "user", "date", "time" };
+		Object[] pv = { item.getIp(), item.getHostname(), item.getCity(), item.getRegion(), item.getCountry(),
+				item.getLoc(), item.getOrg(), item.getUser(), date, time };
+		// role: 1=> customer, 0=> manager
+		int _rs = ConnectDBMongo.insert(col, pf, pv);
+		if (_rs == 0) {
+			return 0;
+		} else {
+			return -1;
+		}
+	}
+
+	public static int add_customer(String email, String fullname) {
+		int _result = 0;
+		try {
+			String spname = "tb_customer_insert";
+			String[] pfield = { "f", "p_email", "p_fullname" };
+			Object[] pvalues = { "", email, fullname };
+			String[] ptype = { "INT", "VARCHAR", "VARCHAR" };
+			int[] pdirec = { 1, 0, 0 };
+			IConnectEJBS con = new IConnectEJBS();
+			Map<String, Object> mapOfObjects = new HashMap<String, Object>();
+			mapOfObjects = con.ExecBoFunctionReturnList(spname, pfield, ptype, pvalues, pdirec);
+			_result = Integer.parseInt(mapOfObjects.get("f").toString());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			_result = -1;
+		}
+		// ////System.out.println(_result);
+		return _result;
+	}
+
+	public static JSONObject get_info_login(String email) {
+		JSONObject obj = new JSONObject();
+		int _result = 0;
+		String id = "";
+		String fullname = "";
+		String branch = "";
+		String confirm = "";
+		try {
+			String query = "select email,confirm from tb_member where email='" + email + "'";
+
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			if (rs.size() > 0) {
+				confirm = "";
+				fullname = MemberDAL.Getfullname(email);
+				id = MemberDAL.get_id_by_email(email);
+				for (Map<String, Object> item1 : rs) {
+					confirm = item1.get("confirm").toString();
+					if (!confirm.equals("1")) {
+						_result = 1;
+						obj.put("result", _result);
+						obj.put("branch", "");
+						obj.put("fullname", fullname);
+						obj.put("id", id);
+						break;
+					} else { // chua confirm
+						_result = 2;
+						obj.put("result", _result);
+						obj.put("branch", "");
+					}
+				}
+			} else {
+				_result = -1;
+				obj.put("result", _result);
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			_result = -1;
+		}
+		// ////System.out.println("rs: "+_result + " - id :" + id+ "- confirm : " +
+		// confirm+" - fullname :"+fullname + " - branch :"+ branch);
+		return obj;
+	}
+
+	public static int register_product_news(String email, String p_id) {
+		int result = 0;
+		try {
+			String spname = "sp_register_news";
+			String[] pfield = { "f", "p_email", "p_product_id" };
+			Object[] pvalues = { "", email, p_id };
+			String[] ptype = { "INT", "VARCHAR", "VARCHAR" };
+			int[] pdirec = { 1, 0, 0 };
+			IConnectEJBS con = new IConnectEJBS();
+			Map<String, Object> mapOfObjects = new HashMap<String, Object>();
+			mapOfObjects = con.ExecBoFunctionReturnList(spname, pfield, ptype, pvalues, pdirec);
+			result = Integer.parseInt(mapOfObjects.get("f").toString());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result = -1;
+		}
+		return result;
+	}
+
+	public static void remove_user(String user_email) {
+		String query = "";
+		query += "DELETE from tb_member where email='" + user_email + "';";
+		IConnectEJBS con = new IConnectEJBS();
+		Map<String, String> rs = con.ExecUpdate(query);
+	}
+	public static JSONObject get_info_login_order(String email) {
+		JSONObject obj = new JSONObject();
+		
+		try {
+			String query = "select email,fullname,phone from tb_member where email='" + email + "'";
+
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+			rs = con.GetDataReturnResultSet(query);
+			if (rs.size() > 0) {
+				Map<String, Object> item = rs.get(0);
+				obj.put("email",item.get("email"));
+				obj.put("fullname",item.get("fullname"));
+				obj.put("phone",item.get("phone"));
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		
+		}
+		return obj;
+	}
+
+}

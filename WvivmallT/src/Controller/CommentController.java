@@ -1,0 +1,283 @@
+package Controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
+
+import BLL.Aboutbll;
+import BLL.WriterBLL;
+import DAL.AboutDAL;
+import DAL.CommentDAL;
+import DAL.ProductTypeDAL;
+import Helper.ErrorMesage;
+import Helper.Extra;
+import Helper.responseUtf8;
+import Model.ItemAboutModel;
+import Model.ItemComment;
+import Model.ItemCommentSS;
+import Model.ItemCustomer;
+import Model.ItemModel;
+import Model.ItemReplyMessage;
+import Model.ProductType;
+import Model.Product.ProductData;
+import Service.ReadServiceMail;
+
+@Controller
+@RequestMapping(value="CommentController")
+public class CommentController {
+	@RequestMapping(
+			value="register_customer",
+			method=RequestMethod.POST,	
+			produces=MediaType.APPLICATION_JSON_VALUE,
+			consumes=MediaType.APPLICATION_JSON_VALUE
+			)
+	@ResponseBody
+	public void register_customer(@RequestBody final String str_json,
+					HttpServletRequest request,
+					HttpServletResponse response) throws IOException{
+			
+		 Map<String, String> Json_decore= new Gson().fromJson(str_json,  Map.class);		 
+		 String s=Json_decore.get("str");		 
+		 ItemCustomer item_cust =new ItemCustomer();
+		 item_cust=new Gson().fromJson( s, ItemCustomer.class);
+		 String rs = "";
+		 rs = CommentDAL.Inert_Customer(item_cust.getEmail(),item_cust.getFullname());
+		 Map<String,String> obj = new HashMap<String,String>();
+		 if(rs.length()>0){
+			 String[]arr = rs.split("_");
+			 //fail
+			 int _f = Integer.parseInt(arr[1]);
+			 if(_f!=0){
+				 obj.put("result",String.valueOf(_f));
+			 }
+			 else{
+				 obj.put("result",String.valueOf(_f));
+				 obj.put("boxid",item_cust.getBoxid());
+				 obj.put("id",arr[0]);
+				 obj.put("fullname",item_cust.getFullname());
+				 obj.put("shortfullname",get_short_fullname(item_cust.getFullname().toUpperCase()));
+				 //send mail				 				 
+				 String urltext = request.getRealPath("/upload/txt");	
+				 urltext +="/confirm_register_comment.txt";
+				 String content_text = Extra.readFile(urltext);
+				 content_text = content_text.replace("@username",item_cust.getEmail());
+				 content_text = content_text.replace("@pass","123");
+				 int rs_send = ReadServiceMail.SendingFromgmail(item_cust.getEmail(), "Confirm Register", content_text, request);
+					
+				 
+			 }
+		 }
+		 String result = new Gson().toJson(obj);
+		 responseUtf8.response_Utf8(response, result);
+	}
+	@RequestMapping(
+			value="insert_comment",
+			method=RequestMethod.POST,	
+			produces=MediaType.APPLICATION_JSON_VALUE,
+			consumes=MediaType.APPLICATION_JSON_VALUE
+			)
+	@ResponseBody
+	public void insert_comment(@RequestBody final String str_json,
+					HttpServletResponse response) throws IOException, ParseException{
+			
+		 Map<String, String> Json_decore= new Gson().fromJson(str_json,  Map.class);		 
+		 String s=Json_decore.get("str");		 
+		 ItemComment item_c =new ItemComment();
+		 item_c=new Gson().fromJson( s, ItemComment.class);
+		 ItemCommentSS item_s = new ItemCommentSS();
+		 item_s = CommentDAL.insert_comment(item_c);
+		 Map<String,String> obj = new HashMap<String,String>();
+		 if(item_s.getKey()==0){
+			 obj.put("date",item_s.getDate());
+			 obj.put("id",item_s.getId());
+			 String time =CommentDAL.convert_string_to_date(item_s.getDate());
+			 obj.put("timesend",CommentDAL.get_time_send(time));
+			 obj.put("result",String.valueOf(item_s.getKey()));
+			 obj.put("boxid",item_c.getBoxid());
+			 obj.put("message",item_c.getMessage());
+		 }
+		 else{
+			 obj.put("result",String.valueOf(item_s.getKey()));
+		 }
+		 String result = new Gson().toJson(obj);
+		 responseUtf8.response_Utf8(response, result);
+	}
+	@RequestMapping(value="get_list_comment",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_list_comment(@RequestParam("product") String product,HttpServletResponse response) throws IOException, ParseException{
+		ArrayList<ItemComment>  list = new ArrayList<ItemComment>();
+		list=CommentDAL.get_list_message_by_product_id(product);
+		Gson gson = new Gson();
+		JsonElement element = gson.toJsonTree(list, new TypeToken<ArrayList<ItemComment>>() {}.getType());	
+		JsonArray jsonArray = element.getAsJsonArray();		
+		responseUtf8.response_Utf8(response, jsonArray.toString());
+	}
+	public static String get_short_fullname(String fullname){
+		String rs = "";
+		String[] arr = fullname.trim().split(" ");
+		int size = arr.length;
+		switch (size) {
+		case 1:
+			rs = arr[0].substring(0,1);
+			break;
+		case 2:
+			rs =arr[0].substring(0,1)+arr[1].substring(0,1);
+			break;
+		default:
+			rs =arr[arr.length-2].substring(0,1)+arr[arr.length-1].substring(0,1);
+			break;
+		}
+		return rs;
+	}
+	@RequestMapping(value = "upload_image_comment",method=RequestMethod.POST)
+	@ResponseBody
+	public String  upload_image_comment(HttpServletRequest request,HttpServletResponse response) throws IOException {
+
+		String jsontext = "";		
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+		ServletContext servl  = request.getServletContext();
+		String folder_save = servl.getInitParameter("save_image_comment");
+		String savePath =servl.getRealPath(folder_save);
+		
+		//////System.out.println(savePath);
+		String filename = "";
+		if (isMultipart) {			
+			FileItemFactory factory = new DiskFileItemFactory();						
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			try {
+				// Parse the request
+				List<org.apache.commons.fileupload.FileItem> multiparts = upload.parseRequest( request);
+				for (org.apache.commons.fileupload.FileItem item : multiparts) {
+					if (!item.isFormField()) {
+						DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+						Calendar cal = Calendar.getInstance();						
+						String name =dateFormat.format(cal.getTime())+"_"+ new File(item.getName()).getName();	
+						filename+=name;					
+						item.write(new File(savePath , name));
+						
+					}
+				}				
+			} 
+			catch (Exception e) 
+			{
+			  e.printStackTrace();
+			}
+		}
+		//////System.out.println(filename);
+		jsontext = filename;
+		return jsontext;
+	}
+	@RequestMapping(value="get_list_message_manager",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_list_message_manager(HttpServletResponse response,HttpServletRequest request) throws IOException, ParseException{
+		String adminemail = "";
+		HttpSession session = request.getSession();		
+		if(session.getAttribute("username")!=null){			
+			adminemail=session.getAttribute("username").toString();			
+		}
+		
+		//get comment
+		ArrayList<ItemComment>  list = new ArrayList<ItemComment>();
+		list = CommentDAL.get_list_message_manager(adminemail);
+		//
+		Gson gson = new Gson();
+		JsonElement element = gson.toJsonTree(list, new TypeToken<ArrayList<ItemComment>>() {}.getType());	
+		JsonArray jsonArray = element.getAsJsonArray();
+		responseUtf8.response_Utf8(response, jsonArray.toString());		
+	}
+	@RequestMapping(value="get_info_comment",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_info_comment(
+			@RequestParam("id") String id,
+			@RequestParam("subid") String subid,
+			HttpServletResponse response) throws IOException{
+		ItemComment item = new ItemComment();
+		item = CommentDAL.get_info_comment_by_id(id, subid);
+		String rs = new Gson().toJson(item);
+		responseUtf8.response_Utf8(response,rs);
+	}
+	@RequestMapping(value="reply_message_customer",method=RequestMethod.GET)
+	@ResponseBody
+	public void reply_message_customer(
+			@RequestParam("str") String str,
+			HttpServletResponse response) throws IOException{
+		ItemReplyMessage item = new ItemReplyMessage();
+		ItemCommentSS item_rs= new ItemCommentSS();
+		item_rs = CommentDAL.reply_message_customer(item);
+		String rs = new Gson().toJson(item_rs);
+		responseUtf8.response_Utf8(response,rs);
+	}
+	@RequestMapping(
+			value="reply_comment",
+			method=RequestMethod.POST,	
+			produces=MediaType.APPLICATION_JSON_VALUE,
+			consumes=MediaType.APPLICATION_JSON_VALUE
+			)
+	@ResponseBody
+	public void reply_comment(@RequestBody final String str_json,
+					HttpServletRequest request,
+					HttpServletResponse response) throws IOException, ParseException{
+		String adminemail = "";
+		HttpSession session = request.getSession();		
+		if(session.getAttribute("username")!=null){			
+			adminemail=session.getAttribute("username").toString();			
+		}
+		
+		 Map<String, String> Json_decore= new Gson().fromJson(str_json,  Map.class);		 
+		 String s=Json_decore.get("str");		 
+		 ItemReplyMessage item_c =new ItemReplyMessage();
+		 item_c=new Gson().fromJson( s, ItemReplyMessage.class);
+		 item_c.setUserid(adminemail);
+		 ItemCommentSS item_s = new ItemCommentSS();
+		 item_s = CommentDAL.reply_message_customer(item_c);
+		 Map<String,String> obj = new HashMap<String,String>();
+		 obj.put("result",String.valueOf(item_s.getKey()));
+		 String result = new Gson().toJson(obj);
+		 responseUtf8.response_Utf8(response, result);
+	}
+	@RequestMapping(value="get_total_comment_by_product",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_total_comment_by_product(
+			@RequestParam("product") String product,
+			HttpServletResponse response,
+			HttpServletRequest request) throws IOException, ParseException{
+		
+		
+		//get comment
+		int rs =0;
+		rs = CommentDAL.get_total_comment_by_product(product);
+		//
+		 Map<String,String> obj = new HashMap<String,String>();
+		 obj.put("result",String.valueOf(rs));
+		 String result = new Gson().toJson(obj);
+		 responseUtf8.response_Utf8(response, result);	
+	}
+}

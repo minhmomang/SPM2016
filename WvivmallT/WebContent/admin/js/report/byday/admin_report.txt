@@ -1,0 +1,7 @@
+
+<table class="info_income">
+	<tr>
+	<td class="text_type">Loại sản phẩm</td><td class="text_income">Thành tiền</td>
+	</tr>
+	@item
+</table>

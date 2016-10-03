@@ -1,0 +1,6 @@
+<div class="row">
+							<div class="col-md-12">
+								<input type="radio" name="grouppayment" class="chkdelivery"  id="id_@id">
+								<label style="color:#888888" class="lbnamedelivery">@name</label>
+							</div>
+						</div>

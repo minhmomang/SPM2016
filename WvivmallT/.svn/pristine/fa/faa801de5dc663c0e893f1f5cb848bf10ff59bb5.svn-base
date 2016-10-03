@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Giảm giá</title>
+<link href="../../admin/css/bootstrap.min.css" rel="stylesheet">
+<link href='../../admin/themes/default/easyui.css' rel='stylesheet'>
+<link href='../../admin/css/menu.css' rel='stylesheet'>
+<!-- bootstrap -->
+<script src="../../admin/js/jquery-1.11.2.min.js"></script>
+<script src='../../admin/js/jquery.session.js'></script>
+
+<script type="text/javascript" src="../../admin/js/extra.js"></script>
+
+<script type="text/javascript"
+	src="../../admin/js/promoproduct/promoproduct.js"></script>
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div id="header"></div>
+		<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+			<div id="menu_f" class="col-md-3"></div>
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-12">
+						<h2
+							style="font-family: Georgia; padding: 0px; padding-left: 10px; color: #00943a">Danh sách SP giảm giá</h2>
+						<hr style="border: 1px solid; color: #00943a;">
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+					<div class="col-md-12" id="toolbar">
+
+						<a id="btncreate" style="cursor: pointer;"
+							class="easyui-linkbutton" iconCls="icon-add" plain="true">Thêm SP giảm giá</a>
+						<a id="btnremove" style="cursor: pointer;"
+							class="easyui-linkbutton" iconCls="icon-remove" plain="true">Xóa</a>						
+
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px;">
+					<div class="col-md-2">
+						<h4
+							style="font-family: Georgia; padding: 0px; padding-left: 10px; color: #00943a">Chương trình giảm giá:</h4>
+					</div>
+					<div class="col-md-4">
+						<select type="text" id="txtcatepromoid" class="form-control"></select>
+					</div>
+					<div class="col-md-3" >
+						<a id="btnsearch_promotion" class="btn  btn-primary">Tìm kiếm</a>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px;">
+					<div class="col-md-2"></div>					
+					<div class="col-md-10" id="info_promotion" style="font-size:15px;font-weight:bold">
+						
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px;display:none" id="subpromotion">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-2">
+								<h4
+									style="font-family: Georgia; padding: 0px; padding-left: 10px; color: #00943a">Điều chỉnh giá:</h4>
+							</div>
+							<div class="col-md-4">
+								<select type="text" id="txtcatepromoidsub" class="form-control"></select>
+							</div>
+							<div class="col-md-3"  style="font-size:15px;font-weight:bold">
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2"></div>
+							<div class="col-md-10" id="info_promotionsub" style="font-size:15px;font-weight:bold">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" align="left" style="margin-top: 10px;">
+					<div class="col-md-12">
+						<div id="idproductpromotion" style="margin-bottom: 2px;"></div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<div id="iddialogproduct" style="height: 600px; display: none">
+		<div id="form_search"
+			style="padding: 2px; height: 40px; margin-left: 12px;">
+			<div class="col-md-2">
+				<h4
+					style="font-family: Georgia; padding: 0px; padding-left: 10px; color: #00943a">Loại</h4>
+			</div>
+			<div class="col-md-4">
+				<select type="text" id="txtProducttypeid" class="form-control"></select>
+			</div>
+
+		</div>
+		<!--form_search-->
+		<div id="idproduct" style="height: 520px; margin-left: 12px;"></div>
+		<div id="btniddialogbk"
+			style="float: left; width: 100%; margin-top: 2px; bottom: 0; height: 40px; line-height: 40px; text-align: center">
+			<div style="float: left; width: 50%; text-align: right">
+				<a id="id_ok_append" class="easyui-linkbutton" iconCls="icon-ok"
+					style="margin-right: 10px; cursor: pointer;">OK</a>
+			</div>
+			<div style="float: left; width: 50%; text-align: left">
+				<a class="easyui-linkbutton"
+					onclick="javascript:$('#iddialogproduct').dialog('close')"
+					iconCls="icon-cancel">Cancel</a>
+			</div>
+		</div>
+	</div>
+	<!--end dialog po-->
+
+
+
+
+</body>
+</html>
+<div id="changeprice" class="easyui-dialog" title="Confirm"
+	closed="true"
+	data-options="iconCls:'icon-save',minimizable:false,maximizable:false,closable:false"
+	style="width: 500px; height: 200px; padding: 5px;">
+	<div class="easyui-layout" data-options="fit:true">
+		<div class="row">
+			<div class="col-md-4">Price :</div>
+			<div class="col-md-7">
+				<input type="text" id='idoldprice' class="form-control" readonly />
+			</div>
+		</div>
+		<div class="row">
+			<p></p>
+		</div>
+		<div class="row">
+			<div class="col-md-4">Discount type:</div>
+			<div class="col-md-7">
+				<select id="slcpromo">
+					<option value="1">Set new price</option>
+					<option value="2">Set discount percent</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<p></p>
+		</div>
+		<div class="row">
+			<div class="col-md-4">Value :</div>
+			<div class="col-md-7">
+				<input type="text" id="idvalue" class="form-control" />
+			</div>
+		</div>
+	</div>
+</div>

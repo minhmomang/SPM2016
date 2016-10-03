@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <link href="../../admin/css/bootstrap.min.css" rel="stylesheet">      
+      <link href='../../admin/css/custom_input_file.css' rel='stylesheet'>
+      <!-- bootstrap -->
+      <script src="../../admin/js/jquery-1.11.2.min.js"></script>
+      <script src='../../admin/js/jquery.session.js'></script>
+      <!-- SmartMenus jQuery Bootstrap Addon -->
+      <script type="text/javascript" src="../../admin/js/extra.js"></script>
+      <script type="text/javascript" src="../../admin/js/jquery.ajaxfileupload.js"></script>
+      <script type="text/javascript" src="../../admin/ckeditor/ckeditor.js"></script>
+      <script type="text/javascript" src="../../admin/js/Writer/extra.js"></script>
+   </head>
+   <body >
+      
+      <div class="container-fluid">
+      	<div id="header"></div>
+         <div class="row">
+             <div class="col-md-12">
+            	 <h2 style="font-family: Georgia; padding: 0px;padding-left: 10px;color:#00943a">Add Writer</h2>
+	             <hr style="border: 1px solid; color: #00943a;">
+            </div>
+            <div class="col-md-12">
+            	<div class="row">
+                           <div class="col-md-2" style="line-height: 34px;">
+                              <strong class="lbinfoproduct">Category:</strong>
+                              <!-- col -->
+                           </div>
+                           <div class="col-md-4" >
+                              <select class="form-control" id="idcatewriter"></select>											
+                           </div>
+                           <div class="col-md-6"></div>
+               </div>
+               <div class="row" style="margin-top:20px;">
+                           <input type="hidden" disabled="disabled" id="idwriter_id" >
+                           <div class="col-md-2" style="line-height: 34px;">
+                              <strong class="lbinfoproduct"> Title:</strong>
+                              <!-- col -->
+                           </div>
+                           <div class="col-md-4" >
+                              <input id="idtitlewriter" class="form-control" style="height: 34px;" type="text"  />
+                              <!-- col -->
+                           </div>
+                           <div class="col-md-2" style="margin-left: 6px; line-height: 34px;">
+                              <strong class="lbinfoproduct">Feature Image:</strong>	
+                              <!-- col -->
+                           </div>
+                           <div class="col-md-2" >
+                              <button id="idopen_upload" class="btn btn-primary" 
+                                 data-toggle="modal" data-target="#idmodal_upload"  style="height: 34px;">
+                              Open feature image
+                              </button>
+                           </div>
+                           <!-- roww -->
+                </div> 
+                <div class="row" style="margin-top: 5px;">
+                           <div class="col-md-2" style="line-height: 34px; ">
+                              <strong class="lbinfoproduct"> Description:</strong>
+                              <!-- col -->
+                           </div>
+                           <div class="col-md-8" >
+                              <input id="iddeswriter" class="form-control" style="height: 34px;"  type="text"  />
+                              <!-- col -->
+                           </div>
+                           <!-- roww -->
+				</div> 
+				<div class="row" style="margin-top: 10px;">
+                           <div class="col-md-12" >
+                              <textarea name="idcontent" id="idcontent" rows="10" cols="80" style=" border: 0px solid white;">
+                                         
+                                        </textarea>
+                              <!-- col -->
+                           </div>
+                           <!-- roww -->
+                        </div>
+                        <!-- contanier -->
+                 </div>                  
+            </div>
+            <div class="col-md-12">
+            	 <div class="row" style="margin-top: 20px;" align="center">
+                        <button id="btn_submit" class="btn  btn-primary "
+                           style="width: 80px;">save </button>                                      
+                        <button id="btn-cancel" class="btn  btn-primary"
+                           style="width: 80px;">Cancel</button> 			                                     
+                     </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal fade" id="idmodal_upload" tabindex="-1" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title lbinfoproduct" id="gridSystemModalLabel">Upload Feature Image</h4>                     
+               </div>
+               <div class="modal-body" >
+                  <div class="container-fluid">
+                     <div class="thumbnail">
+                        <img id="thumbnil" src="../../upload/no_image.jpg" alt="No image">
+                        <div class="caption" align="center">
+                           <span class="btn btn-primary btn-file">
+                           Browse<input type="file" name="file" id="input_upload_feature"  >
+                           </span>
+                        </div>
+                     </div>
+                     <input type="hidden" disabled="disabled" id="id_upload_success">
+                     <div id="message"></div>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>      
+   </body>
+</html>

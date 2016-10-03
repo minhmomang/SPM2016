@@ -1,0 +1,50 @@
+package Model;
+/***********************************************************************
+ * Module:  TbProductType.java
+ * Author:  HuynhChau
+ * Purpose: Defines the Class TbProductType
+ ***********************************************************************/
+
+import java.util.*;
+
+import Model.Product.ProductData;
+public class ProductType {
+	String producttype;
+	String producttypename;
+	ArrayList<ProductData> list;
+	String category_img;
+	String isvisible;
+	
+	
+	public String getIsvisible() {
+		return isvisible;
+	}
+	public void setIsvisible(String isvisible) {
+		this.isvisible = isvisible;
+	}
+	public String getCategory_img() {
+		return category_img;
+	}
+	public void setCategory_img(String category_img) {
+		this.category_img = category_img;
+	}
+	public String getProducttype() {
+		return producttype;
+	}
+	public void setProducttype(String producttype) {
+		this.producttype = producttype;
+	}
+	public String getProducttypename() {
+		return producttypename;
+	}
+	public void setProducttypename(String producttypename) {
+		this.producttypename = producttypename;
+	}
+	public ArrayList<ProductData> getList() {
+		return list;
+	}
+	public void setList(ArrayList<ProductData> list) {
+		this.list = list;
+	}
+
+}

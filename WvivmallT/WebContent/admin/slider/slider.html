@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Slide</title>
+<link href="../../admin/css/bootstrap.min.css" rel="stylesheet">
+<link href='../../admin/themes/default/easyui.css' rel='stylesheet'>
+<link href='../../admin/css/custom_input_file.css' rel='stylesheet'>
+<!-- bootstrap -->
+<script src="../../admin/js/jquery-1.11.2.min.js"></script>
+<script src='../../admin/js/jquery.session.js'></script>
+<script type="text/javascript"
+	src="../../admin/js/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="../../admin/js/extra.js"></script>
+<script type="text/javascript" src="../../admin/js/slider/main.js"></script>
+
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div id="header"></div>
+		<div class="row" style="padding-left: 5px; margin-top: 5px;">
+			<div id="menu_f" class="col-md-3"></div>
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-12">
+						 <h2 style="font-family: Georgia; padding: 0px;padding-left: 10px;color:#00943a">Ảnh slide</h2>
+	                     <hr style="border: 1px solid; color: #00943a;">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<a id="btncreate" data-toggle="modal"
+							data-target="#idmodal_upload" style="cursor: pointer;"
+							class="easyui-linkbutton opso_language" iconCls="icon-add"
+							plain="true" data_opso="data_file:ad_button,data_key:create">Thêm mới</a>
+						<a id="btnremove" style="cursor: pointer;"
+							class="easyui-linkbutton opso_language" iconCls="icon-remove"
+							plain="true" data_opso="data_file:ad_button,data_key:remove">Xóa</a>
+						<a id="btnvisible"
+							style="cursor: pointer;" class="easyui-linkbutton"
+							iconCls="icon-lock" plain="true">Hiện</a> 
+						<a id="btnunvisible"
+							style="cursor: pointer;" class="easyui-linkbutton"
+							iconCls="icon-unlock" plain="true">Ẩn</a>
+					</div>
+				</div>
+				<div class="row" align="center">
+					<div class="col-md-12">
+						<table class="table table-bordered">
+							<thead>
+								<tr
+									style="background-color: #00943a; color: white; font-weight: bold; text-align: center">
+									<th style="width: 10%; text-align: center"><input
+										type="checkbox" id="allcheckbox_in"></th>
+									<th style="width: 10%; text-align: center">Mã</th>
+									<th style="width: 30%; text-align: center">Tên</th>
+									<th style="width: 10%; text-align: center">Trạng thái</th>
+									<th style="width: 40%; text-align: center">Hình</th>
+									
+								</tr>
+							</thead>
+							<tbody id="idshowlist">
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<div class="modal fade" id="idmodal_upload" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="gridSystemModalLabel"
+						data_opso="data_file:ad_slide,data_key:imageb">Upload Image</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="thumbnail">
+							<img id="thumbnil" src="../../upload/no_image.jpg" alt="No image">
+							<div class="caption" align="center">
+
+								<span class="btn btn-primary btn-file"> Browse <input
+									type="file" name="file" id="input_upload_feature">
+								</span>
+							</div>
+						</div>
+						<input type="hidden" disabled="disabled" id="id_upload_success">
+					</div>
+					<div id="message"></div>
+					<div id="message2"></div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" id="idbtn_okupload" class="btn btn-danger"
+						data-dismiss="modal">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end modal --upload-->
+	</div>
+
+	<div id="dialogmanual22" title="Alert" closed="true"
+		class="easyui-dialog" data-options="closable:false"
+		style="width: 400px; height: 200px; padding: 10px"
+		buttons="#dlg-buttons">
+		<div id="dlg-buttons" style="display: none">
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+				iconCls="icon-ok"
+				onclick="javascript:$('#dialogmanual22').dialog('close')">OK</a>
+			<!--dialog confirm manual-->
+		</div>
+	</div>
+	<div id="dlginboundsuccess22" title="Result"
+		data-options="closable:false" closed="true" class="easyui-dialog"
+		style="width: 400px; height: 200px; padding: 10px"
+		style="width:400px;height:200px;padding:10px" buttons="#dlg-buttons2"></div>
+	<div id="dlg-buttons2" style="display: none">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-ok" id="idpage_reload">OK</a>
+
+	</div>
+
+
+</body>
+</html>

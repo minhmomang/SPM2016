@@ -1,0 +1,239 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<base href="http://localhost:8080/Nvivmall/">
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+<link rel="stylesheet" href="css/form-search.css" type="text/css"
+	media="screen" title="no title" charset="utf-8" />
+<link rel="stylesheet"
+	href="assets/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/ProSection.css">
+<link rel="stylesheet" href="css/jquery-ui.css" type="text/css"
+	media="screen" title="no title" charset="utf-8" />
+<script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/jquery-ui.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="js/jquery.session.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/extra.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/blockUI.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/dialog.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/extrablock.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/client/search.js"></script>
+<script type="text/javascript" src="js/client/header.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#menucate").hover(function(){
+			$("#menucate").css({"background-color": "white","color":"black"});
+			$("#newscate").css({"background-color": "#324551","color":"white"});
+			$(".vmenu2").css("display","inline");
+		},function(){
+			$("#menucate").css({"background-color": "#324551","color":"white"});
+			$("#newscate").css({"background-color": "white","color":"black"});
+			$(".vmenu2").css("display","none");
+		});
+		$(".vmenu2").hover(function(){
+			
+			$(".vmenu2").css("display","inline");
+			$("#menucate").css({"background-color": "white","color":"black"});
+			$("#newscate").css({"background-color": "#324551","color":"white"});
+		
+		},function(){
+			
+			$(".vmenu2").css("display","none");
+			$("#menucate").css({"background-color": "#324551","color":"white"});
+			$("#newscate").css({"background-color": "white","color":"black"});
+		});
+	})
+</script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row"
+			style="background-color: #eeeeee; margin-bottom: 10px;">
+			<div class="col-md-2">
+				<div class="dropdown">
+					<button id="languagebtn" class=" dropdown-toggle" type="button"
+						data-toggle="dropdown">
+						Ngôn ngữ <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#"><img alt="" src="image/usflag.png">
+								English</a></li>
+						<li><a href="#"><img alt="" src="image/vnflag.png">
+								Tiếng việt</a></li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<a class="topnav" href="tinkhuyenmai.html">Tin tức khuyến mại</a>
+			</div>
+			<div class="col-md-offset-1 col-md-2 ">
+				<a class="topnav" href="shoppingCart.html">Giỏ hàng (<span id="count_product_shopping_cart">0</span>  sản phẩm)</a>
+
+			</div>
+
+			<div id="infologin">
+				<div class="col-md-offset-3 col-md-1" align="right">
+					<a class="topnav" href="signin.html">Đăng nhập</a>
+				</div>
+				<div class="col-md-1" align="right">
+					<a class="topnav" href="register.html">Đăng ký</a>
+				</div>
+			</div>
+			<div id="afterlogin" style="display: none;">
+				<div class="col-md-4" align="right">
+					<span id="userlogin"
+						style="background-color: white; color: black; padding: 5px; border-radius: 20px 0px 0px 20px"></span>
+					<a
+						style="border: none; background-color: #eeeeee; cursor: pointer;"
+						class="dropdown-toggle" type="button" data-toggle="dropdown">
+						<i class="fa fa-angle-double-down"
+						style="font-size: 18px; background-color: #2d9d2e; color: white; padding: 2px"></i>
+					</a>
+					<ul class="dropdown-menu" style="margin-left: 245px">
+						<li><a href="history/general_Account.html">Thông tin
+								chung</a></li>
+						<li><a href="history/edit_account.html">Thông tin tài
+								khoản</a></li>
+						<li><a href="history/orderhistory.html">Đơn hàng của tôi</a></li>
+						<li><a href="history/save_product.html">Để dành mua sau</a></li>
+						<li><a href="history/comment_product.html">Sản phẩm đánh
+								giá</a></li>
+					</ul>
+				</div>
+				<div class="col-md-1" align="right">
+					<a class="topnav" id="idlogout" style="cursor: pointer">Đăng
+						xuất</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<img alt="" src="image/vivlogo.jpg" class="img-responsive">
+
+			</div>
+			<div class="col-md-6" align="left">
+				<div class="row" >
+					<div class="col-md-11">
+						<form  name="suyb" action="" method="get"
+							style="margin-top: 25px;padding-top: 0">
+							<div style="float: left; min-width: 15%" class="search-panel">
+								<div class="dropdown"
+									style="padding: 0; background-color: white; border: 1px solid lightgray;height: 40px;padding-top:5px">
+									<button
+										style="background-color: white; border: none; margin: 0; padding: 5px 20px;width: 100%"
+										class="btn  dropdown-toggle" type="button"
+										data-toggle="dropdown">
+										<span id="search_concept">Tất cả </span><span class="caret"></span>
+										<span id="search_param" style="display:none">0</span>
+									</button>
+									<ul class="dropdown-menu dropdownsearch" id="op_param_search">										
+
+									</ul>
+								</div>
+
+
+							</div>
+							<div style="float: left;min-width:50%;max-width: 70%">
+								<input type="text" id="search-form" name="skey" placeholder="Search For Product, Brand, Shops" required	style="width: 100%">	</div>
+							<div style="float: left; width: 15%">
+
+								<button type="button" class="btn btn-primary"
+									id="btnsearchbasic" style="width: 100%">Tìm</button>
+
+							</div>
+							<div style="clear: left;"></div>
+
+						</form>
+					</div>
+					<div class="col-md-1" align="left" style="margin-top:25px;padding: 0">
+						<a href="shoppingCart.html"> <img src="img/smallcart.png" class="img-reponsive"></a>
+					</div>
+				</div>
+				<div class="row" align="left"
+					style="padding-left: 20px; margin-top: 15px; padding-bottom: -20px">
+					<ol class="breadcrumb topmenu" style="background-color: white;">
+						<li><a href="product_new.html">Mới nhất</a></li>
+						<li><a href="product_mostbuy.html">Mua nhiều nhất</a></li>
+						<li><a href="product_mostview.html">Quan tâm nhiều nhất</a></li>
+						<li><a href="key_product.html">Tìm nhiều nhất</a></li>
+
+
+					</ol>
+				</div>
+				<div class="row" align="left"
+					style="padding-left: 20px; margin-top: 5px">
+					<ol class="breadcrumb"
+						style="background-color: white; margin-top: 0; padding: 0">
+						<li><a href="day_product.html">Top sản phẩm</a></li>
+						<li><a href="product_recommend.html">Sản phẩm gợi ý</a></li>
+						<li><a href="product_choose.html">Sản phẩm chọn nhiều</a></li>
+						<li><a href="product_highrating.html">Yêu thích</a></li>
+					</ol>
+				</div>
+
+
+
+
+			</div>
+
+			<div class="col-md-2" align="center">
+				<img alt="" src="image/voucher.png" class="img-responsive">
+
+			</div>
+		</div>
+		<div class="row"
+			style="background-color: #324551; margin-top: 10px; opacity: 0.9">
+			<div class="col-md-2">
+				<div id="menucate"
+					style="line-height: 40px; font-size: 20px; padding-left: 20px; font-weight: bold; color: white;">
+					<i class="fa fa-table"></i> Danh Mục
+					
+					
+				</div>
+				
+			</div>
+			<div class="col-md-2">
+				<div id="newscate"
+					style="line-height: 40px; font-size: 20px; background-color: #eeeeee; padding-left: 20px; font-weight: bold; color: black; border-bottom: 3px solid #465762;">
+					<span class="glyphicon glyphicon-globe" style="font-size: 20px;"></span>
+					<span style="font-size: 20px;">Trang tin tức</span>
+
+				</div>
+
+			</div>
+			
+
+			<div class="col-md-2 col-md-offset-6"
+				style="font-size: 20px; line-height: 40px;" align="right">
+				<a href="index.html" style="color: white;"><span
+					class="glyphicon glyphicon-home"></span> Home</a> <i
+					class="fa fa-mail-reply-all"
+					style="font-size: 24px; color: #5096cd"></i>
+			</div>			
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				
+				<ul  id="vmenu" class="vmenu2">
+
+				</ul>
+			</div>
+		</div>
+		
+	</div>
+
+</body>
+</html>
+<div id="dialogmanual" style="display: none">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="content_message" style="color: black; font-size: 15px;"></div>
+		</div>
+	</div>
+</div>
+

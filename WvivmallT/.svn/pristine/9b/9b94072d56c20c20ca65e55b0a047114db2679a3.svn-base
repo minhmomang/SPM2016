@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Email template</title>
+</head>
+<body style="width:600px">
+	<table style="border: 1px solid;text-align:left;width:100%;margin:25px">
+		<thead>
+			<tr>
+				<td colspan="2">
+					<img src="http://vivmall.vn/image/vivlogo.jpg">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="padding:20px 15px;"><span><b>Đơn hàng đã sẵn sàng để giao đến quý khách Huỳnh Minh Châu !</b></span>
+					<br>
+					<span>Chúng tôi vừa bàn giao đơn hàng của quý khách đến đối tác vận chuyển của Vivmall.</span>
+					<br>
+					
+					<button type="button" style="background-color:#39792f;color:white;margin-left:30%;">Kiểm tra trạng thái đơn hàng</button><br>
+					
+					</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="padding: 5px 15px;">
+					<span style="color:#39792f"><b>THÔNG TIN ĐƠN HÀNG #@orderid </b></span><span>(@date_order)</span><hr>
+				</td>	
+			</tr>
+			<tr>
+				<td style="width:50%;padding: 5px 15px;">
+					<span><b>Thông tin thanh toán</b></span><br>
+					<span>@customer_name</span><br>
+					<span>@customer_email</span><br>
+					<span>@phone</span><br>
+					<br>
+				</td>
+				<td style="width:50%;padding: 5px 15px;">
+					<span><b>Địa chỉ giao hàng</b></span><br>
+					<span>@customer_address</span><br>					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="padding: 5px 15px;">
+					<span><b>Phí vận chuyển :</b> 0đ(Miễn phí)</span><br>
+					<span><b>Phương thức thanh toán :</b> @customer_payment</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="padding: 5px 15px;">
+					<span style="color:#39792f"><b>CHI TIẾT ĐƠN HÀNG</b></span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="padding: 5px 15px;">
+				<table style="border: 1px solid;border-collapse: collapse;text-align:left;width:100%">
+					<tr style="background-color:#39792f;color:white ">
+					<td>SẢN PHẨM</td><td>ĐƠN GIÁ</td><td>SỐ LƯỢNG</td><td>GIẢM GIÁ</td><td>TỔNG TẠM</td>
+					</tr>
+					@content_order
+					<tr>
+					<td colspan="2"></td>
+					<td colspan="3"><span><b>Tổng giá trị đơn hàng : @customer_amount</b></span></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</thead>
+	</table>
+</body>
+</html>

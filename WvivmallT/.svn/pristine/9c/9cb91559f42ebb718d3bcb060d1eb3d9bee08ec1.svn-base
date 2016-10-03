@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Answer comment customer</title>
+<link href="../../admin/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../../admin/css/jquery-ui.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+
+<!-- bootstrap -->
+<script src="../../admin/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../../admin/js/extra.js"></script>
+<script src='../../admin/js/jquery.session.js'></script>
+<script src='../../admin/js/blockUI.js'></script>
+<script src='../../admin/js/dialog.js'></script>
+<script src='../../admin/js/extrablock.js'></script>
+<script type="text/javascript" charset="utf-8" src="../../admin/js/jquery-ui.js"></script>
+<script type="text/javascript" src="../../admin/js/comment/confirm.js"></script>
+<!--upload image-->
+
+
+</head>
+<body>
+	<div id="header"></div>
+	<div class="container-fluid" >
+		<div class="row">
+			<div class="col-md-12">
+            	 <h2 style="font-family: Georgia; padding: 0px;padding-left: 10px;color:#00943a">Answer comment customer</h2>
+	             <hr style="border: 1px solid; color: #00943a;">
+            </div>
+            <div class="col-md-12">
+            	<span style="color:black;font-size:25px;">Nội dung khách hàng</span>
+            </div>
+            <div class="col-md-12">
+            	<div class="row">
+            		<div class="col-md-2">
+            			<span style="font-weight:bold;font-size:15px;">Mã KH:</span>
+            		</div>
+            		<div class="col-md-8">
+            			<span id="txtidcustomer"></span>
+            		</div>
+            	</div>
+            	<div class="row">
+            		<div class="col-md-2">
+            			<span style="font-weight:bold;font-size:15px;">Tên KH:</span>
+            		</div>
+            		<div class="col-md-8">
+            			<span id="txtnamecustomer"></span>
+            		</div>
+            	</div>
+            	<div class="row">
+            		<div class="col-md-2">
+            			<span style="font-weight:bold;font-size:15px;">Ngày:</span>
+            		</div>
+            		<div class="col-md-8">
+            			<span id="txtdate"></span>
+            		</div>
+            	</div>
+            	<div class="row">
+            		<div class="col-md-2">
+            			<span style="font-weight:bold;font-size:15px;">Sản phẩm:</span>
+            		</div>
+            		<div class="col-md-8">
+            			<span id="txtidproduct" style="display:none"></span>
+            			<span id="txtnameproduct"></span>
+            		</div>
+            	</div>
+            	<div class="row">
+            		<div class="col-md-2">
+            			<span style="font-weight:bold;font-size:15px;">Nội dung hỏi:</span>
+            		</div>
+            		<div class="col-md-8">
+            			<span id="txtcontentmessage"></span>
+            		</div>
+            	</div>
+            </div>
+            <div class="col-md-12">
+            	<span style="color:black;font-size:25px;">Trả lời</span>
+            </div>
+            <div class="col-md-12">
+            	<textarea rows="30" id="txtcontentreply" cols="" class="form-control" style="height:370px;"></textarea>
+            </div>
+            <div class="col-md-12" style="text-align:center;margin-top:10px;">
+            	<button type="button" class="btn btn-success" id="btnreplymessage">Reply Message</button>
+            </div>
+		</div>							       
+    </div>
+</body>
+</html>
+<div id="dialogmanual" style="display: none">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="content_message" style="color:black; font-size: 15px;"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+<div class="row" style="margin-bottom: 15px;">
+					<div class="col-md-3 col-sm-6 imagesave">
+						<img alt="" src="@imgurl">
+					</div>
+					<div class="col-md-9" >
+						<label class="tittlesave">@nameproduct</label>
+							<div>
+								<span style="color: #fde16d" class="glyphicon glyphicon-star"></span>
+								<span style="color: #fde16d" class="glyphicon glyphicon-star"></span>
+								<span style="color: #fde16d" class="glyphicon glyphicon-star"></span>
+								<span style="color: #e3e3e3" class="glyphicon glyphicon-star"></span>
+							</div>
+							<div class="pricesave">@priceproduct VNĐ</div>
+							<div>@description</div>
+							<div class="col-md-6" style="padding: 5px 0px">
+				
+								<button class="savebtn" id="id_@productid">
+									<span class="glyphicon glyphicon-shopping-cart"></span> Thêm vào
+									giỏ hàng
+								</button>
+								<a target= _blank href="detailProduct.html?id=@productid"><span class="glyphicon glyphicon-share-alt"></span> Xem chi
+									tiết</a>
+							</div>
+					</div>
+				</div>
