@@ -1,0 +1,168 @@
+package BLL;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+
+import com.google.gson.JsonParseException;
+
+import DAL.ContactDAL;
+import DAL.MemberDAL;
+import DAL.ProductDAL;
+import Helper.ErrorMesage;
+import Helper.Extra;
+import Helper.Extramail;
+import Helper.JsonHelper;
+import Helper.responseUtf8;
+import Model.Contact;
+import Model.ItemContact;
+import Model.ItemMember;
+import Model.MailSendingData;
+import Service.ReadServiceMail;
+
+public class Contactbll {
+
+	private static final String Helpermail = null;
+
+	public static String insert_contact(ItemContact item)
+			throws JSONException, JsonGenerationException, JsonMappingException, IOException {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result = ContactDAL.insert_contact(item);
+		Map<String, Object> obj = new HashMap<String, Object>();
+		if (result != null) {
+			if (result.size() > 0) {
+				String f = result.get("f").toString();
+				String mes = ErrorMesage.getMesageError(Integer.parseInt(f));
+				obj.put("result", f);
+				obj.put("message", mes);
+			}
+		}
+		String json = new Gson().toJson(obj);
+		return json;
+	}
+
+	public static String insert_support(ItemContact item)
+			throws JSONException, JsonGenerationException, JsonMappingException, IOException {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result = ContactDAL.insert_support(item);
+		Map<String, Object> obj = new HashMap<String, Object>();
+		if (result != null) {
+			if (result.size() > 0) {
+				String f = result.get("f").toString();
+				String mes = ErrorMesage.getMesageError(Integer.parseInt(f));
+				obj.put("result", f);
+				obj.put("message", mes);
+			}
+		}
+		String json = new Gson().toJson(obj);
+		return json;
+	}
+
+	public static String get_contact(String contactid)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		ItemContact item = new ItemContact();
+		item = ContactDAL.get_contact(contactid);
+		String json = new Gson().toJson(item);
+		return json;
+
+	}
+
+	public static String updatestate(String contactid) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, String> obj = new HashMap<String, String>();
+		result = ContactDAL.updatestate(contactid);
+		if (result != null) {
+			if (result.size() > 0) {
+				String f = result.get("f").toString();
+				String mes = ErrorMesage.getMesageError(Integer.parseInt(f));
+				obj.put("result", f);
+				obj.put("message", mes);
+
+			}
+		}
+		String json = new Gson().toJson(obj);
+		return json;
+	}
+
+	public static String send_mail(String json_contact, String user, String pass)
+			throws JsonParseException, JsonMappingException, IOException, AddressException, MessagingException {
+		// System.out.println("json_subject--------"+json_subject);
+		Map<String, String> Json_decore = new Gson().fromJson(json_contact, Map.class);
+		String s = Json_decore.get("json_contact");
+		MailSendingData a = new MailSendingData();
+		a = new Gson().fromJson(s, MailSendingData.class);
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, String> obj = new HashMap<String, String>();
+
+		int result_send = Extramail.SendingEmail(user, pass, a.getEmail_to(), a.getTitle(), a.getContent());
+		if (result_send == 0) {
+			result = ContactDAL.send_mail(a);
+			if (result != null) {
+				if (result.size() > 0) {
+					String f = result.get("f").toString();
+					String mes = ErrorMesage.getMesageError(Integer.parseInt(f));
+					obj.put("result", f);
+					obj.put("message", mes);
+
+				}
+			}
+		} else {
+			String f = "-1";
+			String mes = ErrorMesage.getMesageError(Integer.parseInt(f));
+			obj.put("result", f);
+			obj.put("message", mes);
+		}
+		String json = new Gson().toJson(obj);
+		return json;
+	}
+
+	public static String get_list_contact(String option, String value) {
+		ArrayList<ItemContact> a = new ArrayList<ItemContact>();
+		a = ContactDAL.get_list_contact(option, value);
+		String json = new Gson().toJson(a);
+		return json;
+	}
+
+	public static String remove_contact(String str_contact) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, String> obj = new HashMap<String, String>();
+		result = ContactDAL.remove_contact(str_contact);
+		if (result != null) {
+			if (result.size() > 0) {
+				String f = result.get("f").toString();
+				String mes = ErrorMesage.getMesageError(Integer.parseInt(f));
+				obj.put("result", f);
+				obj.put("message", mes);
+
+			}
+		}
+		String json = new Gson().toJson(obj);
+		return json;
+	}
+
+	public static String send_contact(ItemContact item, HttpServletRequest request) throws JSONException, IOException {
+		String str = "";
+		JSONObject obj = new JSONObject();
+		int result = ContactDAL.add_contact_dao(item.getEmail(), item.getFullname(), item.getPhone(),item.getTitle(),item.getContent());
+		if (result == 0) {
+			obj.put("result", result);
+		} else {
+			obj.put("result", -1);
+		}
+		str = JsonHelper.ConvetJSONObjectToJson(obj);
+		return str;
+	}
+}

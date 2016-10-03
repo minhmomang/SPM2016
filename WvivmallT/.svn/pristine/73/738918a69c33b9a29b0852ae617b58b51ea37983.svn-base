@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Qui chế vivmall</title>
+<link rel="stylesheet" href="css/tinkhuyenmai.css">
+<script type="text/javascript" charset="utf-8" src="js/jquery-1.10.2.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/extra.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="js/client/regulation.js"></script>
+</head>
+<body>
+	<div id="header"></div>
+	<div class="container-fluid" style="margin-top: 30px;">
+		<div id="list_menu" class="col-md-3">
+			<ul>
+				<li><a href="regulation.html#chapter1">I. Nguyên tắc chung:</a></li>
+				<li><a href="regulation.html#chapter2">II. Quy định chung:</a></li>
+				<li><a href="regulation.html#chapter3">III. Quy trình giao
+						dịch:</a></li>
+				<li><a href="regulation.html#chapter4">IV. Quy trình thanh
+						toán:</a></li>
+				<li><a href="regulation.html#chapter5">V. Đảm bảo an toàn
+						giao dịch:</a></li>
+				<li><a href="regulation.html#chapter6">VI. Chính sách bảo
+						mật thông tin:</a></li>
+				<li><a href="regulation.html#chapter7">VII. Quản lý thông
+						tin xấu:</a></li>
+				<li><a href="regulation.html#chapter8">VIII. Trách nhiệm
+						trong trường hợp phát sinh lỗi kỹ thuật:</a></li>
+				<li><a href="regulation.html#chapter9">IX. Quyền và nghĩa
+						vụ của Ban quản lý website TMĐT Vivmall.vn:</a></li>
+				<li><a href="regulation.html#chapter10">X. Quyền và trách
+						nhiệm thành viên tham gia Sàn giao dịch Vivmall.vn:</a></li>
+				<li><a href="regulation.html#chapter11">XI. Điều khoản áp
+						dụng:</a></li>
+			</ul>
+		</div>
+		<div id="content" class="col-md-9">
+			<div  id="chapter1">
+				<span class="title_qt">I. Nguyên tắc chung: </span><br/>
+				1. Bản Quy chế này ban hành các quy định bắt
+				buộc áp dụng đối với các Thành viên Sàn Giao dịch Thương mại Điện tử
+				Vivmall (gọi là Thành Viên) với mục đích tạo ra một môi trường hoạt
+				động mua bán hàng hóa, cung ứng dịch vụ thông qua website thương mại
+				điện tử; <br/>
+				2. Các Thành viên, các thương nhân, tổ chức, cá nhân tham
+				gia giao dịch trên Sàn Giao dịch thương mại điện tử Vivmall.vn (gọi
+				là Sàn giao dịch TMĐT) có trách nhiệm thực hiện đúng nội dung Quy
+				chế. <br/>
+				3. Tất cả các nội dung trong Bản Quy chế này phải tuân thủ theo
+				hệ thống pháp luật hiện hành của Việt Nam. Thành viên khi tham gia
+				vào Sàn phải tự tìm hiểu trách nhiệm pháp lý của mình, tuân thủ quy
+				định pháp luật và nội dung Quy chế của Sàn giao dịch TMĐT.
+				<hr>
+			</div>
+			<div  id="chapter2">
+				<span class="title_qt">II. Quy định chung:</span><br/>
+				1. Tên Miền Sàn Giao dịch Thương mại Điện tử là:
+				http://www.vivmall.vn. Sàn giao dịch TMĐT Vivmall.vn do Công ty TNHH
+				Khai Tâm Trí thành lập và phát triển với tên miền Sàn giao dịch là:
+				http://www.vivmall.vn. Sàn giao dịch TMĐT là nơi giao thương giữa
+				người mua và người bán đồng thời giúp quá trình mua bán hàng hóa,
+				cung ứng dịch vụ qua mạng thực hiện một cách nhanh gọn, trọn vẹn
+				bằng việc tích hợp tính năng thanh toán trực tuyến. <br/>
+				2. Thành viên
+				Sàn giao dịch TMĐT: Thương nhân, tổ chức, cá nhân hoạt động hợp pháp
+				đăng ký thành viên tại Sàn Giao dịch TMĐT và được Ban quản lý Sàn
+				TMĐT Vivmall.vn (gọi là Ban Quản Lý) chính thức công nhận thông qua
+				việc cấp Giấy chứng nhận Thành viên hoặc thông qua hình thức xét
+				duyệt hồ sơ, cho đăng sản phẩm lên Sàn giao dịch của Sàn Giao dịch
+				TMĐT - Thành viên có trách nhiệm thực hiện Quy chế này; - Thành viên
+				được phép sử dụng dịch vụ do Sàn giao dịch TMĐT Vivmall.vn và các
+				bên liên quan cung cấp. Từ “dịch vụ” bao gồm tất cả các dịch vụ do
+				Sàn giao dịch TMĐT Vivmall.vn cung cấp hoặc liên quan đến Sàn giao
+				dịch TMĐT Vivmall.vn <br/>
+				3. Địa chỉ giao dịch: http://www.Vivmall.vn.
+				Ngoài địa chỉ trên, Sàn giao dịch TMĐT Vivmall.vn không có bất kỳ
+				địa chỉ giao dịch nào khác. <br/>
+				4. Lĩnh vực hoạt động của Sàn Giao dịch
+				TMĐT: - Mua bán hàng hóa và cung ứng dịch vụ mà pháp luật cho phép;
+				- Việc kinh doanh hàng hóa, dịch vụ hạn chế kinh doanh hoặc hàng
+				hóa, dịch vụ kinh doanh có điều kiện trên website thương mại điện tử
+				còn phải chịu sự điều chỉnh của các quy định pháp luật liên quan tới
+				hàng hóa, dịch vụ đó. Thành viên không được phép đăng tin mua bán
+				các hàng hóa, cung ứng dịch vụ vi phạm thuần phong mỹ tục, vi phạm
+				các quy định của pháp luật. Trường hợp vi phạm, Ban quản lý Sàn sẽ
+				có những hình thức ngăn chặn cụ thể theo khoản 1 mục III Bản quy chế
+				này.
+				<hr>
+			</div>
+			<div id="chapter3">
+				<span class="title_qt">III. Quy trình giao dịch:</span><br/>
+				1. Quy trình dành cho người mua hàng: Có 2
+				cách giao dịch <br/>
+				+ Cách 1: Thanh toán online qua cổng thanh toán
+				Vivmall.vn (cổng thanh toán trực tuyến của Công ty cổ phần dịch vụ
+				Ngân lượng GATE) hỗ trợ thanh toán theo nhiều hình thức như: online
+				hoàn toàn bằng thẻ ATM các ngân hàng nội địa (Vietcombank,
+				Techcombank, EximBank, VietinBank, ACB ...) Thẻ quốc tế (ViSa,
+				Master), chuyển khoản Offline qua các ngân hàng (VietComBank,
+				Techcombank, EximBank, ......) hoặc thanh toán bằng số dư tài khoản
+				Vivmall.vn. <br/>
+				Bước 1: Khách hàng đặt hàng; <br/>
+				Bước 2: Khách hàng tiến
+				hành thanh toán qua cổng thanh toán trực tuyến Vivmall.vn; <br/>
+				Bước 3:
+				Vivmall.vn xác nhận thông tin hàng hóa từ chủ shop; <br/>
+				Bước 4: Chủ shop
+				chuyển hàng; <br/>
+				Bước 5: Khách hàng nhận hàng và kiểm tra. <br/>
+				Bước 6: Khách
+				hàng hài lòng và lên trang Quản lý đơn hàng của
+				http://www.Vivmall.vn để xác nhận Hoàn tất đơn hàng. <br/>
+				Trong vòng 3
+				ngày sau khi hàng đã đến tay người mua, nếu khách hàng vẫn không xác
+				nhận hoàn tất, hệ thống sẽ tự hoàn tất đơn hàng này. Bước 7: Sau khi
+				đơn hàng đã hoàn tất, Vivmall.vn sẽ tiến hành chuyển tiền vào tài
+				khoản Vivmall của người bán. <br/>
+				+ Cách 2: Thanh toán khi nhận hàng qua
+				dịch vụ COD: <br/>
+				Bước 1: Khách hàng đặt hàng; <br/>
+				Bước 2: Vivmall.vn gọi
+				điện thọai xác nhận đơn đặt hàng của khách hàng. <br/>
+				Bước 3: Chủ shop
+				xác nhận thông tin đơn hàng. <br/>
+				Bước 4: Chủ shop chuyển hàng. <br/>
+				Bước 5:
+				Khách hàng nhận hàng và kiểm tra. <br/>
+				Bước 6: Khách hàng thanh toán tiền
+				mặt cho nhân viên giao nhận và kí xác nhận. <br/>
+				Bước 7: Khách hàng hài
+				lòng và lên trang Quản lý đơn hàng của http://www.Vivmall.vn để xác
+				nhận Hoàn tất đơn hàng. <br/>
+				Trong vòng 3 ngày sau khi hàng đã đến tay
+				người mua, nếu khách hàng vẫn không xác nhận hoàn tất, hệ thống sẽ
+				tự hoàn tất đơn hàng này. <br/>
+				2. Quy trình dành cho người bán hàng/ đăng
+				tin; <br/>
+				Bước 1: Đăng nhập vào Vivimall.vn bằng tài khoản mới hoặc các
+				loại tài khoản: Yahoo; Facebook, Google. <br/>
+				Bước 2: Bấm vào nút "Mở
+				shop" để tiếp tục. <br/>
+				Bước 3: Điền thông tin thông tin shop, đầy đủ và
+				chính xác. Sau khi thực hiện xong các bước trên, shop đã được tạo
+				thành công, hệ thống sẽ gửi đến điện thoại shop số ID của Shop. <br/>
+				Bước 4: Thực hiện xác nhận thông tin đăng ký Shop qua tin nhắn hoặc
+				Email. <br/>
+				Bước 5: Thực hiện đăng sản phẩm cần bán (tối thiểu 5 sảm phẩm
+				được duyệt). <br/>
+				3. Quy trình giao nhận vận chuyển: Sau khi Vivmall.vn
+				xác nhận đơn hàng mà Người Mua đã đặt hoàn tất, phía người bán xác
+				nhận còn hàng. Vivmall.vn sẽ tiến hành chuyển thông tin đơn hàng cho
+				đối tác vận chuyển thực hiện tới Người Bán nhận hàng và thực hiện
+				giao hàng cho Người Mua, thời gian giao hàng tuỳ thuộc vào khu vực
+				địa lý Người Mua (nội tỉnh 2 ngày làm việc, ngoại tỉnh 5-7 làm
+				việc). <br/>
+				4. Quy trình xác nhận/hủy đơn hàng: Trong vòng 24h kể từ khi
+				Người Mua hoàn tất việc đặt đơn hàng, Người Bán sẽ thực hiện xác
+				nhận đơn hàng (còn hoặc hết hàng), sau đó Vivmall.vn sẽ tiến hành
+				chuyển thông tin đơn hàng đã xác nhận còn hàng cho đơn vị vận chuyển
+				để tiến hành giao đơn hàng mà Người mua đã đặt. Sau khi hoàn tất
+				việc đặt đơn hàng, Người mua có thể hủy đơn hàng bằng cách chọn
+				“Quản Lý Đơn Hàng” để “Hủy” đơn hàng hoặc có thể gọi lên Tổng Đài
+				nhờ hỗ trợ huỷ đơn hàng. Nếu Người mua muốn hủy đơn hàng tại thời
+				điểm nhận được sản phẩm thì phải thực hiện theo Chính sách đổi trả
+				sản phẩm của Người bán. Trong một số trường hợp người mua không thể
+				liên lạc được với bên bán hàng, Vivmall sẽ tiếp nhận yêu cầu đổi trả
+				của khách hàng và liên hệ bên Bán hàng về việc đổi trả sản phẩm. <br/>
+				5.
+				Các quy trình khác: Quy trình bảo hành/bảo trì sản phẩm: Sản phẩm
+				bán trên Vivmall.vn sẽ được bảo hành/bảo trì sản phẩm theo quy trình
+				của hãng sản xuất hoặc nhà cung cấp sản phẩm (Người Bán) Quy trình
+				giải quyết tranh chấp, khiếu nại: Bước 1: Tiếp nhận Nhận yêu cầu
+				giải quyết khiếu nại của người mua Kiểm tra thông tin khiếu nại để
+				thực hiện tiếp nhận hay từ chối Bước 2: Xử lý khiếu nại Thu thập
+				thông tin,hình ảnh chứng cứ từ các bên liện quan Đưa ra phán quyết
+				và hướng khắc phục với các bên liên quan Bước 3: Hoàn tất khiếu nại
+				Chuyển thông tin cho nhà vận chuyển, theo dõi quá trình đổi/trả hàng
+				(nếu có) Hoàn tiền cho người mua (trường hợp trả hàng) hoặc chuyển
+				tiền cho người bán (đổi hàng) Xác nhận kết quả và tiến hành đóng
+				khiếu nại.
+				<hr>
+			</div>
+			<div id="chapter4">
+				<span class="title_qt">IV. Quy trình thanh toán </span><br/>
+				Ban quản lý Sàn giao dịch TMĐT đưa ra các
+				phương thức thanh toán, Thành viên có thể tham khảo và lựa chọn áp
+				dụng nếu phù hợp: + Cách 1: Thanh toán đảm bảo qua cổng thanh toán
+				Vivmall.vn Thanh toán trước online bằng thẻ ATM nội địa
+				(Vietcombank, Viettinbank, Đông Á, thẻ thanh toán quốc tế (Visa,
+				Master card...) + Cách 2:Thanh toán khi nhận hàng (COD) Khách hàng
+				có thể lựa chọn hình thức thanh toán khi nhận hàng (COD) cho giao
+				dịch của mình. Nếu khách hàng không hài lòng về sản phẩm nhận được,
+				kể cả sau khi khách hàng đã nhận hàng và thanh toán, khách hàng vẫn
+				có thể tiến hành khiếu nại. Vivmall.vn sẽ bảo vệ quyền lợi chính
+				đáng của khách hàng. Khoản thanh toán của khách hàng sẽ chỉ được
+				chuyển vào tài khoản người bán khi khách hàng xác nhận hoàn tất giao
+				dịch hoặc trong vòng từ 24h ngày kể từ lúc giao hàng thành công nếu
+				khách hàng không có bất kỳ khiếu nại nào về hàng hóa nhận được.
+
+				<hr>
+			</div>
+			<div id="chapter5">
+				<span class="title_qt">V. Đảm bảo an toàn giao dịch</span><br/>
+				Ban quản lý đã sử dụng các dịch vụ để
+				bảo vệ thông tin và việc thanh toán của người tiêu dùng. Để đảm bảo
+				các giao dịch được tiến hành thành công, hạn chế tối đa rủi ro có
+				thể phát sinh, yêu cầu các Thành viên tham gia Sàn giao dịch TMĐT
+				lưu ý và tuân thủ các nội dung cam kết với khách hàng như sau: a)
+				Bảo vệ là việc hỗ trợ cho quý khách, hệ thống của Sàn giao dịch
+				Vivmall.vn được thiết kế để quý khách có thể không đặt hàng cho đến
+				khi quý khách an toàn thoát khỏi chế độ đặt hàng; b) Bất cứ một sự
+				gian lận và sử dụng trái phép thẻ thanh toán bởi ai đó để mua hàng
+				từ quý khách, chúng tôi sẽ hoàn lại số tiền chúng tôi đã nhận của
+				quý khách chỉ khi quý khách thông báo đến Nhà Phát hành Thẻ và liên
+				lạc ngay với chúng tôi khi quý khách phát hiện việc không sử dụng
+				được Thẻ Thanh Toán. c) Ngay sau khi quý khách nhấp vào “đặt hàng”
+				trình duyệt của quý khách sẽ đi vào chế độ an toàn. Dữ liệu liên
+				quan đến đặt hàng của quý khách, thông tin cá nhân của quý khách và
+				chi tiết thanh toán sẽ đi qua tất cả các máy chủ của chúng tôi với
+				hình thức mã hóa. Ngay sau khi quý khách đặt hàng đã hoàn thành quý
+				khách nên thoát khỏi chế độ an toàn. d) Quý khách không nên đưa
+				thông tin chi tiết về việc thanh toán với bất kỳ ai bằng e-mail,
+				chúng tôi không chịu trách nhiệm về những mất mát quý khách có thể
+				gánh chịu trong việc trao đổi thông tin của quý khách qua internet
+				hoặc e-mail. e) Quý khách tuyệt đối không sử dụng bất kỳ chương
+				trình, công cụ hay hình thức nào khác để can thiệp vào hệ thống hay
+				làm thay đổi cấu trúc dữ liệu. Nghiêm cấm việc phát tán, truyền bá
+				hay cổ vũ cho bất kỳ hoạt động nào nhằm can thiệp, phá hoại hay xâm
+				của hệ thống website. Mọi vi phạm sẽ bị xử lý theo Quy chế và quy
+				định của pháp luật. f) Mọi thông tin giao dịch được bảo mật, trừ
+				trường hợp buộc phải cung cấp khi Cơ quan pháp luật yêu cầu.
+				<hr>
+			</div>
+			<div id="chapter6">
+				<span class="title_qt">VI. Chính sách bảo mật thông tin</span> <br/>
+				1. Thu thập thông tin cá nhân Trong
+				quá trình cung cấp dịch vụ Vivmall.vn sẽ nhận được thông tin của các
+				thành viên khi đăng ký như sau: 1.1 Thông tin của thành viên cung
+				cấp khi đăng ký: Tên, địa chỉ, điện thoại, fax, địa chỉ email, số
+				điện thoại di động, tên công ty, địa chỉ công ty, chức vụ, bí danh,
+				ngày tháng năm sinh, giới tính, số thẻ tín dụng ... 1.2 Thông tin
+				nhận được khi thành viên sử dụng dịch vụ: Thông tin do thành viên
+				đăng trên các bảng đánh giá, bình chọn, bình luận về sản phẩm. Thông
+				tin khi các thành viên trả lời các bảng điều tra thông tin
+				Vivmall.vn đưa ra, bằng email, hay trên website. <br/>
+				2. Mục đích sử dụng
+				Vivmall.vn sẽ sử dụng thông tin cá nhân nhận được từ thành viên vào
+				những mục đích như dưới đây, tuy nhiên về những thông tin về người
+				thứ ba do thành viên cung cấp, nếu không có sự đồng ý của người đó
+				thì chúng tôi chỉ sử dụng vào mục đích thứ 2.2, 2.4, 2.6 trong mục
+				này. 2.1 Sử dụng để xác nhận thành viên khi thành viên dùng thông
+				tin để đăng nhập vào hệ thống của Vivmall.vn 2.2 Dùng để giao dịch
+				trong khi mua hàng hóa, dịch của người bán trên Vivmall.vn như dùng
+				để đặt dịch vụ, mua hàng hóa, gửi hàng hóa, thanh toán tiền sau khi
+				mua hàng hóa, dịch vụ .... 2.3 Dùng quảng cáo các thông tin của
+				Vivmall.vn đến các thành viên, gửi email giới thiệu về các sản phẩm
+				dịch vụ trên Vivmall.vn • Cung cấp thông tin về dịch vụ bằng email,
+				bưu điện, điện thoại ... • Dùng để cá nhân hóa nội dung mỗi khi
+				khách hàng truy cập vào Vivmall.vn, dựa theo giới tính, tuổi, nơi
+				sinh sống, sở thích, lịch sử mua hàng, trang web thành viên đã xem.
+				• Dùng để phân tích xu hướng tiêu dùng của khách hàng, với mục đích
+				xây dựng những dịch vụ mới, hoặc cải thiện những dịch vụ cũ. • Dùng
+				để liên lạc với thành viên khi Vivmall.vn điều tra thông tin khách
+				hàng, tổ chức khuyến mại, trao đổi ý kiến thông tin trên bảng đánh
+				giá, bình luận. 2.4 Dùng để trả lời khi thành viên thắc mắc: công ty
+				chúng tôi sẽ trả lời thành viên bằng email, điện thoại, hoặc gửi thư
+				tới địa chỉ của thành viên, khi thành viên thắc mắc. 2.5 Dùng trong
+				các dịch vụ khác do Vivmall.vn cung cấp. 2.6 Dùng cung cấp thông tin
+				cá nhân cho người bán theo mục 4 của chính sách này. 2.7 Dùng cho
+				những mục đích khác của Vivmall.vn không ghi ở trên. Khi đó chúng
+				tôi sẽ thông báo việc sử dụng đó trên www.Vivmall.vn <br/>
+				3. Sử dụng
+				thông tin cá nhân 3.1 Vivmall.vn sử dụng thông tin cá nhân của thành
+				viên theo luật pháp của Việt Nam. 3.2 Sử dụng thông tin cá nhân của
+				thành viên để thực hiện các mục đích nêu tại điều 2 của quy định
+				này. 3.3 Vivmall.vn sẽ cung cấp thông tin của thành viên ở mức độ
+				nhất định cho người bán, để phục vụ việc giao dịch giữa thành viên
+				và người bán, như khi thành viên đặt hàng, dịch vụ trên Vivmall.vn.
+				Sau khi bán hàng người bán có thể sử dụng thông tin của thành viên
+				để dùng trong phân tích xu hướng tiêu dùng, gửi thông tin để quảng
+				cáo, hoặc nâng cấp dịch vụ của người bán. Công ty chúng tôi sẽ ràng
+				buộc trách nhiệm của người bán trong việc tuân theo các điều luật về
+				bảo hộ thông tin cá nhân, và những chính sách sử dụng thông tin cá
+				nhân trên Vivmall.vn. Tuy nhiên chúng tôi không đảm bảo được 100%
+				người bán thực hiện nghiêm túc chính sách trên, do vậy để biết rõ
+				thông tin thành viên nên liên lạc với người bán.<br/>
+				4. Chia sẻ thông
+				tin Vivmall.vn biết rằng thông tin về khách hàng là một phần rất
+				quan trọng trong việc kinh doanh và chúng sẽ không được bán, trao
+				đổi cho một bên thứ ba nào khác. Chúng tôi sẽ không chia sẻ thông
+				tin khách hàng trừ những trường hợp cụ thể sau đây: • Để bảo vệ
+				Vivmall.vn và các bên thứ ba khác: Chúng tôi chỉ đưa ra thông tin
+				tài khoản và những thông tin cá nhân khác khi tin chắc rằng việc đưa
+				những thông tin đó là phù hợp với luật pháp, bảo vệ quyền lợi, tài
+				sản của người sử dụng dịch vụ, của Vivmall.vn và các bên thứ ba
+				khác. • Theo yêu cầu pháp l‎ý từ một cơ quan chính phủ hoặc khi
+				chúng tôi tin rằng việc làm đó là cần thiết và phù hợp nhằm tuân
+				theo các yêu cầu pháp l‎ý • Trong những trường hợp còn lại, chúng
+				tôi sẽ có thông báo cụ thể cho Quý Khách Hàng khi phải tiết lộ thông
+				tin cho một bên thứ ba và thông tin này chỉ được cung cấp khi được
+				sự phản hồi đồng ‎ý‎ từ phía Quý Khách Hàng. VD: các chương trình
+				khuyến mãi có sự hợp tác, tài trợ với các đối tác của Vivmall.vn;
+				cung cấp các thông tin giao nhận cần thiết cho các đơn vị vận
+				chuyển. <br/>
+				5. Bảo mật thông tin khách hàng - Để giữ bảo mật các thông
+				tin về thẻ tín dụng của thành viên, Vivmall.vn sử dụng kỹ thuật SSL
+				(Secure Sockets Layer). - Một điều quan trọng đối với khách hàng là
+				việc tự bảo vệ bạn trước sự tiếp cận thông tin về password khi bạn
+				dùng chung máy tính với nhiều người. Khi đó, bạn phải chắc chắn đã
+				thoát khỏi tài khoản sau khi sử dụng dịch vụ của chúng tôi. 6. Xác
+				nhận, chỉnh sửa thông tin cá nhân 6.1 Thành viên có thể xác nhận,
+				chỉnh sửa, thêm, xóa, hủy bỏ tài khoản của mình, yêu cầu Vivmall.vn
+				không cung cấp thông tin cho người bán trên Vivmall.vn 6.2 Trong
+				trường hợp thành viên không thể đăng nhập vào để xem thông tin của
+				mình, thì thành viên tiến hành làm các thủ tục theo quy định của
+				Vivmall.vn để yêu cầu cấp lại thông tin về tài khoản.
+				<hr>
+			</div>
+			<div id="chapter7">
+				<span class="title_qt">VII. Quản lý thông tin xấu</span><br/>
+				1. Thành viên sẽ tự chịu trách nhiệm về
+				bảo mật và lưu giữ mọi hoạt động sử dụng dịch vụ dưới tên đăng ký,
+				mật khẩu và hộp thư điện tử của mình. Thành viên có trách nhiệm
+				thông báo kịp thời cho Sàn Giao dịch Thương mại điện tử Vivmall.vn
+				về những hành vi sử dụng trái phép, lạm dụng, vi phạm bảo mật, lưu
+				giữ tên đăng ký và mật khẩu của bên thứ ba để có biện pháp giải
+				quyết phù hợp. <br/>
+				2. Thành viên phải cung cấp đầy đủ, chính xác các
+				thông tin đăng tải trên Sàn giao dịch TMĐT Vivmall.vn, đặc biệt
+				thông tin về giá cả, chất lượng sản phẩm. Mọi thông tin được sửa
+				đổi, bổ sung, thay thế phải được thông báo kịp thời cho Ban quản lý
+				Sàn và cập nhật trên Website. <br/>
+				3. Thành viên không sử dụng dịch vụ
+				của Sàn giao dịch TMĐT Vivmall.vn vào những mục đích bất hợp pháp,
+				không hợp lý, lừa đảo, đe doạ, thăm dò thông tin bất hợp pháp, phá
+				hoại, tạo ra và phát tán virus gây hư hại tới hệ thống, cấu hình,
+				truyền tải thông tin của Sàn giao dịch TMĐT Vivmall.vn hay sử dụng
+				dịch vụ của mình vào mục đích đầu cơ, lũng đoạn thị trường tạo những
+				đơn đặt hàng, chào hàng giả, kể cả phục vụ cho việc phán đoán nhu
+				cầu thị trường. Trong trường hợp vi phạm thì thành viên phải chịu
+				trách nhiệm về các hành vi của mình trước pháp luật.<br/>
+				4. Thành viên
+				không được hành động gây mất uy tín của Sàn giao dịch MTĐT
+				Vivmall.vn dưới mọi hình thức như gây mất đoàn kết giữa các thành
+				viên bằng cách sử dụng tên đăng ký thứ hai, thông qua một bên thứ ba
+				hoặc tuyên truyền, phổ biến những thông tin không có lợi cho uy tín
+				của Sàn giao dịch TMĐT Vivmall.vn.
+				<hr>
+			</div>
+			<div id="chapter8">
+				<span class="title_qt">VIII. Trách nhiệm trong trường hợp phát sinh lỗi kỹ thuật</span><br/>
+				Khi thực hiện các giao dịch trên Sàn, bắt buộc các thành viên phải thực hiện
+				đúng theo các quy trình hướng dẫn. Ban quản lý Sàn giao dịch TMĐT
+				Vivmall.vn cam kết cung cấp chất lượng dịch vụ tốt nhất cho các
+				thành viên tham gia giao dịch. Trường hợp phát sinh lỗi kỹ thuật,
+				lỗi phần mềm hoặc các lỗi khách quan khác dẫn đến Thành viên không
+				thể tham gia giao dịch được thì các Thành viên thông báo cho Ban
+				quản lý Sàn giao dịch TMĐT quan địa chỉ email: hotro@vivmall.vn
+				Chúng tôi sẽ khắc phục lỗi trong thời gian sớm nhất, tạo điều kiện
+				cho các Thành viên tham gia Sàn giao dịch TMĐT Vivmall.vn; Tuy
+				nhiên, Ban quản lý Sàn giao dịch TMĐT Vivmall.vn sẽ không chịu trách
+				nhiệm giải quyết trong trường hợp thông báo của các Thành viên không
+				đến được Ban quản lý, phát sinh từ lỗi kỹ thuật, lỗi đường truyền,
+				phần mềm hoặc các lỗi khác không do Ban quản lý gây ra.
+				<hr>
+			</div>
+			<div id="chapter9">
+				<span class="title_qt">IX. Quyền và nghĩa vụ của Ban quản lý website TMĐT Vivmall.vn</span><br/>
+				1.1
+				Quyền của Ban quản lý Sàn giao dịch TMĐT Vivmall.vn: a) Ban quản lý
+				Sàn giao dịch TMĐT Vivmall.vn có quyền kiểm tra thông tin các tổ
+				chức, cá nhân đưa lên Sàn đặc biệt là thông tin về giá cả và chất
+				lượng sản phẩm; b) Từ chối, tạm ngừng hoặc chấm dứt cung cấp dịch vụ
+				cho Thành viên trongtrường hợp có cơ sở chứng minh Thành viên cung
+				cấp thông tin cho Sàn giao dịch TMĐT Vivmall.vn không chính xác,
+				không đầy đủ, vi phạm pháp luật, đạo đức, thuần phong mỹ tục Việt
+				Nam; c) Thu hồi Giấy chứng nhận thành viên, từ chối cung cấp một
+				hoặc tất cả dịch vụ trên Sàn trong trường hợp: Thành viên vi phạm
+				Quy chế hoặc có những hành vi ảnh hưởng đến hoạt động kinh doanh
+				trên Sàn giao dịch TMĐT Vivmall.vn. Trong trường hợp này Ban quản lý
+				sẽ thông báo cho thành viên trong thời hạn ít nhất là một (01)
+				tháng. d) Thu hồi Giấy chứng nhận thành viên, từ chối cung cấp một
+				hoặc tất cả dịch vụ nếu Thành viên không tham gia hoạt động giao
+				dịch và trao đổi thông tin trên Sàn giao dịch TMĐT Vivmall.vn liên
+				tục trong ba (03) tháng. Nếu muốn tiếp tục trở thành Thành viên và
+				được cấp lại Giấy chứng nhận thành viên và các ưu đãi dành cho Thành
+				viên thì phải đăng ký lại từ đầu theo mẫu và thủ tục của Sàn giao
+				dịch TMĐT Vivmall.vn; e) Thu hồi ngay Giấy chứng nhận thành viên, từ
+				chối cung cấp một hoặc tất cả dịch vụ nếu Thành viên không đủ năng
+				lực tài chính thực hiện nghĩa vụ khi tham gia giao dịch trên Sàn
+				hoặc/và có những hoạt động lừa đảo, giả mạo, gây rối loạn thị
+				trường, gây mất đoàn kết đối với các Thành viên khác của Sàn giao
+				dịch TMĐT Vivmall.vn. Trong trường hợp thu hồi Giấy chứng nhận thành
+				viên, chấm dứt cung cấp toàn bộ dịch vụ, ưu đãi của Thành viên thì
+				tất cả các chứng nhận, các quyền của thành viên được cấp sẽ mặc
+				nhiên hết giá trị và bị chấm dứt; f) Sàn giao dịch TMĐT Vivmall.vn
+				giữ bản quyền sử dụng dịch vụ và các nội dung trên Sàn giao dịch
+				TMĐT Vivmall.vn theo luật bản quyền quốc tế và các quy dịnh pháp
+				luật về bảo hộ sở hữu trí tuệ tại Việt Nam. “Sàn giao dịch TMĐT
+				Vivmall.vn” và tất cả các biểu tượng, logo, nội dung theo các ngôn
+				ngữ khác nhau đều thuộc quyền sở hữu của Sàn giao dịch TMĐT
+				Vivmall.vn. Nghiêm cấm mọi hành vi sao chép, sử dụng và phổ biến bất
+				hợp pháp các quyền sở hữu trên. 1.2 Trách nhiệm của Ban quản lý Sàn
+				giao dịch TMĐT Vivmall.vn: a) Thẩm tra và xác thực thông tin đăng ký
+				kinh doanh (đối với thương nhân) hoặc nhân thân (đối với cá nhân)
+				tham gia bán hàng hóa hoặc cung ứng dịch vụ trên Sàn Giao dịch TMĐT;
+				b) Thiết lập cơ chế cung cấp thông tin và giao kết hợp đồng trên
+				website thương mại điện tử cho phép thương nhân, tổ chức, cá nhân
+				tham gia Sàn giao dịch TMĐT thực hiện quy trình giao kết Hợp đồng;
+				c) Lưu giữ thông tin đăng ký của thương nhân hoặc thông tin cá nhân
+				của các cá nhân ngay từ ngày thương nhân hoặc cá nhân đăng ký tham
+				gia Sàn giao dịch TMĐT và thường xuyên cập nhật các thông tin thay
+				đổi, bổ sung có liên quan; d) Áp dụng các biện pháp cần thiết để đảm
+				bảo an toàn thông tin liên quan đến bí mật kinh doanh của thương
+				nhân và thông tin cá nhân. Không được tiết lộ, chuyển nhượng, cho
+				thuê hoặc bán các thông tin liên quan đến bí mật kinh doanh hoặc
+				thông tin cá nhân của người tiêu dùng khi chưa được sự đồng ý của
+				các bên liên quan, trừ trường hợp pháp luật có quy định khác; e)
+				Tích cực hỗ trợ cơ quan quản lý nhà nước điều tra các hành vi kinh
+				doanh vi phạm pháp luật; cung cấp các tài liệu như thông tin đăng
+				ký, lịch sử dữ liệu giao dịch, … của đối tượng có hành vi vi phạm
+				pháp luật trên sàn giao dịch thương mại điện tử; f) Khi người tiêu
+				dùng mua hàng hóa hoặc dịch vụ phát sinh mâu thuẫn với người bán
+				hoặc bị tổn hại lợi ích hợp pháp, thương nhân, tổ chức vận hành sàn
+				thương mại điện tử phải cung cấp cho người tiêu dùng thông tin đăng
+				ký của người bán, tích cực hỗ trợ người tiêu dùng bảo vệ quyền và
+				lợi ích hợp pháp của bản thân; g) Chịu trách nhiệm xây dựng Sàn giao
+				dịch bao gồm một số công việc chính như: nghiên cứu, thiết kế, mua
+				sắm các thiết bị phần cứng và phần mềm, kết nối Internet, xây dựng
+				chính sách phục vụ cho hoạt động Sàn giao dịch TMĐT Vivmall.vn trong
+				điều kiện và phạm vi cho phép; h) Xây dựng các chính sách dịch vụ áp
+				dụng cho từng đối tượng trên Sàn giao dịch. Các chính sách này sẽ
+				được công bố trên Sàn giao dịch TMĐT Vivmall.vn; i) Triển khai và
+				hợp tác với các đối tác trong việc xây dựng hệ thống các dịch vụ,
+				các công cụ tiện ích phục vụ cho việc giao dịch của các Thành viên
+				tham gia và người sử dụng trên Sàn giao dịch TMĐT Vivmall.vn; j) Duy
+				trì hoạt động bình thường của Sàn giao dịch TMĐT Vivmall.vn và khắc
+				phục các sự cố xảy ra ảnh hưởng tới hoạt động của Sàn. Trường hợp
+				xảy ra các sự kiện bất khả kháng như: Thiên tai, hỏa hoạn, biến động
+				xã hội, các quyết định của cơ quan chức năng ... thì Sàn giao dịch
+				TMĐT Vivmall.vn không phải chịu trách nhiệm liên đới; k) Ban quản lý
+				Sàn giao dịch TMĐT Vivmall.vn có trách nhiệm hướng dẫn các Thành
+				viên thực hiện quá trình mua bán qua Sàn giao dịch TMĐT Vivmall.vn
+				đặc biệt là việc áp dụng chức năng thanh toán trực tuyến.
+				<hr>
+			</div>
+			<div id="chapter10">
+				<span class="title_qt">X. Quyền và trách nhiệm thành viên tham gia Sàn giao dịch Vivmall.vn</span><br/>
+				1. Quyền và nghĩa vụ thành viên: 1.1 Quyền của thành viên: a) Có thể
+				tính phí tùy theo dạng thành viên: Free, bạc, đồng, kim cương. Phí
+				thành viên được hiểu là khoản phí để được tham gia hoạt động trên
+				Sàn giao dịch TMĐT Vivmall.vn, nhưng không tính đến các khoản phí
+				khác như phí thuê quảng cáo, các dịch vụ tư vấn, các khoản phí khác
+				trên Sàn giao dịch TMĐT Vivmall.vn. b) Tạo một cửa hàng riêng để
+				trưng bầy hàng hoá và tiến hành giao dịch kinh doanh cũng như quảng
+				bá doanh nghiệp của mình trên Sàn giao dịch TMĐT Vivmall.vn. c) Được
+				cấp một tên đăng ký và mật khẩu riêng để được vào sử dụng các dịch
+				vụ, quản lý cửa hàng và các giao dịch của mình trên Sàn giao dịch
+				TMĐT Vivmall.vn. d) Được hỗ trợ, hướng dẫn sử dụng được các công cụ,
+				các tính năng phục vụ cho việc xây dựng cửa hàng, tiến hành giao
+				dịch và sử dụng các dịch vụ tiện ích trên Sàn giao dịch TMĐT
+				Vivmall.vn. e) Hưởng các chính sách ưu đãi do Sàn giao dịch TMĐT
+				Vivmall.vn hay các đối tác thứ ba cung cấp trên Sàn giao dịch TMĐT
+				Vivmall.vn. Các chính sách ưu đãi này sẽ được đăng tải trực tiếp
+				trên Sàn giao dịch TMĐT Vivmall.vn hoặc được gửi trực tiếp đến các
+				thành viên. f) Hưởng các chính sách ưu đãi do Sàn giao dịch TMĐT
+				Vivmall.vn hay các đối tác thứ ba cung cấp trên Sàn giao dịch TMĐT
+				Vivmall.vn. Các chính sách ưu đãi này sẽ được đăng tải trực tiếp
+				trên Sàn giao dịch TMĐT Vivmall.vn hoặc được gửi trực tiếp đến các
+				thành viên. 2.2. Nghĩa vụ của Thành viên: a) Đảm bảo tính chính xác,
+				trung thực của thông tin về hàng hóa, dịch vụ của mình chào bán trên
+				Sàn giao dịch TMĐT. b) Tuân thủ các quy định pháp luật về cung cấp
+				thông tin và giao kết hợp đồng trên website thương mại điện tử và
+				các quy định tại Quy chế này. c) Tuân thủ quy định của pháp luật có
+				liên quan về thanh toán, quảng cáo, khuyến mại. d) Bảo mật và lưu
+				giữ và mọi hoạt động sử dụng dịch vụ dưới tên đăng ký, mật khẩu và
+				hộp thư điện tử của mình. e) Thông báo kịp thời cho Sàn giao dịch
+				TMĐT Vivmall.vn về những hành vi sử dụng trái phép, lạm dụng, vi
+				phạm bảo mật, lưu giữ tên đăng ký và mật khẩu của bên thứ ba để có
+				biện pháp xử lý kịp thời. f) Cung cấp cho Sàn giao dịch TMĐT
+				Vivmall.vn và đăng tải, cập nhật những thông tin trên website đầy đủ
+				và chính xác, đặc biệt thông tin về giá cả và chất lượng sản phẩm mà
+				thành viên cung cấp. g) Chịu trách nhiệm về nội dung, hình ảnh của
+				thông tin Doanh nghiệp và các thông tin khác cũng như toàn bộ quá
+				trình giao dịch với các đối tác trên Sàn giao dịch TMĐT Vivmall.vn.
+				Mỗi thành viên phải có quy trình giao hàng đầy đủ rõ ràng. h) Không
+				sử dụng dịch vụ của Sàn giao dịch TMĐT Vivmall.vn vào những mục đích
+				bất hợp pháp, không hợp lý, lừa đảo, đe doạ, thăm dò thông tin bất
+				hợp pháp, phá hoại, tạo ra và phát tán virus gây hư hại tới hệ
+				thống, cấu hình, truyền tải thông tin của Sàn giao dịch TMĐT
+				Vivmall.vn hay sử dụng dịch vụ của mình vào mục đích đầu cơ, lũng
+				đoạn thị trường tạo những đơn đặt hàng, chào hàng giả, kể cả phục vụ
+				cho việc phán đoán nhu cầu thị trường. Trong trường hợp vi phạm thì
+				thành viên phải chịu trách nhiệm về các hành vi của mình trước pháp
+				luật. i) Không được thay đổi, chỉnh sửa, gán gép, copy, truyền bá,
+				phân phối, cung cấp và tạo những công cụ tương tự của dịch vụ do Sàn
+				giao dịch TMĐT Vivmall.vn cung cấp cho một bên thứ ba nếu không được
+				sự đồng ý của Sàn giao dịch TMĐT Vivmall.vn trong bản Quy chế này.
+				j) Không được hành động gây mất uy tín của Sàn giao dịch TMĐT
+				Vivmall.vn dưới mọi hình thức như gây mất đoàn kết giữa các thành
+				viên bằng cách sử dụng tên đăng ký thứ hai, thông qua một bên thứ ba
+				hoặc tuyên truyền, phổ biến những thông tin không có lợi cho uy tín
+				của Sàn giao dịch TMĐT Vivmall.vn.
+
+
+				<hr>
+			</div>
+			<div id="chapter11">
+				<span class="title_qt">XI. Điều khoản áp dụng</span><br/>
+				1. Tranh chấp phát sinh trong quá trình giao
+				dịch trên Sàn Giao Dịch sẽ được các bên thương lượng giải quyết,
+				trường hợp không tự giải quyết được thì đưa ra Cơ quan có thẩm quyền
+				giải quyết theo quy định pháp luật; 2. Quy chế của Sàn giao dịch
+				TMĐT có hiệu lực thi hành kể từ ngày đăng tải trên website
+				http://www.Vivmall.vn 3. Trường hợp phải thay đổi nội dung quy chế
+				để đảm bảo mục đích và hoạt động của Sàn thì Ban quản lý sẽ thông
+				báo trên Sàn giao dịch trước 5 (năm) ngày. Sau 5 (năm) ngày thông
+				báo, Quy chế được sửa đổi, bổ sung, thay thế chính thức có hiệu lực.
+				Việc Thành viên tiếp tục sử dụng dịch vụ sau khi Quy chế sửa đổi
+				được công bố và thực thi đồng nghĩa với việc các thành viên đã chấp
+				nhận Quy chế sửa đổi này.
+
+
+				<hr>
+			</div>
+		</div>
+	</div>
+	<div id="footer"></div>
+</body>
+</html>

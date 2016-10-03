@@ -1,0 +1,63 @@
+$(function(){
+ 
+   // var lang=get_lang_current();
+	var lang="VN";
+	exe_load_header(function(output) {		   
+		if(output==true){
+                	load_data();			  
+			  CKEDITOR.replace( 'idcontentabout',
+			  {
+				filebrowserImageUploadUrl: ReturnHosing()+"UploadImageController/upload_image.htm"
+			  } );
+		}
+    });
+   
+	function load_data(){
+		var pdata = {
+		  'lang':lang
+		};
+		Return_get("AboutController","get_about",pdata,"GET",function(data){
+			if(data!=null){
+				//CKEDITOR.instances.idcontentabout.setData(data.desc);
+                $("#idcontentabout").text(data.desc);
+			}
+			
+		});
+	}
+	 function htmlEntities(str) {
+	    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&blink;');
+	}
+	function get_json_about(){
+		var obj={};
+		var str1	 = CKEDITOR.instances.idcontentabout.getData();		
+		str1 = htmlEntities(str1);
+		obj.desc=str1;	
+	    var str= JSON.stringify(obj);		
+		return str;
+    
+ } 
+	$("#btn_submit").click(function(){
+		
+		 var json_about=get_json_about();
+         var pdata="{'str':'"+json_about+"','lang':'"+lang+"'}"; 
+		 blockbg();
+		 Return_get("AboutController","save_about",pdata,"POST",function(data){
+			if(data!=null){
+				unblockbg();
+				var error = parseInt(data.result);				
+				if(error == 0 ){
+					showdialog('dialogmanual',0,'Lưu thành công','','');
+					
+				}					
+				else{
+					showdialog('dialogmanual',0,'Lưu không thành công','','');					
+				
+				}
+			}
+			else{
+				showdialog('dialogmanual',0,'Lưu không thành công','','');
+			}
+		});
+	});	 
+	
+});

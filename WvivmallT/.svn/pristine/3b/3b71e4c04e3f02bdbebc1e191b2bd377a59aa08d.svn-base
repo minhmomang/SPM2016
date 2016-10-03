@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Vivmall Web mua sắm trực tuyến</title>
+
+<script type="text/javascript" charset="utf-8" src="js/jquery-1.10.2.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="js/extra.js"></script>
+<script async type="text/javascript" src="js/client/register.js"></script>
+<script  async type="text/javascript" src="js/client/login-facebook.js"></script>
+<script async  type="text/javascript" src="js/client/login-google.js"></script>
+</head>
+<body>
+	<div id="header" class=""></div>
+	<div class="fix-container">
+		<div class="container-fluid">
+			<div class="row ">
+				<div class="col-md-offset-1 col-md-10">
+					<div class="bgformregister"
+						style="margin-top: 30px; margin-bottom: 30px;">
+						<div class="col-sm-12 col-xs-12  col-md-8"
+							style="padding: 0px 10px; border: 1px solid lightgray; border-left: 3px dotted #196219; background-color: #fefdfd;">
+							<div class="row">
+								<div class="col-md-12"
+									style="color: white; background-color: #196219; padding: 10px 10px; font-size: 24px;">
+									Đăng Ký thành viên cùng Vivmall</div>
+							</div>
+							<div class="row" style="margin-top: 20px;">
+								<div class="col-md-12">
+									<label style="color: #666666">Email hoặc tên đăng nhập</label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-md-12">
+									<input type="text" class="form-control" id="txtemail" /> <label
+										id="lbemail" class="lberror"></label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-md-12">
+									<label style="color: #666666">Họ tên</label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-md-12">
+									<input type="text" class="form-control" id="txtfullname" /> <label
+										id="lbfullname" class="lberror"></label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-md-12">
+									<label style="color: #666666">Mật khẩu</label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-md-12">
+									<input type="password" class="form-control" id="txtpassword" />
+									<label id="lbpassword" class="lberror"></label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<label style="color: #666666">Nhập lại mật khẩu</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<input type="password" class="form-control"
+										id="txtpasswordconfirm" /> <label id="lbpasswordconfirm"
+										class="lberror"></label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-md-12">
+									<label style="color: #666666">Điện thoại</label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-md-12">
+									<input type="text" class="form-control" id="txtphone" /> <label
+										id="lbphone" class="lberror"></label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-md-12">
+									<label style="color: #666666">Ngày sinh</label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-md-12">
+									<input type="text" class="form-control" id="txtdateborn" /> <label
+										id="lbdateborn" class="lberror"></label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-md-12">
+									<label style="color: #666666">Capchar</label>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+									<input type="text" class="form-control" id="txtcapchar" /> <label
+										id="lberrorcapchar" class="lberror"></label>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4"
+									style="padding-right: 0px; margin-right: 0px;">
+									<div id="captcha" style="text-align: left">
+										<img style="height: 50px; width: 100%;" />
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+									<img src="images/icon_refresh.png" id="btnrefresh"
+										style="cursor: pointer; width: 45px; height: 40px; border-radius: 40px; margin-top: 5px;">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12"
+									style="text-align: center; margin-top: 10px; padding-bottom: 10px;">
+									<button type="button" class="btnregister"
+										style="padding: 5px 25px" id="btnresigeter">Đăng ký</button>
+									<a href="signin.html"
+										style="text-decoration: none; cursor: pointer">Đăng nhập ?</a>
+								</div>
+							</div>
+
+
+						</div>
+						<div class="hidden-xs hidden-sm col-md-3" style="padding: 10px 20px;">
+							<div class="row">
+								<span style="font-size: 24px; color: #666666;"> Đăng nhập
+									cùng</span>
+							</div>
+
+							<div class="row" style="padding-top: 20px; padding-bottom: 20px">
+								<a id="idloginfacebook"
+									style="cursor: pointer; text-decoration: none"><img
+									src="images/facebook.PNG" /></a>
+
+							</div>
+							<div>Hoặc</div>
+							<div class="row" style="padding-top: 20px;">
+								<div>
+									<a onClick="login_google();"
+										style="cursor: pointer; text-decoration: none"><img
+										src="images/google.PNG" /></a>
+								</div>
+								<div class="cssmobile" style="margin-top: 30px;">
+									<img alt="" src="image/penvertical.png">
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!--end dang nhapj-->
+			</div>
+		</div>
+	</div>
+	<div id="footer"></div>
+
+</body>
+</html>

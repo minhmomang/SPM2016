@@ -1,0 +1,343 @@
+package Controller;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
+
+import BLL.Contactbll;
+import BLL.Memberbll;
+import BLL.OrderBLL;
+import DAL.ErrorDAL;
+import DAL.HelperDAL;
+import DAL.OrderDAL;
+import DAL.ProductDAL;
+import Helper.JsonHelper;
+import Helper.responseUtf8;
+import Model.ItemOrder;
+import Model.ModelPO;
+import Model.ModelPODTL;
+import Model.Order;
+import Model.OrderDetail;
+import Model.ShoppingCartItem;
+import Model.Product.ProductData;
+
+
+@Controller
+@RequestMapping(value="OrderController")
+public class OrderController {
+	ObjectMapper mapper = new ObjectMapper();
+	@RequestMapping(value="insert_order",method=RequestMethod.GET)
+	@ResponseBody
+	public void insert_order(
+			@RequestParam("str") String str,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException{
+		Gson gson = new Gson();
+		Map<String,String> objrs = new HashMap<String,String>();
+		objrs= OrderBLL.insert_order(str, request, response);
+		String result = gson.toJson(objrs);
+		responseUtf8.response_Utf8(response,result);			
+	}
+	
+	
+	@RequestMapping(value="get_info_order",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_info_order(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	
+		HttpSession session = request.getSession();
+		String result="";
+		if(session.getAttribute("orderid")==null || session.getAttribute("orderid")=="")
+		{
+			
+			Model.Order _order = new Model.Order();
+			Gson gson = new Gson();
+			String json = gson.toJson(_order);
+			result=json;
+		}
+		else
+		{
+			String orderid = session.getAttribute("orderid").toString();
+			
+			Model.Order order = OrderDAL.getInfoOrder(orderid);
+			Gson gson = new Gson();
+			String json = gson.toJson(order);				
+			result=json;
+		}
+		responseUtf8.response_Utf8(response, result);
+	}
+	@RequestMapping(value="remove_session_shopping_cart",method=RequestMethod.GET)
+	@ResponseBody
+	public void remove_session_shopping_cart(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	
+		HttpSession session = request.getSession();
+		session.setAttribute("orderid",null);
+		session.setAttribute("cart",null);
+	}
+	@RequestMapping(value="get_list_order",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_list_order(
+			
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException{
+		ArrayList<Order>  list  = new ArrayList<Order> ();
+		list = OrderDAL.get_order_manager();		
+		Gson gson = new Gson();
+		JsonElement element = gson.toJsonTree(list, new TypeToken<ArrayList<Order>>() {}.getType());	
+		JsonArray jsonArray = element.getAsJsonArray();
+		System.out.println(jsonArray.toString());
+		responseUtf8.response_Utf8(response, jsonArray.toString());
+	}
+	@RequestMapping(value="find_order_by_id",method=RequestMethod.GET)
+	@ResponseBody
+	public void find_order_by_id(
+			@RequestParam("orderid") String orderid,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException{
+		
+		ArrayList<Order>  list  = new ArrayList<Order> ();
+		list = OrderDAL.get_order_manager_by_id(orderid);		
+		Gson gson = new Gson();
+		JsonElement element = gson.toJsonTree(list, new TypeToken<ArrayList<Order>>() {}.getType());	
+		JsonArray jsonArray = element.getAsJsonArray();
+		responseUtf8.response_Utf8(response, jsonArray.toString());
+	}
+	@RequestMapping(value="get_detail_order_by_id",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_detail_order_by_id(
+			@RequestParam("orderid") String orderid,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException{
+		
+		
+		ArrayList<OrderDetail>  list  = new ArrayList<OrderDetail> ();
+		list = OrderDAL.get_orderdetail_by_id(orderid);		
+		Gson gson = new Gson();
+		JsonElement element = gson.toJsonTree(list, new TypeToken<ArrayList<Order>>() {}.getType());	
+		JsonArray jsonArray = element.getAsJsonArray();
+		responseUtf8.response_Utf8(response, jsonArray.toString());
+	}
+	@RequestMapping(value="process_order",method=RequestMethod.GET)
+	@ResponseBody
+	public void process_order(
+			@RequestParam("orderid") String orderid,
+			@RequestParam("type") String type,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException{
+					
+		String result = OrderDAL.Process_Order(orderid, type);
+		responseUtf8.response_Utf8(response, result);
+	}
+	@RequestMapping(value="get_list_order_by_user",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_list_order_by_user (			
+			HttpServletRequest request,
+			HttpServletResponse response) throws JSONException,IOException, ClassNotFoundException, InstantiationException, SQLException{
+		ArrayList<Order>  list  = new ArrayList<Order> ();		
+		String email = get_user_login(request,response);
+		list = OrderDAL.get_list_order_by_user(email);		
+		Gson gson = new Gson();
+		JsonElement element = gson.toJsonTree(list, new TypeToken<ArrayList<Order>>() {}.getType());	
+		JsonArray jsonArray = element.getAsJsonArray();
+		responseUtf8.response_Utf8(response, jsonArray.toString());
+	}
+	@RequestMapping(value="save_product_later",method=RequestMethod.GET)
+	@ResponseBody
+	public void save_product_later(
+			@RequestParam("product_id") String product_id,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException, JSONException{
+		int rs = -1;		
+		String email = get_user_login(request,response);
+		rs = OrderDAL.save_product_later(email,product_id);		
+		JSONObject obj = new JSONObject();
+		obj.put("result",String.valueOf(rs));
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+	}
+	public static String get_user_login(HttpServletRequest request,HttpServletResponse response) throws JSONException, IOException {
+		String result="";
+		String setSession="";
+		HttpSession session = request.getSession();
+		if(session.getAttribute("email")!=null){
+			
+			result = session.getAttribute("email").toString();			
+		}
+		else{
+			String email="";
+			String pass="";
+			Cookie[] cookies = request.getCookies();
+			if(cookies!=null && cookies.length>0){
+			for(int i = 0; i < cookies.length; i++) { 
+	            Cookie cookie = cookies[i];
+	            if (cookie.getName().equals("email")) {
+	               email = cookie.getValue();
+	            }
+	            else if (cookie.getName().equals("password")) {
+	            	pass = cookie.getValue();
+	            }	            
+	        }  
+			if(email.length()>0 && pass.length()>0){
+				setSession = Memberbll.check_login(email, pass, request);
+				result=email;
+				//System.out.println("branch : "+session.getAttribute("branch"));
+			}
+			}
+		}
+		//System.out.println("User: "+result);
+		return result;
+	}
+	@RequestMapping(value="get_save_product_later",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_save_product_later(
+			HttpServletRequest request,
+			HttpServletResponse response) throws JSONException,IOException, ClassNotFoundException{
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		String email = get_user_login(request,response);
+		ArrayList<ProductData> list = new ArrayList<ProductData>();					
+		list = OrderDAL.get_save_product_later(email);
+		Gson gson = new Gson();
+		JsonElement element = gson.toJsonTree(list, new TypeToken<ArrayList<ProductData>>() {}.getType());	
+		JsonArray jsonArray = element.getAsJsonArray();
+		responseUtf8.response_Utf8(response, jsonArray.toString());
+	}
+	@RequestMapping(value="cancel_save_product_later",method=RequestMethod.GET)
+	@ResponseBody
+	public void cancel_save_product_later(
+			@RequestParam("product_id") String product_id,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException, JSONException{
+		int rs = -1;		
+		String email = get_user_login(request,response);
+		rs = OrderDAL.cancel_save_product_later(email,product_id);		
+		JSONObject obj = new JSONObject();
+		obj.put("result",String.valueOf(rs));
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+	}
+	@RequestMapping(value="finish_order",method=RequestMethod.GET)
+	@ResponseBody
+	public void finish_order(
+			@RequestParam("order") String order,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException, JSONException{
+		int rs = -1;		
+		String email = get_user_login(request,response);
+		rs = OrderDAL.finish_order(order);		
+		JSONObject obj = new JSONObject();
+		obj.put("result",String.valueOf(rs));
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+	}
+	@RequestMapping(value="cancel_order",method=RequestMethod.GET)
+	@ResponseBody
+	public void cancel_order(
+			@RequestParam("order_id") String order_id,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException, JSONException{
+		int rs = -1;		
+		String email = get_user_login(request,response);
+		rs = OrderDAL.cancel_order(order_id);		
+		JSONObject obj = new JSONObject();
+		obj.put("result",String.valueOf(rs));
+		obj.put("email", email);
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+	}
+	@RequestMapping(value="conver_order_tojson",method=RequestMethod.GET)
+	@ResponseBody
+	public void conver_order_tojson(
+			@RequestParam("order_id") String orderid,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException, JSONException{
+		ModelPO objpo = OrderDAL.get_order_by_id(orderid);
+		Gson gson = new Gson();
+		String strobjpo = gson.toJson(objpo);
+		responseUtf8.response_Utf8(response, strobjpo);
+	}
+	@RequestMapping(value="conver_orderdtl_tojson",method=RequestMethod.GET)
+	@ResponseBody
+	public void conver_orderdtl_tojson(
+			@RequestParam("order_id") String orderid,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException, JSONException{
+		ArrayList<ModelPODTL> list = new ArrayList<ModelPODTL>();
+		list = OrderDAL.get_orderdetail_by_id2(orderid);
+		Gson gson = new Gson();
+		JsonElement element = gson.toJsonTree(list, new TypeToken<ArrayList<ModelPODTL>>() {}.getType());
+		JsonArray jsonArray = element.getAsJsonArray();	
+		responseUtf8.response_Utf8(response, jsonArray.toString());
+	}
+	@RequestMapping(value="check_status_order_send_logistic",method=RequestMethod.GET)
+	@ResponseBody
+	public void check_status_order_send_logistic(
+			@RequestParam("order_id") String orderid,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException, JSONException{
+		String str = OrderBLL.check_status_order_send_logistic(orderid);
+		responseUtf8.response_Utf8(response,str);
+	}
+	@RequestMapping(value="update_status_order_after_send_logistic",method=RequestMethod.GET)
+	@ResponseBody
+	public void update_status_order_after_send_logistic(
+			@RequestParam("order_id") String orderid,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, InstantiationException, SQLException, JSONException{
+		int n = OrderDAL.update_status_order_after_send_logistic(orderid);
+		Map<String, String> obj = new HashMap<String, String>();
+		obj.put("result", String.valueOf(n));
+		obj.put("message", ErrorDAL.getMesageError(n));
+		String json = new Gson().toJson(obj);		
+		responseUtf8.response_Utf8(response,json);
+	}
+	@RequestMapping(value="get_info_customer",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_info_customer(
+			@RequestParam("orderid") String orderid,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+	
+		Model.Order order = OrderDAL.getInfoOrder(orderid);
+		Gson gson = new Gson();
+		String json = gson.toJson(order);			
+		responseUtf8.response_Utf8(response, json);
+	}
+	@RequestMapping(value="get_info_chart_report",method=RequestMethod.GET)
+	@ResponseBody
+	public void get_info_report(
+			HttpServletRequest request,
+			HttpServletResponse response
+			) throws IOException{
+		String result = "";
+		result = OrderBLL.get_info_chart_report();
+		responseUtf8.response_Utf8(response, result);
+	}
+	@RequestMapping(value="count_order",method=RequestMethod.GET)
+	@ResponseBody
+	public void count_order(HttpServletResponse response) throws IOException{
+		String result="";
+		result = OrderBLL.count_order();
+		responseUtf8.response_Utf8(response, result);
+	}
+}

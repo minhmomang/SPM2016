@@ -1,0 +1,1 @@
+bo security-realm="ApplicationRealm" trong urn:jboss:domain:remoting:1.1 file standalone.xml

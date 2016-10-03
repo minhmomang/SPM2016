@@ -1,0 +1,18 @@
+				
+			
+				
+				
+				
+					<div class="row">
+						<div class="col-xs-12 col-md-3 col-lg-3">@orderid</div>
+						<div class="col-xs-12 col-md-2  col-lg-2">@dateorder</div>
+						<div class="col-xs-12 col-md-2  col-lg-2">@productname</div>
+						<div class="col-xs-12 col-md-2  col-lg-2 pricehistory"> @price VNĐ</div>
+						<div class="col-xs-12 col-md-1  col-lg-1 statushistory">@status</div>
+						<div class="col-xs-12 col-md-2  col-lg-2">
+							<a style="color: #50a190;cursor:pointer" onClick="cancel_order('@orderid')" ><span
+									class="glyphicon glyphicon-trash"></span><span
+									style="font-family: cursive; text-decoration: underline;">
+										Hủy chọn</span></a>
+						</div>
+					</div>

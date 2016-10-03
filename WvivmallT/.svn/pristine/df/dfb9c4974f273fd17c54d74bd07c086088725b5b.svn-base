@@ -1,0 +1,78 @@
+<div class="col-md-12" id="box_@id">
+				<div class="row">
+					<div class="col-md-12" >
+						<textarea id="txtcontentcomment_@id" class="form-control" placeholder="Vui lòng nhập nội dung"  rows="5" style="border:solid 1px #c1bfbf">@valuecomment</textarea>
+					</div>
+				</div>
+				<div class="row" style="min-height:100px;margin-top:5px;display:none" id="infologincomment_@id">
+					<div class="col-md-6" style="border-right:solid 1px #666666">
+						<div class="row">
+							<div class="col-md-12">
+								<span style="color:#666666">Đăng nhập bằng tài khoản vmall để bình luận của bạn được duyệt & trả lời nhanh hơn</span>
+							</div>
+						</div>
+						<div class="row"  style="margin-top:10px;">
+							<div class="col-md-4">
+								<a id="idloginfacebook"
+									style="cursor: pointer; text-decoration: none"><img
+									src="images/facebook.PNG" class="img-responsive" style="height:50px" /></a>
+							</div>
+							<div class="col-md-4">
+								<a onClick="login_google();"
+									style="cursor: pointer; text-decoration: none"><img
+									src="images/google.PNG" class="img-responsive" style="height:50px" /></a>
+							</div>
+							<div class="col-md-4">
+								<a style="cursor:pointer" onClick="Login(@id);">
+									<img alt="" src="image/vivlogo.jpg" class="img-responsive" style="height:50px">
+								</a>								
+							</div>
+						</div>
+						<div class="row" style="margin-top:10px;">
+							<div class="col-md-12">
+								<span style="color:#666666">Bạn chưa có tài khoản vmall? <a href="register.html" target="_blank" style=" text-decoration: none;">Đăng ký ngay</a> </span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-10">
+								<span style="color:#666666">Bạn chưa có tài khoản vivmall.com? Đăng ký ngay</span>
+							</div>
+							<div class="col-md-2">
+								<button class="btnclose" onClick="close_box(@id);">X</button>
+							</div>
+						</div>
+						<div class="row" style="margin-top:5px;">
+							<div class="col-md-12">
+								<input type="text" id="txtfullname_@id" class="form-control" placeholder="Họ tên (bắt buộc)" />
+							</div>
+						</div>
+						<div class="row" style="margin-top:10px;">
+							<div class="col-md-12">
+								<input type="text" id="txtemail_@id" class="form-control" placeholder="Email (bắt buộc)" />
+							</div>
+						</div>
+						<div class="row" style="margin-top:5px;">
+							<div class="col-md-12">
+								<button class="btnregisterme" onClick="fnregister(@id);">Hoàn tất</button>
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="row" style="height:20px;" id="infosend_@id">
+					<div class="col-md-2" style="display:none">
+						<div class="fileUpload">
+						    <img src="img/capture.jpg" style="width:60px;height:40px;" />
+						    <input type="file" class="upload" accept="image/*" id="imgcomment_@id" name="imgcomment_@id" />
+						</div>
+						<div style="float:left;width:100%;color:red" id="messageupload_@id" >							
+						</div>						
+					</div>
+					<div class="col-md-11"></div>
+					<div class="col-md-1">
+						<button class="btnsendmessage " onClick="fnsendcomment(@id);">Gửi</button>
+					</div>					
+				</div>				
+					
+			</div>

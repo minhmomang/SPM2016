@@ -1,0 +1,9 @@
+
+<table class="info_report_period">
+	<tr>
+	<td class="text_date">Ngày</td><td class="text_income">Doanh thu</td>
+	<td class="text_NL_period">Từ ngân lượng</td><td class="text_rest_period">Nguồn còn lại</td>
+	<td class="text_order_period">HĐ thành công</td><td class="text_order_period">HĐ bị hủy</td>
+	</tr>
+	@item
+</table>

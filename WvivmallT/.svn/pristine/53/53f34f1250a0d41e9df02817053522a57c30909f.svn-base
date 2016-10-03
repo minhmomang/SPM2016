@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- bootstrap -->
+<script src="../admin/js/jquery-1.11.2.min.js"></script>
+<script src='../admin/js/extra.js'></script>
+<script src='../admin/js/jquery.session.js'></script>
+
+<title>Home admin</title>
+</head>
+<body>
+
+<script>
+//window.location.replace("admin/Subject/Subject.html");
+$(function() {
+	
+		//window.location.replace("admin/Subject/Subject.html");
+	exe_load_header(function(output) {});
+});
+</script>
+	
+	<div class="container-fluid" style="margin-top: 10px;">
+		<div id="header"></div>
+		<div class="row">
+			<div class="col-md-12" style="text-align:center">
+				<input type="button" style="color:#00943a" value="getprofile_admin" id="getprofile_admin" />
+			</div>
+		</div>
+	</div>        
+      
+</body>
+</html>

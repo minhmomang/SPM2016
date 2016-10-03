@@ -1,0 +1,41 @@
+		
+		<div id="header-product_@cate"class="row" style="padding-top: 15px;">
+			<div style="width: 4%; float: left;">
+				<img class="star cssmobile" src="@icon">
+			</div>
+			<div
+				style="width: 96%; float: left; border-bottom: 1px solid @colorcate">
+				<span style="color: @colorcate; font-size: 30px; font-weight: bolder;">@namecate</span>
+			</div>
+
+		</div>
+		<div class="" id="content-product_@cate">
+			<div class="col-md-3" style="background-color: gray; border: 1px solid lightgray; margin: 0px; padding: 0px;" id="@cate_product0">
+				<img alt="" src="image/126.gif" style="height: 30px;width:30px;">	
+			</div>
+			<div class="col-md-9" style="border:1px solid lightgray">
+				<div class="row" >
+					<div class="col-md-4 col-sm-6 box01" id="@cate_product1" style="height:222px;text-align:center">
+						<img alt="" src="image/126.gif" style="height: 30px;width:30px;">						
+					</div>
+					<div class="col-md-4 col-sm-6 box01" id="@cate_product2" style="height:222px;text-align:center">
+						<img alt="" src="image/126.gif" style="height: 30px;width:30px;">						
+					</div>
+					<div class="col-md-4 col-sm-6 box01" id="@cate_product3" style="height:222px;text-align:center">
+						<img alt="" src="image/126.gif" style="height: 30px;width:30px;">					
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 col-sm-6 box01" id="@cate_product4" style="height:222px;text-align:center">
+						<img alt="" src="image/126.gif" style="height: 30px;">						
+					</div>
+					<div class="col-md-4 col-sm-6 box01" id="@cate_product5" style="height:222px;text-align:center">
+						<img alt="" src="image/126.gif" style="height: 30px;">						
+					</div>
+					<div class="col-md-4 col-sm-6 box01" id="@cate_product6" style="height:222px;text-align:center">
+						<img alt="" src="image/126.gif" style="height: 30px;">						
+					</div>
+				</div>
+
+			</div>
+		</div>

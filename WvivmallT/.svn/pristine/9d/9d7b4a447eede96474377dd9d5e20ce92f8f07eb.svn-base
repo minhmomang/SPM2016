@@ -1,0 +1,319 @@
+$(function() {
+    var type = 'A';
+    var list_category = [];
+    var source = null;
+    var lang = get_lang_current();
+    exe_load_header(function(output) {
+        if (output == true) {
+
+            load_form_grid();
+            exec_load_data();
+
+        }
+
+    });
+
+    function exec_load_data() {
+        blockbg();
+        load_data(function(output) {
+            if (output == true) {
+                unblockbg();
+                source.localdata = list_category;
+                $("#idcategory").jqxGrid('updatebounddata');
+                $('#idcategory').jqxGrid('clearselection');
+
+            }
+        }, '');
+    }
+
+    function load_data(callback, pdata) {
+        list_category = [];
+        Return_get("WriterCategoryController", "get_list_product_category_manager", pdata, 'GET', function(data) {
+            if (data != null) {
+                list_category = data;
+                callback(true);
+            } else {
+                unblockbg();
+            }
+        });
+    }
+
+
+
+    function load_form_grid() {
+        source = {
+            localdata: list_category,
+            datatype: "array",
+            datafields: [{
+                name: 'id',
+                type: 'string'
+            }, {
+                name: 'name',
+                type: 'string'
+            }]
+
+        };
+        ///end source
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        $("#idcategory").jqxGrid({
+            width: get_width(),
+            source: dataAdapter,
+            columnsresize: true,
+            pageable: true,
+            height: get_height(),
+            selectionmode: 'checkbox',
+            columns: [{
+                text: 'ID',
+                datafield: 'id',
+                ellsalign: 'center',
+                align: 'center',
+                width: 150
+            }, {
+                text: 'Name',
+                datafield: 'name',
+                cellsalign: 'left',
+                align: 'center',
+                width: 350
+            }]
+        });
+
+    }
+    var formatcellnum = function(row, datafield, value) {
+        return formatcurrency(value);
+    }
+
+    function get_cate_product() {
+        var getselectedrowindexes = $("#idcategory").jqxGrid('getselectedrowindexes');
+        var product_id = '';
+        if (getselectedrowindexes.length > 0) {
+            var selectedRowData = $("#idcategory").jqxGrid('getrowdata',
+                getselectedrowindexes[0]);
+            product_id = selectedRowData["id"];
+        }
+        return product_id;
+    }
+
+
+    $("#btnload").click(function() {
+		exec_load_data();
+    });
+    $("#btncreate").click(function() {
+        type = 'A';
+        $("#dlgcreate").css('display', 'block');
+        $('#dlgcreate').dialog({
+            autoOpen: false,
+            title: 'New Writer Category',
+            width: 400,
+            height: 200,
+            buttons: [{
+                text: 'OK',
+                iconCls: 'icon-ok',
+                handler: function() {
+                    exec_cate(function(out) {
+                        if (out) {
+                            exec_load_data();
+                            $(dlgcreate).dialog('close');
+                        }
+
+                    });
+                }
+            }, {
+                text: 'Cancel',
+                iconCls: 'icon-cancel',
+                handler: function() {
+                    $("#dlgcreate").dialog('close');
+                }
+            }]
+        });
+        $(dlgcreate).dialog('open');
+    });
+
+    function exec_cate(callback) {
+        var id = $("#idtype").val();
+        var name = $("#idname").val();
+        if (id == null || id == '') {
+            showdialog('dialogmanual', 0, 'Enter id category', '', '');
+            callback(false);
+            return;
+        }
+
+        if (name == null || name == '') {
+            showdialog('dialogmanual', 0, 'Enter name category', '', '');
+            callback(false);
+            return;
+        }
+        blockbg();
+        var pdata = {
+            'type': type,
+            'id': id,
+            'name': name
+        };
+        Return_get("WriterCategoryController", "insert_category_writer", pdata, "GET", function(data) {
+            if (data != null) {
+                unblockbg();
+                var error = parseInt(data.result);
+
+                if (error == 0) {
+                    $("#idtype").val('');
+                    $("#idname").val('');
+
+                    showdialog('dialogmanual', 0, 'Insert success', '', '');
+                    callback(true);
+                } else if (error == 1) {
+                    showdialog('dialogmanual', 0, 'ID Category Exists', '', '');
+                    callback(true);
+                } else {
+                    showdialog('dialogmanual', 0, 'Insert fail', '', '');
+                    callback(true);
+                }
+            } else {
+                showdialog('dialogmanual', 0, 'Insert Fail', '', '');
+                callback(true);
+            }
+        });
+
+    }
+    var idcurrent = '';
+
+    function load_category_by_id(id, callback) {
+        var pdata = {
+            'id': id
+        };
+        Return_get("WriterCategoryController", "get_cateogry_by_id", pdata, 'GET', function(data) {
+            if (data != null) {
+                $("#idtype").prop('disabled', true);
+                $("#idtype").val(data.ID);
+                $("#idname").val(data.Name);
+                callback(true);
+            }
+        });
+    }
+    $("#btnupdate").click(function() {
+        var id = get_cate_product();
+       
+        if (id == null || id == '') {
+            showdialog('dialogmanual', 0, 'Select row', '', '');
+            return;
+        }
+        type = 'E';
+        idcurrent = id;
+        load_category_by_id(id, function(out) {
+            $("#dlgcreate").css('display', 'block');
+            $('#dlgcreate').dialog({
+                autoOpen: false,
+                title: 'Update Category News',
+                width: 400,
+                height: 200,
+                buttons: [{
+                    text: 'OK',
+                    iconCls: 'icon-ok',
+                    handler: function() {
+                        exec_update_cate(function(out) {
+                            if (out) {
+                                exec_load_data();
+                                $("#idtype").prop('disabled', false);
+                                $(dlgcreate).dialog('close');
+                            }
+
+                        });
+                    }
+                }, {
+                    text: 'Cancel',
+                    iconCls: 'icon-cancel',
+                    handler: function() {
+                        $("#dlgcreate").dialog('close');
+                    }
+                }]
+            });
+            $(dlgcreate).dialog('open');
+        });
+    });
+
+    function exec_update_cate(callback) {
+        var id = $("#idtype").val();
+        var name = $("#idname").val();
+
+        if (name == null || name == '') {
+            showdialog('dialogmanual', 0, 'Enter name category', '', '');
+            callback(false);
+            return;
+        }
+        blockbg();
+        var pdata = {
+            'type': type,
+            'id': id,
+            'name': name
+        };
+        Return_get("WriterCategoryController", "insert_category_writer", pdata, "GET", function(data) {
+            if (data != null) {
+                unblockbg();
+                var error = parseInt(data.result);
+
+                if (error == 0) {
+                    $("#idtype").val('');
+                    $("#idname").val('');
+
+                    showdialog('dialogmanual', 0, 'Update success', '', '');
+                    callback(true);
+                } else if (error == 1) {
+                    showdialog('dialogmanual', 0, 'ID Category Not Exists', '', '');
+                    callback(true);
+                } else {
+                    showdialog('dialogmanual', 0, 'Update fail', '', '');
+                    callback(true);
+                }
+            } else {
+                showdialog('dialogmanual', 0, 'Update Fail', '', '');
+                callback(true);
+            }
+        });
+
+    }
+    $("#btnremove").click(function() {
+
+        var id = get_munti_selected();
+        if (id == null || id == '') {
+            showdialog('dialogmanual', 0, 'Select row', '', '');
+            return;
+        }
+        showdialogconfirmfunc('dialogmanual', 'Do you want remove?', function() {
+            if (id != null) {
+
+                blockbg();
+                var pdata = {
+                    'str': id
+                };
+                Return_get("WriterCategoryController", "remove_category", pdata, "GET", function(data) {
+                    if (data != null) {
+                        unblockbg();
+                        var error = parseInt(data.result);
+                        if (error == 0) {
+                            exec_load_data();
+                            showdialog('dialogmanual', 0, 'Remove Success', '', '');
+                        } else {
+                            showdialog('dialogmanual', 0, 'Remove Fail', '', '');
+
+                        }
+                    } else {
+
+                        showdialog('dialogmanual', 0, 'Remove Fail', '', '');
+                    }
+                });
+            }
+        });
+    });
+
+    function get_munti_selected() {
+        var c = '';
+        var rows = $("#idcategory").jqxGrid('selectedrowindexes');
+        if (rows.length > 0) {
+            for (var m = 0; m < rows.length; m++) {
+                var row = $("#idcategory").jqxGrid('getrowdata', rows[m]);
+                c += "'" + row["id"] + "'" + ",";
+            }
+            c = c.substring(0, c.length - 1);
+        }
+        return c;
+    }
+
+});

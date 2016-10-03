@@ -1,0 +1,366 @@
+package Controller;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
+import org.json.JSONException;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import BLL.Memberbll;
+import DAL.MemberDAL;
+import Helper.Extra;
+import Helper.Helpermail;
+import Helper.JsonHelper;
+import Helper.responseUtf8;
+import Model.ItemHistory;
+import Model.ItemMember;
+import Service.ReadServiceMail;
+
+@Controller
+@RequestMapping(value = "MemberController")
+public class MemberController {
+	ObjectMapper mapper = new ObjectMapper();
+
+	@RequestMapping(value = "insert_member", method = RequestMethod.GET)
+	@ResponseBody
+	public void insert_member(@RequestParam("str") String str, HttpServletRequest request, HttpServletResponse response)
+			throws JSONException, IOException {
+		ItemMember data = new ItemMember();
+		data = mapper.readValue(str, ItemMember.class);
+		String result = Memberbll.register(data, request);
+		responseUtf8.response_Utf8(response, result);
+	}
+
+	@RequestMapping(value = "update_member", method = RequestMethod.GET)
+	@ResponseBody
+	public void update_member(@RequestParam("email") String email, @RequestParam("fullname") String fullname,
+			@RequestParam("phone") String phone, @RequestParam("address") String address, HttpServletRequest request,
+			HttpServletResponse response) throws JSONException, IOException {
+		String jsontext = "null";
+		HttpSession session = request.getSession();
+		if (session.getAttribute("email").equals(email)) {
+			jsontext = Memberbll.update_memeber(email, fullname, phone, address);
+		} else {
+			String str = "";
+			JSONObject obj = new JSONObject();
+			obj.put("result", "-3");
+			str = JsonHelper.ConvetJSONObjectToJson(obj);
+			jsontext = str;
+		}
+		responseUtf8.response_Utf8(response, jsontext);
+	}
+
+	@RequestMapping(value = "check_login", method = RequestMethod.GET)
+	@ResponseBody
+	public void check_login(@RequestParam("email") String email, @RequestParam("pass") String pass,@RequestParam("cookies") String cookies,
+			HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
+		
+		String result = Memberbll.check_login(email, pass, request);
+		if(result.split(",").length>4 && cookies.equals("Y")){
+			
+				Cookie setEmailCookies = new Cookie("email", email);
+				Cookie setPassCookies = new Cookie("password",pass);
+				setPassCookies.setMaxAge(30*24*60*60);
+				setEmailCookies.setMaxAge(30*24*60*60);
+				response.addCookie(setEmailCookies);
+				response.addCookie(setPassCookies);
+				response.setContentType("text/html");
+				//System.out.println(result);
+				System.out.println("Set cookies succed");
+		}
+		
+		responseUtf8.response_Utf8(response, result);
+	}
+
+	@RequestMapping(value = "get_info_login", method = RequestMethod.GET)
+	@ResponseBody
+	public void get_info_login(HttpServletRequest request, HttpServletResponse response)
+			throws JSONException, IOException {
+		HttpSession session = request.getSession();
+		String result = OrderController.get_user_login(request, response);
+		if (session.getAttribute("email") != null && !session.getAttribute("email").equals("")) {
+			result = session.getAttribute("email").toString();
+		}
+		JSONObject obj = new JSONObject();		
+		obj.put("result", result);
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+
+	}
+	@RequestMapping(value = "get_info_login_order", method = RequestMethod.GET)
+	@ResponseBody
+	public void get_info_login_order(HttpServletRequest request, HttpServletResponse response)
+			throws JSONException, IOException {
+		HttpSession session = request.getSession();
+		String email = OrderController.get_user_login(request, response);
+		if (session.getAttribute("email") != null && !session.getAttribute("email").equals("")) {
+			email = session.getAttribute("email").toString();
+		}
+		JSONObject obj = new JSONObject();		
+		obj = MemberDAL.get_info_login_order(email);
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+
+	}
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	@ResponseBody
+	public String logout(HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
+		HttpSession session = request.getSession();
+		String result = "null";
+		if (session.getAttribute("email") != null) {
+			Cookie[] cookies = request.getCookies();
+			for(int i = 0; i < cookies.length; i++) { 
+	            Cookie cookie = cookies[i];
+	            if (cookie.getName().equals("email")) {
+	               cookie.setMaxAge(0);
+	               response.addCookie(cookie);
+	            }
+	            else if (cookie.getName().equals("password")) {
+	            	cookie.setMaxAge(0);
+	            	response.addCookie(cookie);
+	            }	            
+	        }  
+			session.setAttribute("branch", "");
+			session.setAttribute("email", "");
+			session.setAttribute("username", "");
+			session.setAttribute("fullname", "");
+			result = "1";
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "check_get_info_login", method = RequestMethod.GET)
+	@ResponseBody
+	public void chec_get_info_login(HttpServletRequest request, HttpServletResponse response)
+			throws JSONException, IOException {
+		HttpSession session = request.getSession();
+
+		String result = "-1";
+		if (session.getAttribute("username") != null) {
+			result = session.getAttribute("username").toString();
+		}
+		JSONObject obj = new JSONObject();
+		obj.put("result", result);
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+	}
+
+	@RequestMapping(value = "get_info_member", method = RequestMethod.GET)
+	@ResponseBody
+	public void get_info_member(HttpServletRequest request, HttpServletResponse response) throws JSONException,IOException {
+		String jsontext = "null";
+		jsontext = Memberbll.get_info_member(OrderController.get_user_login(request, response));
+		;
+		responseUtf8.response_Utf8(response, jsontext);
+	}
+
+	@RequestMapping(value = "change_info_acc", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public void change_info_acc(@RequestBody final String json_subject, HttpServletResponse response)
+			throws IOException {
+
+		String result = Memberbll.change_info_acc(json_subject);
+		responseUtf8.response_Utf8(response, result);
+	}
+
+	@RequestMapping(value = "get_info_user_by_email", method = RequestMethod.GET)
+	@ResponseBody
+	public void get_info_user_by_email(HttpServletRequest request, HttpServletResponse response) throws JSONException,IOException {
+		String jsontext = "null";
+		jsontext = Memberbll.get_info_member(OrderController.get_user_login(request, response));
+		responseUtf8.response_Utf8(response, jsontext);
+	}
+
+	@RequestMapping(value = "change_forget_password", method = RequestMethod.GET)
+	@ResponseBody
+	public void change_forget_password(@RequestParam("email") String email, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, JSONException, AddressException, MessagingException {
+		int rs = -1;
+		Map<String, Object> item = new HashMap<String, Object>();
+		item = MemberDAL.change_password_forget(email);
+		try {
+			if (item != null) {
+				rs = Integer.parseInt(item.get("result").toString());
+				if (rs == 0) {
+					// send email
+					ServletContext servl = request.getServletContext();
+					String url = servl.getInitParameter("urlconfirmforgetpass");
+					url = url.replace("@email", email);
+					url = url.replace("@password", item.get("password").toString());
+					url = url.replace("??", "&");
+					//System.out.println(url);
+					String urltext = request.getRealPath("/upload/txt");
+					urltext += "/forget_password.txt";
+					String content_text = Extra.readFile(urltext);
+					content_text = content_text.replace("@username", email);
+					content_text = content_text.replace("@url", url);
+					content_text = content_text.replace("@pass", item.get("password").toString());
+					//System.out.println(content_text);
+					rs = ReadServiceMail.SendingFromgmail(email, "Confirm password", content_text, request);
+				}
+			}
+		} catch (Exception ex) {
+
+		}
+
+		JSONObject obj = new JSONObject();
+		obj.put("result", String.valueOf(rs));
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+	}
+
+	@RequestMapping(value = "confirm_change_password", method = RequestMethod.GET)
+	@ResponseBody
+	public void confirm_change_password(@RequestParam("email") String email, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String jsontext = "null";
+		jsontext = Memberbll.confirm_change_password(email);
+		responseUtf8.response_Utf8(response, jsontext);
+	}
+
+	@RequestMapping(value = "confirm_register", method = RequestMethod.GET)
+	@ResponseBody
+	public void confirm_register(@RequestParam("email") String email, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String jsontext = "null";
+		jsontext = Memberbll.confirm_register(email);
+		responseUtf8.response_Utf8(response, jsontext);
+	}
+
+	
+	@RequestMapping(value = "check_login_comment", method = RequestMethod.GET)
+	@ResponseBody
+	public void check_login_comment(
+
+			@RequestParam("email") String email,
+			@RequestParam("pass") String pass,
+			@RequestParam("subid") String subid,
+			HttpServletRequest request, HttpServletResponse response)
+			throws JSONException, IOException {
+
+		String result = Memberbll.check_login_comment(email, pass, subid, request);
+		responseUtf8.response_Utf8(response, result);
+	}
+	
+	@RequestMapping(value = "write_log", method = RequestMethod.GET)
+	@ResponseBody
+	public void write_log(@RequestParam("str") String str, HttpServletRequest request, HttpServletResponse response)
+			throws JSONException, IOException {
+		ItemHistory data = new ItemHistory();
+		data = mapper.readValue(str, ItemHistory.class);
+		int _rs = MemberDAL.insert_log(data);
+		JSONObject obj = new JSONObject();
+		obj.put("error", _rs);
+		String strdata = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, strdata);
+	}
+
+	@RequestMapping(value = "mail_cancel_order", method = RequestMethod.GET)
+	@ResponseBody
+	public void mail_cancel_order(@RequestParam("email") String email, @RequestParam("order_id") String order_id,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, JSONException, AddressException, MessagingException {
+		int rs = -1;
+		try {
+			// send email
+			String urltext = request.getRealPath("/upload/txt");
+			urltext += "/cancel_order.txt";
+			String content_text = Extra.readFile(urltext);
+			content_text = content_text.replace("@username", email);
+			content_text = content_text.replace("@order_id", order_id);
+			//System.out.println(content_text);
+			rs = ReadServiceMail.SendingFromgmail(email, "Cancel order", content_text, request);
+		} catch (Exception ex) {
+
+		}
+
+		JSONObject obj = new JSONObject();
+		obj.put("result", String.valueOf(rs));
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+	}
+
+	@RequestMapping(value = "get_fullname", method = RequestMethod.GET)
+	@ResponseBody
+	public void get_fullname(HttpServletRequest request, HttpServletResponse response)
+			throws JSONException, IOException {
+		HttpSession session = request.getSession();
+		String result = OrderController.get_user_login(request, response);
+		if (session.getAttribute("fullname") != null && !session.getAttribute("fullname").equals("")) {
+			result = session.getAttribute("fullname").toString();
+		}
+		JSONObject obj = new JSONObject();
+		obj.put("result", result);
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+
+	}
+
+	@RequestMapping(value = "insert_customer", method = RequestMethod.GET)
+	@ResponseBody
+	public void insert_customer(@RequestParam("email") String email, @RequestParam("fullname") String fullname,
+			HttpServletRequest request, HttpServletResponse response) throws JSONException, IOException {
+		int result = MemberDAL.add_customer(email, fullname);
+		JSONObject obj = new JSONObject();
+		obj.put("result", result);
+		String str = JsonHelper.ConvetJSONObjectToJson(obj);
+		// System.out.println(str);
+		responseUtf8.response_Utf8(response, str);
+	}
+	@RequestMapping(value = "get_info_log_aft", method = RequestMethod.GET)
+	@ResponseBody
+	public void get_info_log_aft(
+			@RequestParam("subid") String subid,
+			HttpServletRequest request, HttpServletResponse response)
+			throws JSONException, IOException {
+		String email = OrderController.get_user_login(request, response);		
+		String result = Memberbll.check_login_aft(email, subid, request);
+		responseUtf8.response_Utf8(response, result);
+	}
+	@RequestMapping(value = "get_id_by_email", method = RequestMethod.GET)
+	@ResponseBody
+	public void get_id_by_email(
+			@RequestParam("email") String email,
+			HttpServletRequest request, HttpServletResponse response)
+			throws JSONException, IOException {
+		
+		String id = MemberDAL.get_id_by_email(email);		
+		JSONObject obj = new JSONObject();
+		obj.put("id", id);
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+	}
+	@RequestMapping(value = "register_product_news", method = RequestMethod.GET)
+	@ResponseBody
+	public void register_product_news(
+			@RequestParam("email") String email,
+			//@RequestParam("user_id") String user_id,
+			@RequestParam("product_id") String p_id,
+			HttpServletRequest request, HttpServletResponse response)
+			throws JSONException, IOException {
+		
+		int result = MemberDAL.register_product_news(email,p_id);		
+		JSONObject obj = new JSONObject();
+		obj.put("result", result);
+		String data = JsonHelper.ConvetJSONObjectToJson(obj);
+		responseUtf8.response_Utf8(response, data);
+	}
+}

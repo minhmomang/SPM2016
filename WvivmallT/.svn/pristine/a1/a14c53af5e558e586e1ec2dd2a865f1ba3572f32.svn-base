@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Giảm giá</title>
+<link href="../../admin/css/bootstrap.min.css" rel="stylesheet">
+<link href='../../admin/themes/default/easyui.css' rel='stylesheet'>
+<!-- bootstrap -->
+<script src="../../admin/js/jquery-1.11.2.min.js"></script>
+<script src='../../admin/js/jquery.session.js'></script>
+<script type="text/javascript"
+	src="../../admin/js/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="../../admin/js/extra.js"></script>
+
+<script type="text/javascript"
+	src="../../admin/js/promocategory/main.js"></script>
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div id="header"></div>
+		<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+			<div id="menu_f" class="col-md-3"></div>
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-12">
+						<h2
+							style="font-family: Georgia; padding: 0px; padding-left: 10px; color: #00943a">Loại giảm giá</h2>
+						<hr style="border: 1px solid; color: #00943a;">
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+					<div class="col-md-12" id="toolbar">
+						<a id="btnload" style="cursor: pointer;" class="easyui-linkbutton"
+							iconCls="icon-refresh" plain="true">Làm mới</a> <a id="btncreate"
+							style="cursor: pointer;" class="easyui-linkbutton"
+							iconCls="icon-add" plain="true">Tạo mới</a> <a id="btnupdate"
+							style="cursor: pointer;" class="easyui-linkbutton"
+							iconCls="icon-edit" plain="true">Cập nhật</a> <a id="btnremove"
+							style="cursor: pointer;" class="easyui-linkbutton"
+							iconCls="icon-remove" plain="true">Xóa</a> <a id="btndisable"
+							style="cursor: pointer;" class="easyui-linkbutton"
+							iconCls="icon-lock" plain="true">Ẩn</a> <a id="btnenable"
+							style="cursor: pointer;" class="easyui-linkbutton"
+							iconCls="icon-unlock" plain="true">Hiện</a>
+
+					</div>
+				</div>
+				<div class="row" align="left">
+					<div class="col-md-12">
+						<div id="idcategorypromotion" style="margin-bottom: 2px;"></div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</body>
+</html>
+<div id="dlgcreate" class="easyui-dialog" title="Confirm" closed="true"
+	data-options="iconCls:'icon-save',minimizable:false,maximizable:false,closable:false"
+	style="width: 500px; height: 200px; padding: 5px;">
+	<div class="easyui-layout" data-options="fit:true">
+		<div class="row">
+			<div class="col-md-12">Mã</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<input type="text" id='idtype' class="form-control" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">Tên</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<input type="text" id='idname' class="form-control" />
+			</div>
+		</div>
+		<div class="row" style="margin-top: 5px;">
+			<div class="col-md-2" style="line-height: 34px;">
+				<strong> Ảnh:</strong>
+				<!-- col -->
+			</div>
+			<div class="col-md-8">
+				<form id="upload_immg">
+					<input type="file" name="txtimage" id="txtimage" /> <input
+						type="hidden" disabled="disabled" id=id_uploadsuccess> <strong
+						id="strongmessage"></strong>
+
+				</form>
+
+				<br>
+
+				<!-- col -->
+			</div>
+			<!-- roww -->
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-6">Ngày áp dụng:</div>
+			<div class="col-md-6">Ngày kết thúc:</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<input type="text" id="id_ngayapdung" class="easyui-datebox"
+					data-options="formatter:myformatter,parser:myparser"
+					required="required" style="width: 150px; height: 25px">
+			</div>
+			<div class="col-md-6">
+				<input type="text" id="id_ngayketthuc" class="easyui-datebox"
+					data-options="formatter:myformatter,parser:myparser"
+					required="required" style="width: 150px; height: 25px">
+			</div>
+		</div>
+		<div class="row" style="margin-top:10px;">
+			<div class="col-md-4">Loại giảm:</div>
+			<div class="col-md-7">
+				<select id="slcpromo" class="form-control">
+					<option value="001">Giá</option>
+					<option value="002">Phần trăm</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<p></p>
+		</div>
+		<div class="row">
+			<div class="col-md-4">Giá trị giảm :</div>
+			<div class="col-md-7">
+				<input type="text" id="idvaluediscount" class="form-control easyui-numberbox" value="0" style="width:100px;" />
+			</div>
+		</div>
+	</div>
+</div>

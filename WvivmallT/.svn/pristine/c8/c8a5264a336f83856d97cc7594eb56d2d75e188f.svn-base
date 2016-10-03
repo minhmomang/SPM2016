@@ -1,0 +1,84 @@
+	$(document).ready(function() {		
+		set_bg_shoppingcart();		
+		var htm_elem='<li class="menu"><a href="product_cate.html?id=@id" style="border-left: none; cursor: pointer">@name</a></li>';
+		get_lcategory();
+		count_product_shopping_cart();
+		get_info_login();
+		function set_bg_shoppingcart(){
+			
+			//$("#bgshoppingcart").css('background-color',ReturnHosing_apache()+'mobile/img/icon-shoppingcart.png');
+			$("#bgshoppingcart").css('background-image','url("'+ReturnHosing_apache()+'mobile/img/icon-shoppingcart.png'+'")');
+		}
+		function get_lcategory(){
+			 Return_get("ProductController", "get_list_category", "", "GET", function(data) {
+				 if(data!=null){					  
+					 for (var i = 0; i < data.length; i++) {
+						  html = htm_elem;
+						  html = html.replace('@id',data[i].producttype);
+						  html = html.replace('@name',data[i].producttypename);
+						  $("#idcategory_mobile").append(html);
+		              }					 
+					 
+				 }
+			 });
+		}
+		$("#btnsearchbasic").click(function(){		
+			var key = $("#search-form").val();
+			if(key==null || key=='' || key==undefined){
+				showdialog('dialogmanual',0,'Vui lòng nhập từ khóa tìm kiếm','','');
+				return;
+			}
+			else{
+				window.location.href=ReturnHosing_apache()+'search_product.html?skey='+key;
+			}
+			
+			
+		});
+		
+		 function count_product_shopping_cart(){
+			   get_count_product_shopping_cart(function(data){
+				   $("#count_product_shopping_cart").text(data)
+			   });
+			/*   setInterval(function(){
+				   get_count_product_shopping_cart(function(data){
+					   $("#count_product_shopping_cart").text(data)
+				   });
+			   }, 1000);*/
+		   }
+		   function get_count_product_shopping_cart(callback){
+			   Return_get("ShoppingCartController", "get_count_product_shopping_cart", '', 'GET', function(data) {
+		        	 if(data!=null){
+		        		 callback(data.result);
+		        	 }
+		        	 else{
+		        		 callback(0);
+		        	 }
+		        });
+		   } 
+		   function get_info_login(){
+		    	Return_get('MemberController','get_info_login','','GET',function(data){				
+					if(data!=null){		
+						if(data.result!=''){
+							var icon='<img  src="images/user.png">';
+							$("#userlogin").html(icon+' xin chào: '+data.result);
+							$("#infologin").css('display','none');
+							$("#afterlogin").css('display','block');	
+						}					
+					}
+				});
+		    }
+		    $("#idlogout").click(function(){
+		    	Return_get('MemberController','logout','','GET',function(data){				
+					if(data!=null){					
+						window.location.href=ReturnHosing_apache()+'index.html';
+					}
+				});
+		    });
+		    $("#btnshow_sub_menu").click(function(){
+		    	$("#sub_menu_info").toggle( "slow" );
+		    });
+		    $("#btnshow_key").click(function(){
+		    	$("#key_find").toggle( "slow" );
+		    });
+	});
+	

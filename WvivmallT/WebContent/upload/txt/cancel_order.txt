@@ -1,0 +1,5 @@
+Hello @username , </br>
+
+	You have canceled an order with ID :@order_id </br>
+	
+Thanks.

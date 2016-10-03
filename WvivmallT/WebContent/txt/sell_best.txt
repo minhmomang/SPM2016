@@ -1,0 +1,7 @@
+<div class="col-md-4 boxbest" style="display: none;height:219px;line-height:219px;text-align:center">
+						<a href="detailProduct.html?id=@idproduct">
+							<img alt="" src="@imgurl" style="height: 119px">							
+						<a/>						
+						<div class="namebest" align="center" style="color:red">@nameproduct</div>
+						<div class="giabest" align="center">@priceproduct</div>						
+</div>

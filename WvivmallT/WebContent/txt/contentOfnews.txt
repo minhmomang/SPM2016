@@ -1,0 +1,17 @@
+				<div class="row" >
+					<div class="col-md-3 col-sm-3" align="center">
+						<img alt="" src="@img" class="img-responsive">
+					</div>
+					<div class="col-md-9 col-sm-5" style="padding: 0">
+						<div
+							style="font-size: 20px; background-color: #eeeeee; font-weight: bold; border-bottom: 3px solid green; padding: 5px 0px">
+							@title</div>
+						<div style="margin-top: 5px; font-style: italic;">
+							@create_date</div>
+						<div style="margin-top: 10px; font-style: italic;">
+							@description</div>
+						
+					</div>
+					<div class="col-md-12 col-sm-8" style="margin-top: 20px; font-size: 16px">@content</div>
+				</div>
+					

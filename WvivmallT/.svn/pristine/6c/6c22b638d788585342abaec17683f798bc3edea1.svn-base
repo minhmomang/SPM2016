@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vivmall Web mua sắm trực tuyến</title>
+
+
+
+<script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="js/extra.js"></script>
+<script async type="text/javascript" charset="utf-8" src="js/client/news.js"></script>
+</head>
+<body>
+	<div id="header"></div>
+	<div class="container-fluid">
+		<div class="row" style="margin-top: 5px;">
+			<div id="left"></div>
+			<div class="col-md-9 col-sm-8" id="loadnews"></div>
+		</div>
+	</div>
+	<div id="footer"></div>
+</body>
+</html>

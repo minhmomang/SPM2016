@@ -1,0 +1,57 @@
+function Item(stt, masp, tensp, sl, dongia, hinh) {
+	var self = this;
+	self.stt = ko.observable(stt);
+	self.masp = ko.observable(masp);
+	self.tensp = ko.observable(tensp);
+	self.sl = ko.observable(sl);
+	self.dongia = ko.observable(dongia);
+	self.hinh = ko.observable(ReturnHosing_tomcat()+'upload/product/'+hinh);
+	self.dongia1 = ko.computed(function() {
+		return formatcurrency(dongia);
+	});
+	self.thanhtien = ko.computed(function() {
+		return formatcurrency(self.sl() * self.dongia());
+	}, self);
+	
+
+}
+
+function CreateViewModel() {
+	var self = this;
+	self.products = ko.observableArray();
+	load_shopping_cart();
+	function load_shopping_cart(){
+		var id = getUrlParameter('id');
+		
+		var pdata = {
+				'orderid':id
+		}
+		Return_get("OrderController","get_detail_order_by_id",pdata,"GET",function(data){
+			if (data != null) {
+				var stt = 1;
+				for ( var i = 0; i < data.length; i++) {				
+					var iadd = new Item(stt, data[i].ID, data[i].product_name,
+							data[i].quantity, data[i].price, data[i].image);
+					self.products.push(iadd);
+					stt++;
+				}
+			}
+		});
+	}
+	
+	self.totalAmout = ko.computed(function() {
+		var total = 0;
+		for ( var i = 0; i < self.products().length; i++) {
+			total += self.products()[i].sl() * self.products()[i].dongia();
+		}
+		return formatcurrency(total);
+	}, this);
+}
+
+var model =null;
+model = new CreateViewModel();
+ko.applyBindings(model);
+
+
+
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Shopping cart</title>
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/ProSection.css">
+<link rel="stylesheet" href="css/tinkhuyenmai.css">
+<!-- code -->
+<script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/extra.js"></script>
+
+
+</head>
+<body>
+	<div id="header"></div>
+	<div class="container"
+		style="background-color: white; margin-top: 20px; border-radius: 10px;position: relative;">
+		<div class="wrap_cate">
+			<div class="titlepage">
+			        <h1>Khuyến mãi</h1>
+			        <span>|</span>
+			        <label>Tổng hợp khuyến mãi mới nhất tại tech.khaitamtri.com</label>
+			    </div>
+		
+		<ul class="homenews">
+            <li class="hero">
+                <a href="/tin-tuc/hang-hieu-cao-cap-817640">
+                        <img class="lazy" width="575" height="325" src="https://cdn.tgdd.vn/Files/2016/04/18/817640/tgdd-hanghieucaocap-800-450-600x400.jpg" alt="Giảm từ 3 - 4 triệu cho những Điện thoại cao cấp từ 19/04 - 21/04/2016">
+                    <h3>Giảm từ 3 - 4 triệu cho những Điện thoại cao cấp từ 19/04 - 21/04/2016</h3>
+                    <figure>Trong tháng 4 này,&nbsp;thegioididong.com&nbsp;xin giới thiệu một chương trình đặc biệt dành cho quý khách hàng, giúp quý khách dể dàng sở hữu những mẫu điện thoại hàng hiệu cao cấp với giá giảm cực sốc từ 3.000.000đ đến 4.000.000đ.</figure>
+        
+                        
+                </a>
+            </li>
+            <li>
+                <a href="/tin-tuc/bo-doi-tai-nghe-giam-soc-khong-phanh-40--hang-moi-100--816175">
+                        <img class="lazy" width="230" height="130" src="https://cdn.tgdd.vn/Files/2016/04/14/816175/tgdd-tai-nghe-giam-soc-800-450-1-300x200.jpg" alt="Bộ đôi tai nghe giảm cực sốc 40% - hàng mới 100%">
+                    <h3>Bộ đôi tai nghe giảm cực sốc 40% - hàng mới 100%</h3>
+                    <figure style="height: 38px;">Từ 15-30/4, mua tai nghe&nbsp;EP Maxell hoặc IP - 950 tại Thế Giới Di Động đồng giảm sốc 40%, hàng tốt giá siêu rẻ. Mua ngay thôi!</figure>
+                   
+                </a>
+            </li>
+            <li>
+                <a href="/tin-tuc/tung-bung-khai-truong-sieu-thi-tai-yen-mo-ninh-binh-816415">
+                        <img class="lazy" width="230" height="130" src="https://cdn.tgdd.vn/Files/2016/04/15/816415/khai-truong-300x200.jpg" alt="Tưng bừng khai trương siêu thị tại Yên Mô, Ninh Bình">
+                    <h3>Tưng bừng khai trương siêu thị tại Yên Mô, Ninh Bình</h3>
+                    <figure style="height: 38px;">Ngày 18/04/2016 Thế giới di động đánh dấu sự ra đời siêu thị thứ 7 tại Ninh Bình xin chào đón quý khách hàng tới tham quan và mua sắm</figure>
+                  
+                </a>
+            </li>
+            <li>
+                <a href="/tin-tuc/khai-truong-2-sieu-thi-the-gioi-di-dong-nghe-an-bac-giang-815947">
+                        <img class="lazy" width="230" height="130" data-original="https://cdn2.tgdd.vn/Files/2016/04/13/815947/khai-truong-600x400.jpg" src="https://cdn2.tgdd.vn/Files/2016/04/13/815947/khai-truong-600x400.jpg" alt="Khai trương 2 siêu thị Thế Giới Di Động Nghệ An, Bắc Giang" style="display: block;">
+                    <h3>Khai trương 2 siêu thị Thế Giới Di Động Nghệ An, Bắc Giang</h3>
+                    <figure style="height: 38px;">Ngày 17/04/2016 Thế giới di động đánh dấu sự ra đời của siêu thị thứ 13 tại Nghệ An và thứ 14 tại Bắc Giang, xin chào đón quý khách hàng tới tham quan và mua sắm</figure>
+                   
+                </a>
+            </li>
+    	</ul>
+    		
+    <div class="wrap_page">
+        <div class="paginationdev">
+            <nav>
+				  <ul class="pagination">
+				    <li>
+				      <a href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li><a href="#">1</a></li>
+				    <li><a href="#">2</a></li>
+				    <li><a href="#">3</a></li>
+				    <li><a href="#">4</a></li>
+				    <li><a href="#">5</a></li>
+				    <li>
+				      <a href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+			</nav>
+        </div>
+    </div>
+		</div>
+		
+	</div>
+	<div id="footer"></div>
+	
+</body>
+<script type="text/javascript" src="js/client/tinkhuyenmai.js"></script>
+</html>

@@ -1,0 +1,388 @@
+$(function() {
+    var action = 'A';
+    exe_load_header(function(output) {
+        if (output == true) {
+            CKEDITOR.replace('txtProductdes', {
+                filebrowserImageUploadUrl: ReturnHosing() + "UploadImageController/upload_image.htm"
+            });
+            CKEDITOR.replace('editMoreinformation', {
+                filebrowserImageUploadUrl: ReturnHosing() + "UploadImageController/upload_image.htm"
+            });
+            CKEDITOR.replace('editGuide', {
+                filebrowserImageUploadUrl: ReturnHosing() + "UploadImageController/upload_image.htm"
+            });
+            set_load();
+            default_load();
+            var tcheck = setInterval(function(){ 
+            	if(check_load()){
+            		clearInterval(tcheck);
+            		load_data_by_param();
+            	}
+            }, 1000);
+			load_data_by_param();
+        }
+    });
+    var leng = 2;
+    var arr_load = [];
+    function set_load(){
+    	for(var i=0;i<leng;i++){
+    		arr_load[i]=false;
+    	}
+    }
+    function default_load(){
+    	 load_provider(0);
+         load_product_type(1);
+    }
+    function check_load(){
+    	for(var i=0;i<leng;i++){
+    		if(arr_load[i]==false){
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+	function load_data_by_param() {
+        var product_id = getUrlParameter('product_id');
+        if (product_id != null && product_id != '' && product_id != 'undefined') {
+            var arr = product_id.split('_');
+            action = arr[0];
+            product_id = arr[1];
+
+            if (action == "UPDATE") {
+                blockbg();
+                action = 'E';
+                load_data(product_id);               
+
+
+            } else if (action == "VIEW") {
+                blockbg();
+                $("#btn_submit").css('display', 'none');
+                $("#btn_submit").attr('disabled', 'disabled');
+                load_data(product_id);
+                
+
+            }
+        } //end if
+    } //end load param
+	function load_data(productid){
+		blockbg();
+		
+		var pdata = {
+			'id':productid
+		};
+		Return_get("ProductController", "get_info_product_1", pdata, 'GET', function(data) {
+            if (data != null) {
+                $("#txtProductid").val(data.productId);
+				$("#txtProductname").val(data.productName);
+				$("#txtProductprice").val(data.productPrice);
+				$("#txtQuantity").val(data.productquantity);
+				
+				$("#txtProducttypeid").val(data.producTypeId);
+				$("#txtProductproviderid").val(data.productProviderId);				
+				CKEDITOR.instances.txtProductdes.setData(data.productDes);
+				CKEDITOR.instances.editMoreinformation.setData(data.moreinfo);
+				CKEDITOR.instances.editGuide.setData(data.productguide);
+				$("#typeimglarg").val(data.typeimglarg);
+				$("#iddisplayimg").css('display','inline');								 
+				$("#imgcurrent").attr('src',ReturnHosing()+'upload/product/'+data.productImage);
+				unblockbg();
+            }
+        });
+	}
+    function load_provider(pos) {
+        Return_get("ProviderController", "get_list_provider", '', 'GET', function(data) {
+            if (data != null) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ID != "00") {
+                        var str = "<option value=" + data[i].ID + ">" + data[i].Name + "</option>";
+                        $("#txtProductproviderid").append(str);
+                    }
+                }
+                arr_load[pos]=true;
+            }
+        });
+    }
+
+    function load_product_type(pos) {
+        Return_get("ProductController", "get_list_category", '', 'GET', function(data) {
+            if (data != null) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ID != "00") {
+                        var str = "<option value=" + data[i].producttype + ">" + data[i].producttypename + "</option>";
+                        $("#txtProducttypeid").append(str);
+                    }
+                }
+                arr_load[pos]=true;
+            }
+        });
+
+    }
+    var url = ReturnHosing() + 'ProductController/upload_image_product.htm';
+    $('input[name="txtProductimage"]').ajaxfileupload({
+        'action': url,
+        'onComplete': function(response) {
+        
+            var statusVal = JSON.stringify(response.status);
+
+            if (statusVal == "false") {
+                $("#message").html("<font color='red'>" + JSON.stringify(response.message) + " </font>");
+            }
+            if (statusVal == "true") {
+                $("#message").html("<font color='green'>" + JSON.stringify(response.message) + " </font>");
+            }
+            var pram = JSON.stringify(response.pram);
+            var first = pram.indexOf('"');
+            var last = pram.lastIndexOf('"');
+            pram = pram.substring(first + 1, last);
+			
+            $("#filenameimg").text(pram);
+        	
+        },
+        'onStart': function() {
+        	var fileSize = this.get(0).files[0].size;
+        	if(fileSize>1024*500){
+        		showdialog('dialogmanual', 0, 'This image is out of accepted size. Select another !', '', '');
+        		$('#message2').html("<font color='red'>" + "Accepted size : 500KB !" + " </font>");
+        		$("#filenameimg").text('');
+        		$('#message2').css('display','block');
+         		$('#message').css('display','none');
+        		return false;
+        	}
+        	else{
+        		$('#message').css('display','block');
+         		$('#message2').css('display','none');
+        	}
+        }
+    });
+	$('input[name="txtProductimagebig"]').ajaxfileupload({
+        'action': url,
+        'onComplete': function(response) {
+            
+            var statusVal = JSON.stringify(response.status);
+
+            if (statusVal == "false") {
+                $("#message_big").html("<font color='red'>" + JSON.stringify(response.message) + " </font>");
+            }
+            if (statusVal == "true") {
+                $("#message_big").html("<font color='green'>" + JSON.stringify(response.message) + " </font>");
+            }
+			
+            var pram = JSON.stringify(response.pram);			
+            var first = pram.indexOf('"');
+            var last = pram.lastIndexOf('"');
+            pram = pram.substring(first + 1, last);
+			
+            $("#filenameimg_big").text(pram);
+        	
+
+        },
+        'onStart': function() {
+        	var fileSize = this.get(0).files[0].size;
+        	if(fileSize>1024*500){
+        		showdialog('dialogmanual', 0, 'This image is out of accepted size. Select another !', '', '');
+        		$('#message_big2').html("<font color='red'>" + "Accepted size : 500KB !" + " </font>");
+        		$("#filenameimg").text('');
+        		$('#message_big2').css('display','block');
+         		$('#message_big').css('display','none');
+        		return false;
+        	}
+        	else{
+        		$('#message_big').css('display','block');
+         		$('#message_big2').css('display','none');
+        	}
+        }
+        
+    });
+	$("#txtProductprice").keydown(function(event) {
+    	// Allow only backspace and delete
+    	if ( event.keyCode == 46 || event.keyCode == 8 ) {
+    		// let it happen, don't do anything
+    	}
+    	else {
+    		// Ensure that it is a number and stop the keypress
+    		if (event.keyCode < 48 || event.keyCode > 57 ) {
+    			event.preventDefault();	
+    		}	
+    	}
+    });
+	$("#txtQuantity").keydown(function(event) {
+    	// Allow only backspace and delete
+    	if ( event.keyCode == 46 || event.keyCode == 8 ) {
+    		// let it happen, don't do anything
+    	}
+    	else {
+    		// Ensure that it is a number and stop the keypress
+    		if (event.keyCode < 48 || event.keyCode > 57 ) {
+    			event.preventDefault();	
+    		}	
+    	}
+    });
+    function check_exists(callback, productid) {
+        var pdata = {
+            'id': productid
+        }
+        Return_get("ProductController", "check_product_exists", pdata, 'GET', function(data) {
+            if (data != null) {
+                if (parseInt(data) == 0) {
+                    callback(false);
+                } else {
+                    callback(true);
+                }
+            } else {
+                callback(false);
+            }
+        });
+    }
+	function check_before_save(){
+			var productid = $("#txtProductid").val();
+			var productname = $("#txtProductname").val();
+			var productprice = $("#txtProductprice").val();
+			var quantity = $("#txtQuantity").val();
+			if(productid==null ||productid == '' ){
+				return false;
+			}
+			if(productname==null ||productname == '' ){
+				return false;
+			}
+			if(productprice==null ||productprice == '' ){
+				return false;
+			}
+			if(quantity==null ||quantity == '' ){
+				return false;
+			}
+			return true;
+		}
+		function clearcontent(){
+			$("#txtProductid").val('');
+			 $("#txtProductname").val('');
+			 $("#txtProductdes").val('');
+			 $("#txtProductprice").val('');
+			 $("#txtProductproviderid").val('');
+			 $("#txtQuantity").val('');
+			 CKEDITOR.instances.txtProductdes.setData('');
+			 CKEDITOR.instances.editMoreinformation.setData('');
+			 CKEDITOR.instances.editGuide.setData('');
+	}
+	function htmlEntities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&blink;');
+    }
+    $("#btn_submit").click(function() {
+
+        var productid = $("#txtProductid").val();
+        var productname = $("#txtProductname").val();
+	
+        var productprice = $("#txtProductprice").val();
+        var quantity = $("#txtQuantity").val();
+        var producttypeid = $("#txtProducttypeid").val();
+        var productimage = $("#filenameimg").text();
+		var productimagebig = $("#filenameimg_big").text();
+        //var brdes=$("#txtProductdes").val();
+        var productdes = htmlEntities(CKEDITOR.instances.txtProductdes.getData());
+
+        var productproviderid = $("#txtProductproviderid").val();
+        var moreinformation = htmlEntities(CKEDITOR.instances.editMoreinformation.getData());
+        var guide = htmlEntities(CKEDITOR.instances.editGuide.getData());
+        var typeimglarg = $("#typeimglarg").val();
+        var desshort = "temporary";
+        if (check_before_save() == false) {
+            showdialog('dialogmanual', 0, 'Enter infomation required', '', '');
+            return;
+        }
+        
+        if (action == "A") {
+			
+            check_exists(function(output) {
+				
+                if (output == true) {
+                    unblockbg();
+                    showdialog('dialogmanual', 0, 'Product ID exists!', '', '');
+                    return;
+                } else {
+					var obj = {
+						"productId": productid,
+                        "productName": productname,
+                        "producTypeId": producttypeid,
+                        "productImage": productimage,
+                        "productDes": productdes,
+                        "productPrice": productprice,
+                        "productProviderId": productproviderid,
+                        "productquantity": quantity,
+                        "moreinfo": moreinformation,
+                        "productguide": guide,
+                        "productDescShort": desshort,
+						'productimglarg':productimagebig,
+						'typeimglarg':typeimglarg
+					};
+					var pdata = "{'str':'" + JSON.stringify(obj) + "','type':'" + action + "'}";
+                    Return_get("ProductController", "insert_product", pdata, 'POST', function(data) {
+                        unblockbg();
+                        if (data != null) {
+                            if (parseInt(data) == 0) {
+                                if (action == "A") {
+                                    showdialog('dialogmanual', 0, 'Insert Success!', '', '');
+                                    clearcontent();
+                                } else {
+                                    showdialog('dialogmanual', 0, 'Edit Product Success!', '', '');
+
+                                }
+                            } else {
+                                showdialog('dialogmanual', 0, 'Exec Fail!', '', '');
+                            }
+
+                        }
+                    });
+
+                }
+            }, productid);
+        }
+        if (action == "E") {
+			
+            check_exists(function(output) {
+                if (output == false) {
+                    unblockbg();
+                    showdialog('dialogmanual', 0, 'Product ID not exists!', '', '');
+                    return;
+                } else {
+                    var obj = {
+						"productId": productid,
+                        "productName": productname,
+                        "producTypeId": producttypeid,
+                        "productImage": productimage,
+                        "productDes": productdes,
+                        "productPrice": productprice,
+                        "productProviderId": productproviderid,
+                        "productquantity": quantity,
+                        "moreinfo": moreinformation,
+                        "productguide": guide,
+                        "productDescShort": desshort,
+                        'productimglarg':productimagebig,
+                        'typeimglarg':typeimglarg
+					};
+                    var pdata = "{'str':'" + JSON.stringify(obj) + "','action':'" + action + "'}";
+                    Return_get("ProductController", "insert_product", pdata, 'POST', function(data) {
+                        unblockbg();
+                        if (data != null) {
+                            if (parseInt(data) == 0) {
+                                if (action == "A") {
+                                    showdialog('dialogmanual', 0, 'Insert Success!', '', '');
+                                    clearcontent();
+                                } else {
+                                     var url = ReturnHosing_apache();
+									 showdialogconfirmfunc2('dialogmanual','Update successfull!!!',function(){
+										 window.location.href=url+'admin/product/Product.html';
+									 },function(){
+										  window.location.href=url+'admin/product/Product.html';
+									 });
+                                }
+                            } else {
+                                showdialog('dialogmanual', 0, 'Exec Fail!', '', '');
+                            }
+
+                        }
+                    });
+
+                }
+            }, productid);
+        }
+    });
+});

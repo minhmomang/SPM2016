@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/upload.css" media="screen" />
+<script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+<script type="text/javascript" charset="utf-8" src="js/jquery-ui.js"></script>
+<script async type="text/javascript" src="js/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="js/extra.js"></script>
+<script async type="text/javascript" charset="utf-8" src="js/blockUI.js"></script>
+<script async type="text/javascript" charset="utf-8" src="js/dialog.js"></script>
+<script async type="text/javascript" charset="utf-8" src="js/extrablock.js"></script>
+<script async type="text/javascript" src="js/client/comment.js"></script>
+
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row" id="boxcomment">
+			
+		</div>
+		<div class="row" style="margin-top:10px;">
+			<div class="col-md-12" style="border: 1px solid #666666"></div>
+		</div>	
+		<div id="content_comment">
+					
+		</div>
+	</div>	
+
+</body>
+</html>
+<div id="dialogmanual1" style="display: none">
+	<div class="row">
+		<div class="col-md-12">
+			<div id="content_message1" style="color:black; font-size: 15px;"></div>
+		</div>
+	</div>
+</div>
+<div id="dialoglogin" style="display: none">
+	<div class="row">
+		<div class="bgformregister"
+			style="border: 2px solid #196219; padding: 20px; border-radius: 0px 0px 20px 20px;">
+			<div style="font-size: 24px; padding-top: 10px; color: #666666"
+				align="right">Welcome to Vivmall</div>
+
+
+			<div
+				style="border: 1px solid gray; padding: 10px; border-radius: 20px; border-style: dotted;">
+				<div class="row ">
+					<div class="col-md-12">
+						<label style="color: #333333">Email</label>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-md-12">
+						<input type="text" class="form-control" id="txtemail" /> 
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label style="color: #333333">Mật khẩu</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<input type="password" class="form-control" id="txtpassword" /> 
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+</div>

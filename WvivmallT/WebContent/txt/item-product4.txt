@@ -1,0 +1,10 @@
+
+<img alt="" src="@imgurl" style="height: 220px">
+<a style="color:#201818;" href="@href">
+	<div class="name01" align="center">@nameproduct</div>
+</a>
+	<div class="gia01">@price</div>
+	<div class="muangay01" align="center">
+	<button class="muangaybtn01  @imua_click" data="@productid" style="width:100px;">Xem</button>
+	
+</div>

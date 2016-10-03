@@ -1,0 +1,254 @@
+	$(document).ready(function() {
+		$("#content-slide").load(ReturnUrlSlide(), function (responseText, textStatus, XMLHttpRequest) {
+			get_option_search();
+			count_product_shopping_cart();
+		});	
+		//init
+		
+		//		
+		function get_option_search(){
+			 Return_get("ProductController", "get_list_category", "", "GET", function(data) {
+				 if(data!=null){
+					  var str = '<li><a href="@id">@name</a></li>';
+					  var html = str;
+					  html = html.replace('@id','0');
+					  html = html.replace('@name','Tất cả');
+					  $("#op_param_search").append(html);
+					  for (var i = 0; i < data.length; i++) {
+						  html = str;
+						  html = html.replace('@id',data[i].producttype);
+						  html = html.replace('@name',data[i].producttypename);
+						  $("#op_param_search").append(html);
+		              }
+					  exec_click_search();
+				 }
+			 });
+		}
+		function exec_click_search(){
+			$('.search-panel .dropdown-menu').find('a').click(function(e) {
+			        e.preventDefault();
+			        var param = $(this).attr("href").replace("#","");		       
+			        var concept = $(this).text();		
+			        $('.search-panel span#search_concept').text(concept);
+			        $('#search_param').text(param);
+			 });
+		}
+
+	    var path_imgproduct = ReturnHosing_tomcat()+"upload/product";
+	    var path = ReturnHosing_tomcat() + "upload/slide/";
+	    var arraystartimg = ["1", "image/star1.png", "image/star2.png", "image/star3.png", "image/star4.png",
+	        "image/star5.png", "image/star6.png"
+	    ];
+	    var arraycolor = ["1", "#3184c5", "#d56530", "#619b4b", "#e6098b", "#7302bd", "#04beb3"];
+	    var list_category = [];
+	    var list_product_popup = [];
+	    load_category_layout(function(checkcall) {
+	
+	    });
+	    get_info_login();
+	    get_list_slider();
+	    function get_info_login(){
+	    	Return_get('MemberController','get_info_login','','GET',function(data){				
+				if(data!=null){		
+					if(data.result!=''){
+						var icon='<img  src="images/user.png">';
+						var str = data.result;
+						if(str.length>10){
+							str=str.substring(0, 10);
+							str+="...";
+						}						
+						$("#userlogin").html(icon+' xin chào: '+str);
+						$("#infologin").css('display','none');
+						$("#afterlogin").css('display','block');	
+					}					
+				}
+			});
+	    }
+	    $("#idlogout").click(function(){
+	    	Return_get('MemberController','logout','','GET',function(data){				
+				if(data!=null){					
+					window.location.href=ReturnHosing_apache()+'index.html';
+				}
+			});
+	    });
+	    
+	    
+	    function load_category_layout(callback) {
+	       
+	        Return_get("ProductController", "get_list_category", "", "GET", function(data) {
+	            if (data != null) {
+	                list_category = data;
+	                //alert(list_category.length);
+	                for (var i = 0; i < data.length; i++) {
+	                    var obj = data[i];
+	                    var li = '<li ><a class="shmenusub" opso="'+obj.producttype+'" href="product_cate.html?id='+obj.producttype+'">' + obj.producttypename + '</a></li>';
+	                    $("#content-menu").append(li);	                    
+	                    
+	                }
+	                event_hover_li_cate();
+	                callback(true);
+
+	            }
+	        });
+
+	    }
+	  
+	    function event_hover_li_cate() {	      
+	    	$(".shmenusub").hover(
+	    		 function() {
+	    			var id = $(this).attr('opso');
+	    			$("#content-sub-menu").css('display','block');
+	    			get_sub_menu(id);
+	    		 }, function() {
+	    			 $("#content-sub-menu").css('display','none');
+	    			  
+	    	});
+	    	$("#content-sub-menu").hover(
+		    	function() {
+		    		$("#content-sub-menu").css('display','block');	
+		    	}, function() {
+		    	$("#content-sub-menu").css('display','none');
+		    			  
+		    });
+	    } 
+	   var list_sub=[];	   
+	   function check_cate_exists(cate){
+		   for(var i=0;i<list_sub.length;i++){
+			   if(list_sub[i].cate==cate)
+				   return true;
+		   }
+		   return false;
+	   }
+	   function set_image_sub(){
+		   $("#imgsub1").text('');
+		   $("#imgsub2").text('');
+		   $("#imgsub3").text('');
+	   }
+	   function get_sub_menu(category_id){
+		    set_image_sub();
+		   
+		   if(check_cate_exists(category_id)==false){
+			   var pdata = {
+					   "catid":category_id
+			   }
+			   Return_get("ProductController", "get_list_product_popup2",pdata, "GET", function(data) {
+	               if(data!=null){
+	            	   var item ={
+	            			   'cate':data[0].producttype,
+	            			   'data':data            			   
+	            	   }
+	            	   list_sub.push(item);	            	  
+	            	   fn_view_html(data);
+	               }
+	               
+	           });
+		   }
+		   else{
+			   for(var i=0;i<list_sub.length;i++){
+				   if(list_sub[i].cate==category_id){
+					   var data = list_sub[i].data;
+					   fn_view_html(data);
+					   break;
+				   }					 
+			   }
+			  
+		   }
+		   
+	   }
+	   function fn_view_html(data){
+		    var str1 = '<a href="@href">';
+			str1+='<img alt="" src="@src" style="height:250px;width:250px;margin-top:50px;" >'
+			str1+='</a>';
+			var str2 = '<a href="@href">';
+			str2+='<img alt="" src="@src" style="height:150px;width:150px;margin-top:25px;" >'
+			str2+='</a>';
+		   for(var i=0;i<data.length;i++){
+   		    
+    		   switch (i) {
+					case 0:	
+						var strhtml1 = str1;
+						strhtml1 = strhtml1.replace('@href','detailProduct.html?id='+data[i].productId);
+						strhtml1 = strhtml1.replace('@src',path_imgproduct + "/" + data[i].productimglarg);
+						$("#imgsub1").append(strhtml1);
+						break;
+					case 1:
+						var strhtml2 = str2;
+						strhtml2 = strhtml2.replace('@href','detailProduct.html?id='+data[i].productId);
+						strhtml2 = strhtml2.replace('@src',path_imgproduct + "/" + data[i].productImage);
+						$("#imgsub2").append(strhtml2);
+						break;
+					case 2:
+						var strhtml3 = str2;
+						strhtml3 = strhtml3.replace('@href','detailProduct.html?id='+data[i].productId);
+						strhtml3 = strhtml3.replace('@src',path_imgproduct + "/" + data[i].productImage);
+						$("#imgsub3").append(strhtml3);
+						break;
+					
+					default:
+						break;
+				}
+    	   }
+	   }
+	  function check_val(va){
+		  if(va==null||va==""||va==undefined){
+			  return false;
+		  }
+		  return true;
+	  }
+	 
+	   function get_list_slider() {
+	        Return_get("SlideController", "get_list_slide", '', 'GET', function(data) {
+	        	 $(".carousel-indicators").html('');
+	        	 $(".carousel-inner").html('');
+	            if (data != null) {                
+	            	//alert(data[0].name);
+	                for(var i=0;i<data.length;i++){
+	                	var active="";
+	                	if(i==0){
+	                		active="active";
+	                	}
+	                	var li='<li data-target="#myCarousel" data-slide-to="'+i+'" class="'+active+'"></li>';
+	                	var devv='<div class="item '+active+'"><img src="'+path+''+data[i].name+'" style="height:406px;width:100%"></div>';
+	                	 $(".carousel-indicators").append(li);
+	                	 $(".carousel-inner").append(devv);
+	                }
+
+	            }
+	        });
+	   }
+	   
+	   function count_product_shopping_cart(){
+		   get_count_product_shopping_cart(function(data){
+			   $("#count_product_shopping_cart").text(data)
+		   });
+		   /*setInterval(function(){
+			   get_count_product_shopping_cart(function(data){
+				   $("#count_product_shopping_cart").text(data)
+			   });
+		   }, 1000);*/
+	   }
+	   function get_count_product_shopping_cart(callback){
+		   Return_get("ShoppingCartController", "get_count_product_shopping_cart", '', 'GET', function(data) {
+	        	 if(data!=null){
+	        		 callback(data.result);
+	        	 }
+	        	 else{
+	        		 callback(0);
+	        	 }
+	        });
+	   } 
+	   $("#btnshowmenu").click(function(){
+		  //
+		   var a = $(this).attr('opso_direc');
+		   if(a=='up'){
+			   $("#btnshowmenu img").attr('src','image/icon-down.gif');
+			   $(this).attr('opso_direc','down');
+		   }
+		   else{
+			   
+			   $("#btnshowmenu img").attr('src','image/icon-up.gif');
+			   $(this).attr('opso_direc','up');
+		   }
+		  $("#menu_main").slideToggle( "slow" );
+	   });
+	}); //end document

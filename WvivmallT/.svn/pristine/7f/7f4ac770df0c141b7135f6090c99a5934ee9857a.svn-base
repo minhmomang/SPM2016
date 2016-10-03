@@ -1,0 +1,8 @@
+<div class="row" style="margin-top:0px;height:30px;line-height:30px;text-align:left;border-bottom:1px solid #f2f2f2">
+									
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<a href="@idhref" style="text-decoration: none">
+											<span class="title-sub-writer1">@title</span>
+										</a>										
+									</div>
+								</div>

@@ -1,0 +1,14 @@
+package Service;
+
+
+public class ModelService {
+
+	public static String master = "http://103.3.249.123:8080/";
+	
+
+	public static String get_url_mail(){
+		String url = master+"WMail/RestSrv/";
+		return url;
+	}
+	
+}

@@ -1,0 +1,205 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../admin/js/jquery-1.11.2.min.js"></script>
+<script  src="../../admin/js/extra.js"></script>
+<title>Order Detail</title>
+<style type="text/css">
+	table {
+	    border-collapse: collapse;
+	}
+	 table,tr, th, td {
+	   border: 0.01em solid black;
+	}
+</style>
+</head>
+<body>
+	
+	<div style="width: 100%;float:left;margin-left:250px;">
+		<h3>
+			<span>Order Detail</span>
+		</h3>
+	</div>
+	<div class="row	`" style="width: 100%;float:left;margin-left:10px;">
+		<div style="width:300px;float:left">
+			<div style="width:200px;float:left">
+				<span>Customer</span>
+			:</div>
+			<div id="lbfullname" style="width:100px;float:left"></div>
+		</div></br>
+		<div style="width:300px;float:left">
+			<div style="width:200px;float:left">
+				<span>Order date</span>
+			:</div>
+			<div id="lborderdate" style="width:100px;float:left"></div>
+		</div></br>
+		<div style="width:300px;float:left">
+			<div style="width:200px;float:left">
+				<span>Phone</span>
+			:</div>
+			<div id="lbphone" style="width:100px;float:left"></div>
+		</div></br>
+		<div style="width:300px;float:left">
+			<div style="width:200px;float:left">
+				<span>Delivery address</span>
+			:</div>
+			<div id="lbaddress" style="width:100px;float:left"></div>
+		</div></br>
+		
+		<div style="width:300px;float:left">
+			<div style="width:200px;float:left">
+				<span>Payment method</span>
+			:</div>
+			<div id="lbpaymemt" style="width:100px;float:left"></div>
+		</div></br>	
+	</div>
+	<div style="width: 100%;float:left;text-align:left;">
+		<h4 style="margin-left: 10px;">
+			<span >Order detail</span>
+		</h4>
+		<table style="width:600px;" id="infoorder">
+			<thead style="text-align: center;">
+				<tr>	
+					<th style="width:100px;">
+						<span>Product ID</span>
+					</th>
+					<th style="width:200px;">
+						<span>Product Name</span>
+					</th>
+					<th style="width:60px;">
+						<span><span >Quantity</span>
+					</th>
+					<th style="width:100px;">
+						<span>Price</span>
+					</th>
+					<th style="width:100px;">
+						<span>Amount</span>
+					</th>
+				</tr>
+			</thead>
+			<tbody id="idcontent" style="text-align: center;">
+								
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3"></td>
+					<td style="text-align: left">
+						<span>Total Amount</span>
+					</td>
+					<td style="text-align: center;">
+						<span id="idtotalfooter"></span>
+					</td>
+				</tr>
+			</tfoot>
+		</table>		
+	</div>
+</body>
+</html>
+<script type="text/javascript" charset="utf-8">
+	$(function(){
+		load_order(function(output){
+			if(output==true){
+				load_order_detail(function(output2){
+					if(output2==true){
+						startprint();
+					}
+				})
+			}
+		});
+		function load_order(callback){
+		
+			var orderid = getUrlParameter('id');
+			var pdata = {
+				'orderid':	orderid
+			};
+			Return_get("OrderController", "find_order_by_id", pdata, 'GET', function(data) {		
+				if (data != null) {
+					$.map(data,function(item){					
+						$("#lborderid").text(item.orderId);
+						$("#lborderdate").text(formatedate(item.orderDate));
+						$("#lbfullname").text(item.customername);
+						$("#lbaddress").text(item.address_delivery);
+						$("#lbphone").text(item.phone);					
+						$("#lbpaymemt").text(item.payment_method);
+						$("#lbinvoice").text(item.invoice);	
+						$("#lbstatus").text(item.orderStatus);
+					});	
+					callback(true);
+				}
+			});
+		}
+		function load_order_detail(callback){
+		
+			var orderid = getUrlParameter('id');
+			var pdata = {
+				'orderid':	orderid
+			};
+			Return_get("OrderController", "get_detail_order_by_id", pdata, 'GET', function(data) {		
+				if (data != null) {
+					var amount = 0;
+					var str = '123123';
+					$.map(data, function(item) {					
+						str ="<tr>";
+						str +="<td>"+ item.product_id+"</td>";
+						str +="<td>"+ item.product_name+"</td>";
+						str +="<td>"+ item.quantity+"</td>";
+						str +="<td>"+ formatcurrency(item.price)+"</td>";
+						str +="<td>"+ formatcurrency(item.amount)+"</td>";
+						str +="</tr>";					
+						amount = amount +parseFloat( item.amount);					
+						
+					});	
+					$("#idcontent").append(str);
+					$("#idtotalfooter").text(formatcurrency(amount));
+					callback(true);
+				}
+			});
+		}
+		function startprint(){
+			var pName = "";
+			var pNum = 1;
+			var isExistsPrinter = false;
+			var timeOut = 1000;
+			
+			if (navigator.userAgent.indexOf("Firefox") > 0) {
+				try {
+					jsPrintSetup.clearSilentPrint();
+					jsPrintSetup.setOption('printSilent', 1);
+
+					jsPrintSetup.setOption('headerStrLeft', '');
+					jsPrintSetup.setOption('headerStrCenter', '');
+					jsPrintSetup.setOption('headerStrRight', '');
+					jsPrintSetup.setOption('footerStrLeft', '');
+					jsPrintSetup.setOption('footerStrCenter', '');
+					jsPrintSetup.setOption('footerStrRight', '');
+
+					jsPrintSetup.setOption('marginTop', 0);
+					jsPrintSetup.setOption('marginBottom', 0);
+					jsPrintSetup.setOption('marginLeft', 0);
+					jsPrintSetup.setOption('marginRight', 0);
+
+					jsPrintSetup.setOption('scaling', 100);
+
+					jsPrintSetup.setPrinter(pName);
+					jsPrintSetup.setShowPrintProgress(true);
+					jsPrintSetup.print();
+
+					if (pNum == 1) {
+						setTimeout(function() {
+							self.close();
+						}, timeOut * pNum * 2);
+					}
+				} catch (err) {
+					window.print();
+					self.close();
+				}
+			} else {
+				// print when browser wasn't firefox
+				window.print();
+				self.close();
+			}
+		}
+	});
+</script>

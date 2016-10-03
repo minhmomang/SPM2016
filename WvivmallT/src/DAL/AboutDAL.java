@@ -1,0 +1,81 @@
+package DAL;
+
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import EJB.IConnectEJBS;
+
+import Model.ItemAboutModel;
+
+public class AboutDAL {
+
+	public static Map<String, Object> insert_about(String desc,String lang){
+		Map<String, Object> result = new HashMap<String, Object>();
+		try{
+			String spname = "sp_tb_about_insert";
+			String[]pfield = {
+					"f","p_desc","p_lang"
+
+			};
+			String[]ptype={
+					"INT","TEXT","VARCHAR"
+			};
+			Object[]pvalue={
+					"",desc,lang
+			};
+			int[]pdirec = {
+						1,0,0		
+					};
+			IConnectEJBS con = new IConnectEJBS();			
+			result = con.ExecBoFunctionReturnList(spname, pfield, ptype, pvalue, pdirec);			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return result;
+	}
+	public static ItemAboutModel get_about(String lang){
+		ItemAboutModel item = new ItemAboutModel();
+		String query = "select description  from tb_about  where lang='"+lang+"'";
+		try{
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			list = con.GetDataReturnResultSet(query);
+			for(Map<String,Object> item1 : list){
+				item.setDesc(item1.get("description").toString());
+				break;
+			}
+		}catch(Exception ex){			
+		}
+		System.out.print(item.getDesc());
+		return item;
+	}
+	public static void main(String[] args) {
+		String query = "select description  from tb_about  where lang='EN'";
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		IConnectEJBS con = new IConnectEJBS();
+		list = con.GetDataReturnResultSet(query);
+		for(Map<String,Object> item1 : list){
+			////System.out.println(item1.get("description").toString());
+			break;
+		}
+	}
+	public static ItemAboutModel get_about_client(String lang){
+		ItemAboutModel item = new ItemAboutModel();
+		String query = "select description  from tb_about where lang='"+lang+"'";
+		try{
+			IConnectEJBS con = new IConnectEJBS();
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			list = con.GetDataReturnResultSet(query);
+			for(Map<String,Object> item1 : list){
+				item.setDesc(item1.get("description").toString());
+				break;
+			}
+			
+		}catch(Exception ex){			
+		}
+		return item;
+	}
+}

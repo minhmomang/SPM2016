@@ -1,0 +1,46 @@
+.info_order{
+	margin-top:10px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	width:400px;
+	height:90px;
+}
+.info_order tr{
+	width:100%;
+	line-height:40px;
+}
+.text_order{
+	text-align:left;
+	width:70%;
+	padding-left:10px;
+}
+.info_income{
+	margin-top:20px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	width:400px;
+	height:auto;
+
+}
+.text_type{
+	text-align:left;
+	width:70%;
+	background-color:green;
+	color:white;
+	padding-left:10px;
+}
+.text_income{
+	text-align:left;
+	width:30%;
+	background-color:green;
+	color:white;
+	padding-left:10px;
+}
+.info_income td {
+	padding-left:10px;
+}
+.item_total_income{
+	background-color:#348def;
+	color:white;
+
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vivmall Web mua sắm trực tuyến</title>
+
+
+
+<!-- code -->
+<script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+
+<script type="text/javascript" src="js/extra.js"></script>
+<script async type="text/javascript" src="js/plugin/sanphamquantam.js"></script>
+
+
+</head>
+<body>
+	<div id="header"></div>
+	<div class="fix-container">
+		<div class="article col-sm-9 col-md-9 col-xs-12"></div>
+		<div id="sliderelate" class="col-md-3 col-sm-3">
+			<div style="font-size: 20px; font-family: cursive; color: black;">Có
+				thể bạn quan tâm</div>
+			<div id="contain_related" class="product_sell_more">
+				<div
+					style="border: 2px solid lightgray; margin-top: 5px; border-radius: 0px 20px; border-style: dotted;">
+					<div id="carouselv" style="margin: 10px 10px;"></div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div id="footer"></div>
+</body>
+<script async type="text/javascript" src="js/client/khuyenmai.js"></script>
+</html>
